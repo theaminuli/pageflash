@@ -1,5 +1,5 @@
 <?php
-namespace PageFlash\Features; 
+namespace PageFlash\Features\NoMoreReload; 
 
 if (!defined('ABSPATH')) {
     exit; // Exit if accessed directly

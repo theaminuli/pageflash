@@ -95,7 +95,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 * @access private
 	 */
 	private function init_features() {
-		new Features\NoMoreReload();
+		new Features\NoMoreReload\NoMoreReload();
 	}
 
 	/**

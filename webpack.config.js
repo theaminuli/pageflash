@@ -21,7 +21,6 @@ const copyPluginConfig = {
 					'**.zip',
 					'**.css',
 					'**/assets/**',
-					// '**/src/js/qunit-tests*',
 					'**/bin/**',
 					'**/src/**',
 					'**/build/**',
