@@ -1,8 +1,9 @@
 <?php
+
 namespace PageFlash\Admin;
 
-if (!defined('ABSPATH')) {
-    exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
 }
 
 /**
@@ -14,19 +15,21 @@ if (!defined('ABSPATH')) {
  * @since PageFlash 1.0.0
  */
 class Admin {
-    /**
-     * Constructor for the Admin class.
-     *
-     * Initializes the settings API and adds necessary actions.
-     * @since PageFlash 1.0.0
-     * @access public
-     */
-    public function __construct() {
-        $this->init_admin();
-    }
+
+	/**
+	 * Constructor for the Admin class.
+	 *
+	 * Initializes the settings API and adds necessary actions.
+	 *
+	 * @since PageFlash 1.0.0
+	 * @access public
+	 */
+	public function __construct() {
+		$this->init_admin();
+	}
 
 
-    /**
+	/**
 	 * Initialize admin features.
 	 *
 	 * This method initializes the admin-related  Register actions for your PageFlash plugin.
@@ -35,8 +38,7 @@ class Admin {
 	 * @access private
 	 */
 	private function init_admin() {
-        new ActionLinks();
+		new ActionLinks();
 		new MetaBox();
 	}
-
 }
