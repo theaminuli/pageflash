@@ -14,7 +14,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Generate and Format Changelog
+      - name: Generate Formatted Changelog
         run: |
           # Check if CHANGELOG.md exists
           if [ ! -f "CHANGELOG.md" ]; then
@@ -22,27 +22,16 @@ jobs:
             exit 1
           fi
 
-          # Extract the changelog section from '# Changelog'
+          # Extract changelog starting from '# Changelog'
           START_LINE=$(grep -n "^# Changelog" CHANGELOG.md | cut -d':' -f1)
           if [ -z "$START_LINE" ]; then
             echo "No '# Changelog' section found in CHANGELOG.md"
             exit 1
           fi
 
-          # Get the changelog content from after the '# Changelog' header
-          tail -n +$((START_LINE + 1)) CHANGELOG.md > changelog_temp.txt
-
-          # Format the changelog using awk
-          awk '
-          BEGIN { print "== Changelog ==" }
-          {
-            gsub("## \\[(.*)\\] - (.*)", "= \\1 - \\2 =");
-            gsub("- ", "");
-            print;
-          }
-          ' changelog_temp.txt > formatted_changelog.txt
-
-          echo "Generated and formatted changelog:"
+          # Get the changelog content
+          tail -n +$((START_LINE + 1)) CHANGELOG.md > formatted_changelog.txt
+          echo "Generated formatted changelog:"
           cat formatted_changelog.txt
 
       - name: Update readme.txt
@@ -55,8 +44,8 @@ jobs:
 
           # Remove existing '== Changelog ==' and everything below it
           sed -i '/== Changelog ==/,$d' readme.txt
-          
           # Add the new changelog content
+          echo "== Changelog ==" >> readme.txt
           cat formatted_changelog.txt >> readme.txt
 
       - name: Commit and Push Changes to GitHub
@@ -69,10 +58,7 @@ jobs:
 
       - name: Cleanup formatted changelog
         run: |
-          # Delete the temporary changelog files
+          # Delete the formatted_changelog.txt file
           if [ -f "formatted_changelog.txt" ]; then
             rm formatted_changelog.txt
-          fi
-          if [ -f "changelog_temp.txt" ]; then
-            rm changelog_temp.txt
           fi
