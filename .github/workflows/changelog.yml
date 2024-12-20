@@ -14,12 +14,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Install Dependencies
+      - name: Install Ruby and Dependencies
         run: |
-          sudo apt-get update && sudo apt-get install -y subversion
-          gem install --user-install github_changelog_generator
-          echo 'export PATH="$HOME/.gem/ruby/$(ls ~/.gem/ruby)/bin:$PATH"' >> $HOME/.bashrc
-          source $HOME/.bashrc
+          sudo apt-get update && sudo apt-get install -y ruby-full subversion
+          gem install github_changelog_generator
 
       - name: Generate Changelog
         env:
