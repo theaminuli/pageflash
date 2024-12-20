@@ -29,26 +29,9 @@ jobs:
             exit 1
           fi
 
-          # Get the changelog content and format it
+          # Get the changelog content
           tail -n +$((START_LINE + 1)) CHANGELOG.md > formatted_changelog.txt
-
-          # Initialize the formatted changelog with "== Changelog =="
-          echo "== Changelog ==" > formatted_changelog.txt
-
-          # Format each version block as "= version - date ="
-          while IFS= read -r line; do
-            # Check if it's a version block
-            if [[ "$line" =~ ^##\ \[([0-9]+\.[0-9]+\.[0-9]+)\]\ -\ (.*) ]]; then
-              version="${BASH_REMATCH[1]}"
-              date="${BASH_REMATCH[2]}"
-              echo "= $version - $date =" >> formatted_changelog.txt
-            # Check if it's a changelog item
-            elif [[ "$line" =~ ^- (.*) ]]; then
-              echo "${BASH_REMATCH[1]}" >> formatted_changelog.txt
-            fi
-          done < formatted_changelog.txt
-
-          # Show the formatted changelog
+          echo "Generated formatted changelog:"
           cat formatted_changelog.txt
 
       - name: Update readme.txt
@@ -61,8 +44,8 @@ jobs:
 
           # Remove existing '== Changelog ==' and everything below it
           sed -i '/== Changelog ==/,$d' readme.txt
-          
           # Add the new changelog content
+          echo "== Changelog ==" >> readme.txt
           cat formatted_changelog.txt >> readme.txt
 
       - name: Commit and Push Changes to GitHub
@@ -71,7 +54,7 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git add readme.txt
           git commit -m "Update changelog after merging PR #${{ github.event.pull_request.number }}" || echo "No changes to commit"
-          git push origin main || echo "Nothing to push"
+          git push origin development || echo "Nothing to push"
 
       - name: Cleanup formatted changelog
         run: |
