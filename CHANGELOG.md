@@ -6,7 +6,6 @@
 - Improved: Update README and CONTRIBUTING guidelines
 - Improved: WP coding standards and code quality ensure
 - Updated: Update GPL license to version 3.0
-- Added: Quicklink library files for better performance
 
 ## [1.1.0] - 2024-12-20
 - Added: Supply chain attack prevention.
