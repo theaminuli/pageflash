@@ -44,6 +44,7 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "github-actions@github.com"
-          git add readme.txt
-          git commit -m "Update changelog for version ${{ github.event.pull_request.head.ref }}"
-          git push origin development
+          git add -A
+          git status # Optional for debugging
+          git commit -m "Update changelog for version ${{ github.event.pull_request.head.ref }}" || echo "No changes to commit"
+          git push origin development || echo "Nothing to push"
