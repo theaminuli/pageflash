@@ -3,82 +3,19 @@
  */
 'use strict';
 
-module.exports = function (grunt) {
-	require('load-grunt-tasks')(grunt);
-
-	const sass = require('sass');
-
+module.exports = function ( grunt ) {
+	require( 'load-grunt-tasks' )( grunt );
 	// Project configuration.
-	grunt.initConfig({
-		pkg: grunt.file.readJSON('package.json'),
+	grunt.initConfig( {
+		pkg: grunt.file.readJSON( 'package.json' ),
 
-		sass: {
+		addtextdomain: {
 			options: {
-				implementation: sass,
+				// textdomain: 'foobar',
+				updateDomains: true, // List of text domains to replace.
 			},
-			dist: {
-				files: 'production' === grunt.option('environment') ? [{
-					expand: true,
-					cwd: 'src/scss',
-					src: '*.scss',
-					dest: './build/assets/css',
-					ext: '.css',
-				}] : [{
-					expand: true,
-					cwd: 'src/scss',
-					src: '*.scss',
-					dest: './assets/css',
-					ext: '.css',
-				}],
-			},
-		},
-
-		postcss: {
-			dev: {
-				options: {
-					//map: true,
-
-					processors: [
-						require('autoprefixer')(),
-					],
-				},
-				files: [{
-					src: [
-						'*.css',
-						'!*.min.css',
-					],
-				}],
-			},
-			minify: {
-				options: {
-					processors: [
-						require('autoprefixer')(),
-						require('cssnano')({
-							reduceIdents: false,
-							zindex: false,
-						}),
-					],
-				},
-				files: [{
-					expand: true,
-					src: 'production' === grunt.option('environment') ? [
-						'build/assets/css/*.css',
-						'!build/assets/css/*.min.css',
-					] : [
-						'*.css',
-						'!*.min.css',
-					],
-					ext: '.min.css',
-				}],
-			},
-		},
-
-		watch: {
-			styles: {
-				files: [
-					'src/scss/**/*.scss',
-				],
-				tasks: ['styles'],
+			target: {
+				src: [ '*.php', '**/*.php', '!node_modules/**' ],
 			},
 		},
 
@@ -119,20 +56,10 @@ module.exports = function (grunt) {
 				expand: true,
 			},
 		},
-	});
+	} );
 
-	grunt.registerTask('i18n', [
-		'checktextdomain',
-	]);
-
-	grunt.registerTask('styles', [
-		'sass',
-		'postcss',
-	]);
+	grunt.registerTask( 'i18n', [ 'checktextdomain' ] );
 
 	// Default task(s).
-	grunt.registerTask('default', [
-		'i18n',
-		'styles',
-	]);
+	grunt.registerTask( 'default', [ 'i18n' ] );
 };
