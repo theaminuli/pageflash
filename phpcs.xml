@@ -1,88 +1,103 @@
 <?xml version="1.0"?>
-<ruleset name="WordPress PageFlash">
-	<description>WordPress coding standards for the PageFlash plugin.</description>
+<ruleset name="WordPress Theme Coding Standards" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
+    <!-- See https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml -->
+	<!-- See https://github.com/WordPress/WordPress-Coding-Standards -->
+	<!-- See https://github.com/WPTRT/WPThemeReview -->
+	<!-- See https://github.com/PHPCompatibility/PHPCompatibilityWP -->
 
-	<rule ref="PHPCompatibility"/>
+	<!-- Set a description for this ruleset. -->
+    <description>Apply WordPress Coding Standards to all files</description>
 
-	<!-- Sets the minimum supported WP version to 6.4, which is over a year. -->
-	<config name="minimum_supported_wp_version" value="6.4" />
-	<!-- For CI, don't fail on warnings -->
-	<config name="ignore_warnings_on_exit" value="1"/>
+   <!--
+	#############################################################################
+	COMMAND LINE ARGUMENTS
+	https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml
+	#############################################################################
+	-->
 
-	<rule ref="WordPress-Core">
-		<exclude name="WordPress.PHP.YodaConditions" />
-	</rule>
-	<rule ref="WordPress-Docs"/>
+	<!-- Pass some flags to PHPCS:
+		 p flag: Show progress of the run.
+		 s flag: Show sniff codes in all reports.
+	-->
+	<arg value="ps"/>
 
-	<!-- <arg name="basepath" value="."/> -->
-    <arg name="extensions" value="php"/>
+	<!-- Strip the filepaths down to the relevant bit. -->
+	<arg name="basepath" value="./"/>
+
+	<!-- Check up to 8 files simultaneously. -->
+	<arg name="parallel" value="8"/>
+
+	<!-- Check PHP files only. JavaScript and CSS files are checked separately using the @wordpress/scripts package. -->
+	<arg name="extensions" value="php"/>
+
+	<!-- Check all files in this directory and the directories below it. -->
+	<file>.</file>
+
+	<!-- Exclude patterns. -->
+	<exclude-pattern>/vendor/*</exclude-pattern>
+	<exclude-pattern>/node_modules/*</exclude-pattern>
 
 
-	<exclude-pattern>vendor/</exclude-pattern>
-	<exclude-pattern>build/</exclude-pattern>
-	<exclude-pattern>node_modules/</exclude-pattern>
-	<exclude-pattern>tests/*.php</exclude-pattern>
+	<!--
+	#############################################################################
+	USE THE WordPress AND THE Theme Review RULESET
+	#############################################################################
+	-->
 
-	<rule ref="WordPress-Extra">
-		<exclude name="Generic.Commenting.DocComment.MissingShort" />
-		<exclude name="Generic.Formatting.MultipleStatementAlignment" />
-		<exclude name="Generic.Arrays.DisallowShortArraySyntax.Found" />
-		<exclude name="Squiz.Commenting.ClassComment.Missing" />
-		<exclude name="Squiz.Commenting.FileComment.Missing" />
-		<exclude name="Squiz.Commenting.FunctionComment.Missing" />
-		<exclude name="Squiz.Commenting.FunctionComment.MissingParamComment" />
-		<exclude name="Squiz.Commenting.VariableComment.Missing" />
-		<exclude name="Squiz.PHP.EmbeddedPhp.ContentBeforeOpen" />
-		<exclude name="Squiz.PHP.EmbeddedPhp.ContentAfterOpen" />
-		<exclude name="Squiz.PHP.EmbeddedPhp.ContentBeforeEnd" />
-		<exclude name="Squiz.PHP.EmbeddedPhp.ContentAfterEnd" />
-		<exclude name="WordPress.Arrays.MultipleStatementAlignment" />
-		<exclude name="WordPress.CSRF.NonceVerification.NoNonceVerification" />
-		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
-		<exclude name="WordPress.Security.NonceVerification.NoNonceVerification"/>
-		<exclude name="WordPress.Security.NonceVerification.Missing"/>
-		<exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
-		<exclude name="WordPress.WP.I18n.NonSingularStringLiteralSingle" />
-		<exclude name="WordPress.WP.I18n.NonSingularStringLiteralPlural" />
-		<exclude name="WordPress.WP.EnqueuedResources.NonEnqueuedStylesheet" />
-		<exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket" />
-		<exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments" />
-		<exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine" />
-	</rule>
-
-	<rule ref="WordPress.WP.DeprecatedFunctions">
-		<properties>
-			<property name="minimum_supported_version" value="5.5" />
-		</properties>
-	</rule>
-
-	<rule ref="WordPress.NamingConventions.ValidHookName">
-		<properties>
-			<property name="additionalWordDelimiters" value="/-" />
-		</properties>
-	</rule>
-
-	<!-- Our Textdomain for i18n -->
-	<rule ref="WordPress.WP.I18n">
-		<properties>
-			<property name="text_domain" value="pageflash" />
-		</properties>
-	</rule>
-
-	<!-- Sometimes we need to override globals -->
-	<rule ref="WordPress.WP.GlobalVariablesOverride.OverrideProhibited">
-		<type>warning</type>
-	</rule>
-
-	<!-- Make missing translator comment a warning. -->
-	<rule ref="WordPress.WP.I18n.MissingTranslatorsComment">
-		<type>warning</type>
+	<rule ref="WordPress">
+		<!-- This rule does not apply here since the _s prefix should be changed by the theme author. -->
+		<exclude name="WordPress.NamingConventions.PrefixAllGlobals.ShortPrefixPassed"/>
 	</rule>
 
 	<!--
-	Prevent errors caused by WordPress Coding Standards not supporting PHP 8.0+.
-	See https://github.com/WordPress/WordPress-Coding-Standards/issues/2035
+	#############################################################################
+	SNIFF SPECIFIC CONFIGURATION
+	#############################################################################
 	-->
-	<ini name="error_reporting" value="E_ALL &#38; ~E_DEPRECATED" />
-</ruleset>
 
+	<!-- Verify that the text_domain is set to the desired text-domain.
+		 Multiple valid text domains can be provided as a comma-delimited list. -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array" value="pageflash"/>
+		</properties>
+	</rule>
+
+	<!-- Allow for plugin specific exceptions to the file name rules based
+		 on the plugin hierarchy. -->
+	<rule ref="WordPress.Files.FileName" />
+
+	<!-- Set the minimum supported WP version. This is used by several sniffs.
+		 The minimum version set here should be in line with the minimum WP version
+		 as set in the "Requires at least" tag in the readme.txt file. -->
+	<config name="minimum_supported_wp_version" value="6.6"/>
+
+	<rule ref="WordPress.Arrays.MultipleStatementAlignment">
+		<properties>
+			<!-- No need to adjust alignment of large arrays when the item with the largest key is removed. -->
+			<property name="exact" value="false"/>
+			<!-- Don't align multi-line items if ALL items in the array are multi-line. -->
+			<property name="alignMultilineItems" value="!=100"/>
+			<!-- Array assignment operator should always be on the same line as the array key. -->
+			<property name="ignoreNewlines" value="false"/>
+		</properties>
+	</rule>
+
+	<!-- Verify that everything in the global namespace is prefixed with a theme specific prefix.
+		 Multiple valid prefixes can be provided as a comma-delimited list. -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<property name="prefixes" type="array" value="pageflash" />
+		</properties>
+	</rule>
+
+
+	<!--
+	#############################################################################
+	USE THE PHPCompatibility RULESET
+	#############################################################################
+	-->
+
+	<config name="testVersion" value="6.6-"/>
+	<rule ref="PHPCompatibilityWP"/>
+</ruleset>

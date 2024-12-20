@@ -1,4 +1,5 @@
 <?php
+
 namespace PageFlash;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since PageFlash 1.0.0
  */
 
- class Plugin {
+class Plugin {
 
 	/**
 	 * Instance
@@ -65,7 +66,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 * @access private
 	 */
 	private function init_assets() {
-		new AssetsManager\AssetsManager(); 
+		new AssetsManager\AssetsManager();
 	}
 
 
@@ -78,9 +79,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 * @access private
 	 */
 	private function init_admin() {
-		if (is_admin()) {
+		if ( is_admin() ) {
 			// Initialize your admin-related features here
-			new Admin\Admin(); 
+			new Admin\Admin();
 		}
 	}
 
@@ -95,7 +96,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 * @access private
 	 */
 	private function init_features() {
-		new Features\NoMoreReload();
+		new Features\NoMoreReload\NoMoreReload();
 	}
 
 	/**
@@ -124,8 +125,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 */
 	public function __construct() {
 		$this->init();
-		// Add your additional actions and filters here, if needed.
-
 	}
 }
 

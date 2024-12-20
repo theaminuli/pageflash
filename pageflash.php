@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
 	Plugin Name: PageFlash
 	Plugin URI: https://github.com/theaminuldev/pageflash
@@ -31,11 +31,11 @@ define( 'PAGEFLASH_ASSETS_URL', PAGEFLASH_URL . 'assets/' );
 add_action( 'plugins_loaded', 'pageflash_load_plugin_textdomain' );
 
 if ( ! version_compare( PHP_VERSION, '7.0', '>=' ) ) {
-    add_action( 'admin_notices', 'pageflash_fail_php_version' );
+	add_action( 'admin_notices', 'pageflash_fail_php_version' );
 } elseif ( ! version_compare( get_bloginfo( 'version' ), '5.9', '>=' ) ) {
-    add_action( 'admin_notices', 'pageflash_fail_wp_version' );
+	add_action( 'admin_notices', 'pageflash_fail_wp_version' );
 } else {
-    require PAGEFLASH_PATH . 'includes/Plugin.php';
+	require PAGEFLASH_PATH . 'includes/Plugin.php';
 }
 
 /**
@@ -48,7 +48,7 @@ if ( ! version_compare( PHP_VERSION, '7.0', '>=' ) ) {
  * @return void
  */
 function pageflash_load_plugin_textdomain() {
-    load_plugin_textdomain( 'pageflash' );
+	load_plugin_textdomain( 'pageflash' );
 }
 
 /**
@@ -61,17 +61,17 @@ function pageflash_load_plugin_textdomain() {
  * @return void
  */
 function pageflash_fail_php_version() {
-    $message = sprintf(
-        /* translators: 1: `<h3>` opening tag, 2: `</h3>` closing tag, 3: PHP version. 4: Link opening tag, 5: Link closing tag. */
-        esc_html__( '%1$sPageFlash isn’t running because PHP is outdated.%2$s Update to PHP version %3$s and get back to using PageFlash! %4$sShow me how%5$s', 'pageflash' ),
-        '<h3>',
-        '</h3>',
-        '7.0',
-        '<a href="#" target="_blank">', // Replace with the actual link.
-        '</a>'
-    );
-    $html_message = sprintf( '<div class="error">%s</div>', wpautop( $message ) );
-    echo wp_kses_post( $html_message );
+	$message = sprintf(
+		/* translators: 1: `<h3>` opening tag, 2: `</h3>` closing tag, 3: PHP version. 4: Link opening tag, 5: Link closing tag. */
+		esc_html__( '%1$sPageFlash isn’t running because PHP is outdated.%2$s Update to PHP version %3$s and get back to using PageFlash! %4$sShow me how%5$s', 'pageflash' ),
+		'<h3>',
+		'</h3>',
+		'7.0',
+		'<a href="#" target="_blank">', // Replace with the actual link.
+		'</a>'
+	);
+	$html_message = sprintf( '<div class="error">%s</div>', wpautop( $message ) );
+	echo wp_kses_post( $html_message );
 }
 
 /**
@@ -84,17 +84,15 @@ function pageflash_fail_php_version() {
  * @return void
  */
 function pageflash_fail_wp_version() {
-    $message = sprintf(
-        /* translators: 1: `<h3>` opening tag, 2: `</h3>` closing tag, 3: WP version. 4: Link opening tag, 5: Link closing tag. */
-        esc_html__( '%1$sPageFlash isn’t running because WordPress is outdated.%2$s Update to version %3$s and get back to using PageFlash! %4$sShow me how%5$s', 'pageflash' ),
-        '<h3>',
-        '</h3>',
-        '5.9',
-        '<a href="#" target="_blank">', // Replace with the actual link.
-        '</a>'
-    );
-    $html_message = sprintf( '<div class="error">%s</div>', wpautop( $message ) );
-    echo wp_kses_post( $html_message );
+	$message = sprintf(
+		/* translators: 1: `<h3>` opening tag, 2: `</h3>` closing tag, 3: WP version. 4: Link opening tag, 5: Link closing tag. */
+		esc_html__( '%1$sPageFlash isn’t running because WordPress is outdated.%2$s Update to version %3$s and get back to using PageFlash! %4$sShow me how%5$s', 'pageflash' ),
+		'<h3>',
+		'</h3>',
+		'5.9',
+		'<a href="#" target="_blank">', // Replace with the actual link.
+		'</a>'
+	);
+	$html_message = sprintf( '<div class="error">%s</div>', wpautop( $message ) );
+	echo wp_kses_post( $html_message );
 }
-
-?>
