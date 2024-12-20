@@ -1,7 +1,7 @@
 # Changelog
 ## [1.2.0] - 2024-12-21
 - chore: Add initial configuration files 
-<!-- - Improved: Update asset management -->
+- Improved: Update asset management
 
 ## [1.1.0] - 2024-12-20
 - Added: Supply chain attack prevention.
