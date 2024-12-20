@@ -8,6 +8,7 @@
 - Updated: Update GPL license to version 3.0
 
 ## 1.1.0 - 2024-12-20
+- Fixed: Security vulnerability reporting guidelines.
 - Added: Supply chain attack prevention.
 
 ## 1.0.1 - 2024-12-19
