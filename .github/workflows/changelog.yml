@@ -68,7 +68,6 @@ jobs:
           sed -i '/== Changelog ==/,$d' readme.txt
           
           # Add the new formatted changelog content
-          echo "== Changelog ==" >> readme.txt
           cat formatted_changelog.txt >> readme.txt
 
       - name: Commit and Push Changes to GitHub
