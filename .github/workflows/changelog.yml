@@ -29,9 +29,26 @@ jobs:
             exit 1
           fi
 
-          # Get the changelog content
+          # Get the changelog content from after the '# Changelog' header
           tail -n +$((START_LINE + 1)) CHANGELOG.md > formatted_changelog.txt
-          echo "Generated formatted changelog:"
+
+          # Format the changelog to match the required format
+          echo "== Changelog ==" > formatted_changelog.txt
+          
+          # Process each version and format it
+          while IFS= read -r line; do
+            # Check if it's a version block
+            if [[ "$line" =~ ^##\ ([0-9]+\.[0-9]+\.[0-9]+)\ -\ (.*) ]]; then
+              version="${BASH_REMATCH[1]}"
+              date="${BASH_REMATCH[2]}"
+              echo "= $version - $date =" >> formatted_changelog.txt
+            # Check if it's a changelog item
+            elif [[ "$line" =~ ^- (.*) ]]; then
+              echo "- ${BASH_REMATCH[1]}" >> formatted_changelog.txt
+            fi
+          done < formatted_changelog.txt
+
+          # Show the formatted changelog
           cat formatted_changelog.txt
 
       - name: Update readme.txt
@@ -44,8 +61,8 @@ jobs:
 
           # Remove existing '== Changelog ==' and everything below it
           sed -i '/== Changelog ==/,$d' readme.txt
+          
           # Add the new changelog content
-          echo "== Changelog ==" >> readme.txt
           cat formatted_changelog.txt >> readme.txt
 
       - name: Commit and Push Changes to GitHub
