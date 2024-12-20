@@ -17,11 +17,15 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update && sudo apt-get install -y subversion
-          gem install github_changelog_generator
+          gem install --user-install github_changelog_generator
+          echo 'export PATH="$HOME/.gem/ruby/$(ls ~/.gem/ruby)/bin:$PATH"' >> $HOME/.bashrc
+          source $HOME/.bashrc
 
       - name: Generate Changelog
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          github_changelog_generator --user ${{ github.repository_owner }} --project ${{ github.event.repository.name }} --token ${{ secrets.GITHUB_TOKEN }}
+          github_changelog_generator --user ${{ github.repository_owner }} --project ${{ github.event.repository.name }}
           # Format the changelog for WordPress
           awk '
           BEGIN { print "== Changelog ==" }
