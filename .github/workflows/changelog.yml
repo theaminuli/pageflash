@@ -8,7 +8,7 @@ on:
 jobs:
   update-changelog:
     if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout Repository
@@ -21,7 +21,7 @@ jobs:
 
       - name: Generate Changelog
         run: |
-          github_changelog_generator --user ${{ github.repository_owner }} --project ${{ github.event.repository.name }}
+          github_changelog_generator --user ${{ github.repository_owner }} --project ${{ github.event.repository.name }} --token ${{ secrets.GITHUB_TOKEN }}
           # Format the changelog for WordPress
           awk '
           BEGIN { print "== Changelog ==" }
