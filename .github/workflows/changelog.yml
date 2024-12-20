@@ -22,22 +22,37 @@ jobs:
             exit 1
           fi
 
-          # Extract changelog content starting from '# Changelog'
+          # Extract the changelog content starting from '# Changelog'
           START_LINE=$(grep -n "^# Changelog" CHANGELOG.md | cut -d':' -f1)
           if [ -z "$START_LINE" ]; then
             echo "No '# Changelog' section found in CHANGELOG.md"
             exit 1
           fi
 
-          # Extract content starting from the first '## ' section after '# Changelog'
-          END_LINE=$(grep -n "^## " CHANGELOG.md | head -n 1 | cut -d':' -f1)
-          if [ -z "$END_LINE" ]; then
-            echo "No '## ' section found after '# Changelog' in CHANGELOG.md"
-            exit 1
-          fi
+          # Extract the changelog entries, starting from the first '## ' section
+          tail -n +$((START_LINE + 1)) CHANGELOG.md > changelog_entries.txt
 
-          # Get the changelog content between the '# Changelog' and first '## ' section
-          tail -n +$((START_LINE + 1)) CHANGELOG.md | head -n $((END_LINE - START_LINE - 1)) > formatted_changelog.txt
+          # Format the changelog entries into the desired format
+          awk '
+          BEGIN { print "== Changelog ==" }
+          /^##/ {
+            if (version != "") {
+              print formatted_changelog;
+            }
+            version = $2;
+            date = $4;
+            formatted_changelog = "= " version " - " date " =";
+            next;
+          }
+          /^- / {
+            gsub(/^- /, "");
+            formatted_changelog = formatted_changelog "\n" $0;
+          }
+          END {
+            print formatted_changelog;
+          }
+          ' changelog_entries.txt > formatted_changelog.txt
+
           echo "Generated formatted changelog:"
           cat formatted_changelog.txt
 
@@ -52,7 +67,7 @@ jobs:
           # Remove existing '== Changelog ==' and everything below it
           sed -i '/== Changelog ==/,$d' readme.txt
           
-          # Add the new changelog content
+          # Add the new formatted changelog content
           echo "== Changelog ==" >> readme.txt
           cat formatted_changelog.txt >> readme.txt
 
