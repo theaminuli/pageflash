@@ -4,7 +4,7 @@
 
 Thank you for helping us keep the PageFlash plugin secure! If you discover a security vulnerability, please report it responsibly. Here's how:
 
-1. **Private Disclosure**: Report the vulnerability privately by opening a security advisory at the [PageFlash GitHub Security Advisories page](https://github.com/theaminuli/pageflash/security/advisories).
+1. **Private Disclosure**: Report the vulnerability privately by opening a security advisory at the [PageFlash GitHub Security Advisories page](https://github.com/theaminuli/pageflash/security).
 
 2. **Include Details**: Provide as much information as possible to help us understand and address the issue. This includes:
    - A description of the vulnerability.

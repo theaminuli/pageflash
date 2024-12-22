@@ -1,6 +1,9 @@
 <?php
 
 namespace PageFlash;
+use PageFlash\AssetsManager\AssetsManager;
+use PageFlash\Admin\Admin;
+use PageFlash\Landmark\NoMoreReload\NoMoreReload;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -10,12 +13,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * PageFlash plugin.
  *
  * The main plugin handler class is responsible for initializing PageFlash. The
- * class registers all the init_features required to run the plugin.
+ * class registers all the init_landmark required to run the plugin.
  *
  * @since PageFlash 1.0.0
  */
-
-class Plugin {
+final class Plugin {
 
 	/**
 	 * Instance
@@ -54,7 +56,15 @@ class Plugin {
 	 * @access private
 	 */
 	private function register_autoload() {
-		require_once PAGEFLASH_PATH . 'vendor/autoload.php';
+		if( WP_DEBUG && PAGEFLASH_ENV === 'development' ) {
+			if(!file_exists(PAGEFLASH_PATH . 'vendor/autoload.php')){
+				require_once PAGEFLASH_PATH . 'autoload.php';
+			}else{
+				require_once PAGEFLASH_PATH . 'vendor/autoload.php';
+			}
+		}else{
+			require_once PAGEFLASH_PATH . 'autoload.php';
+		}
 	}
 
 	/**
@@ -66,44 +76,44 @@ class Plugin {
 	 * @access private
 	 */
 	private function init_assets() {
-		new AssetsManager\AssetsManager();
+		 new AssetsManager();
 	}
 
 
 	/**
-	 * Initialize admin features.
+	 * Initialize admin Landmark.
 	 *
-	 * This method initializes the admin-related features for your PageFlash plugin.
+	 * This method initializes the admin-related Landmark for your PageFlash plugin.
 	 *
 	 * @since PageFlash 1.0.0
 	 * @access private
 	 */
 	private function init_admin() {
 		if ( is_admin() ) {
-			// Initialize your admin-related features here
-			new Admin\Admin();
+			// Initialize your admin-related Landmark here
+			new Admin();
 		}
 	}
 
 	/**
-	 * Init init_features.
+	 * Init init_landmark.
 	 *
-	 * Initialize PageFlash init_features. Register actions, run setting manager,
-	 * initialize all the init_features that run PageFlash, and if in the admin page,
-	 * initialize admin init_features.
+	 * Initialize PageFlash init_landmark. Register actions, run setting manager,
+	 * initialize all the init_landmark that run PageFlash, and if in the admin page,
+	 * initialize admin init_landmark.
 	 *
 	 * @since PageFlash 1.0.0
 	 * @access private
 	 */
-	private function init_features() {
-		new Features\NoMoreReload\NoMoreReload();
+	private function init_landmark() {
+		new NoMoreReload();
 	}
 
 	/**
 	 * Init.
 	 *
 	 * Initialize PageFlash Plugin. Register PageFlash support for all the
-	 * supported post types and initialize PageFlash init_features.
+	 * supported post types and initialize PageFlash init_landmark.
 	 *
 	 * @since PageFlash 1.0.0
 	 * @access private
@@ -112,7 +122,7 @@ class Plugin {
 		$this->register_autoload();
 		$this->init_assets();
 		$this->init_admin();
-		$this->init_features();
+		$this->init_landmark();
 	}
 
 	/**

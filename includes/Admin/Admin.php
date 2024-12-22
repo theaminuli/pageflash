@@ -30,7 +30,7 @@ class Admin {
 
 
 	/**
-	 * Initialize admin features.
+	 * Initialize admin Landmark.
 	 *
 	 * This method initializes the admin-related  Register actions for your PageFlash plugin.
 	 *
