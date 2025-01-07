@@ -1,40 +1,40 @@
 name: Run checks
 on:
-    pull_request:
-		
+  pull_request:
+
 jobs:
-    lint:
-        name: Lint
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
-            - name: Setup Node
-              uses: actions/setup-node@v3
-              with:
-                  node-version-file: '.nvmrc'
-                  cache: npm
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
 
-            - name: Install dependencies
-              uses: php-actions/composer@v6
-              with:
-                  args: --ignore-platform-reqs
+      - name: Install dependencies
+        uses: php-actions/composer@v6
+        with:
+          args: --ignore-platform-reqs
 
-            - name: Install Dependencies
-              run: npm i
+      - name: Install Dependencies
+        run: npm i
 
-            - name: Run WP Standard Lint
-              run: npm run lint:standard
+      - name: Run WP Standard Lint
+        run: npm run lint:standard
 
-            - name: Run JS Lint
-              if: success() || failure()
-              run: npm run lint:js
+      - name: Run JS Lint
+        if: success() || failure()
+        run: npm run lint:js
 
-            - name: Run CSS Lint
-              if: success() || failure()
-              run: npm run lint:css
+      - name: Run CSS Lint
+        if: success() || failure()
+        run: npm run lint:css
 
-            - name: Run package.json Lint
-              if: success() || failure()
-              run: npm run lint:pkg-json
+      - name: Run package.json Lint
+        if: success() || failure()
+        run: npm run lint:pkg-json
