@@ -3,6 +3,7 @@
     "slug": "pageflash",
     "version": "1.0.2",
     "description": "PageFlash - Fast and Efficient Headless Browser WordPress Plugin",
+	"license": "GPL-2.0-or-later",
     "keywords": [
         "WordPress",
         "pageflash",
@@ -14,7 +15,6 @@
         "url": "https://wordpress.org/support/plugin/pageflash/"
     },
     "author": "theaminul",
-    "license": "GPL-2.0-or-later",
     "scripts": {
         "build": "concurrently \"wp-scripts build\" \"grunt\"",
         "start": "wp-scripts start",
