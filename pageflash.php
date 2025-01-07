@@ -16,21 +16,20 @@
  * Requires at least: 6.0
  * Tested up to: 6.5.5
  * Requires PHP: 7.4
- * License:     GNU General Public License v3 or later
+ * License:     GPL-3.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: pageflash
  * Description: PageFlash - Fast and Efficient Headless Browser WordPress Plugin. By using PageFlash, an active plugin, you'll experience a 50% increase in conversions and enjoy 4x faster page loading. ⚡️ Boost your website's speed, increase user engagement 💬, and supercharge your online presence 🚀. - NewEgg
  * Tags:        headless-browser, pageflash, prefetches, quicklink, quickload, performance, speed, fast, prefetch, seo preconnect, optimization
  */
 
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-$plugin_data = get_file_data(__FILE__, ['Version' => 'Version']);
-define( 'PAGEFLASH_VERSION', $plugin_data['Version']);
-define( 'PAGEFLASH_DIR', __DIR__);
+$pageflash_version = get_file_data( __FILE__, array( 'Version' => 'Version' ) );
+define( 'PAGEFLASH_VERSION', $pageflash_version['Version'] );
+define( 'PAGEFLASH_DIR', __DIR__ );
 define( 'PAGEFLASH_FILE', __FILE__ );
 define( 'PAGEFLASH_PLUGIN_BASE', plugin_basename( PAGEFLASH_FILE ) );
 define( 'PAGEFLASH_PATH', plugin_dir_path( PAGEFLASH_FILE ) );

@@ -1,35 +1,26 @@
 {
-	"name": "pageflash",
-	"slug": "pageflash",
-	"homepage": "https://github.com/theaminuli/pageflash/",
-	"description": "PageFlash - Fast and Efficient Headless Browser WordPress Plugin",
-	"version": "1.0.2",
-	"keywords": [
+    "name": "pageflash",
+    "slug": "pageflash",
+    "version": "1.0.2",
+    "description": "PageFlash - Fast and Efficient Headless Browser WordPress Plugin",
+	"author": "theaminul",
+	"license": "GPL-2.0-or-later",
+    "keywords": [
 		"WordPress",
-		"block"
-	],
-	"repository": "git+https://github.com/theaminuli/pageflash.git",
-	"bugs": {
+        "pageflash",
+		"headless browser"
+    ],
+    "homepage": "https://github.com/theaminuli/pageflash/",
+    "repository": "git+https://github.com/theaminuli/pageflash.git",
+    "bugs": {
 		"url": "https://wordpress.org/support/plugin/pageflash/"
-	},
-	"scripts": {
-		"build": "concurrently \"wp-scripts build\" \"grunt\"",
-		"start": "wp-scripts start",
-		"start:hot": "wp-scripts start --hot",
-		"make-pot": "wp i18n make-pot ./languages/pageflash.pot",
-		"format": "wp-scripts format",
-		"lint:css": "wp-scripts lint-style",
-		"lint:js": "wp-scripts lint-js",
-		"lint:standard": "phpcs --standard=phpcs.xml",
-		"lint:fix": "wp-scripts lint-js --fix && wp-scripts lint-style --fix",
-		"lint:pkg-json": "wp-scripts lint-pkg-json",
-		"packages-update": "wp-scripts packages-update",
-		"plugin-zip": "wp-scripts plugin-zip",
-		"zip": "concurrently \"wp-scripts build\" \"grunt\" && composer archive --file=../dist/pageflash"
-	},
+    },
 	"engines": {
 		"node": ">=20.10.0",
 		"npm": ">=10.2.3"
+	},
+	"dependencies": {
+		"quicklink": "^2.3.0"
 	},
 	"devDependencies": {
 		"@wordpress/icons": "^9.46.0",
@@ -42,7 +33,20 @@
 		"path": "^0.12.7",
 		"webpack-remove-empty-scripts": "^1.0.4"
 	},
-	"dependencies": {
-		"quicklink": "^2.3.0"
-	}
+	"scripts": {
+        "build": "concurrently \"wp-scripts build\" \"grunt\"",
+        "start": "wp-scripts start",
+        "start:hot": "wp-scripts start --hot",
+        "make-pot": "wp i18n make-pot ./languages/pageflash.pot",
+        "format": "wp-scripts format",
+        "lint:css": "wp-scripts lint-style",
+        "lint:js": "wp-scripts lint-js",
+        "lint:standard": "phpcs --standard=phpcs.xml",
+        "lint:fix": "wp-scripts lint-js --fix && wp-scripts lint-style --fix",
+        "lint:pkg-json": "wp-scripts lint-pkg-json",
+        "packages-update": "wp-scripts packages-update",
+        "plugin-zip": "wp-scripts plugin-zip",
+        "zip": "concurrently \"wp-scripts build\" \"grunt\" && composer archive --file=../dist/pageflash"
+    }
+	
 }
