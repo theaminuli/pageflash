@@ -3,18 +3,18 @@
     "slug": "pageflash",
     "version": "1.0.2",
     "description": "PageFlash - Fast and Efficient Headless Browser WordPress Plugin",
+	"author": "theaminul",
 	"license": "GPL-2.0-or-later",
     "keywords": [
-        "WordPress",
+		"WordPress",
         "pageflash",
 		"headless browser"
     ],
     "homepage": "https://github.com/theaminuli/pageflash/",
     "repository": "git+https://github.com/theaminuli/pageflash.git",
     "bugs": {
-        "url": "https://wordpress.org/support/plugin/pageflash/"
+		"url": "https://wordpress.org/support/plugin/pageflash/"
     },
-    "author": "theaminul",
     "scripts": {
         "build": "concurrently \"wp-scripts build\" \"grunt\"",
         "start": "wp-scripts start",
