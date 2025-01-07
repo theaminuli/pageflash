@@ -16,13 +16,8 @@ jobs:
           node-version-file: '.nvmrc'
           cache: npm
 
-      - name: Install dependencies
-        run: |
-          if [ -f package-lock.json ]; then
-            npm ci
-          else
-            npm install
-          fi
+      - name: Install Dependencies
+        run: npm i
 
       - name: Install PHP dependencies
         uses: php-actions/composer@v6
