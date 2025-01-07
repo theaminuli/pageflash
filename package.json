@@ -1,9 +1,17 @@
 {
 	"name": "pageflash",
 	"slug": "pageflash",
-	"homepage": "https://theaminul.com/pageflash/",
+	"homepage": "https://github.com/theaminuli/pageflash/",
 	"description": "PageFlash - Fast and Efficient Headless Browser WordPress Plugin",
 	"version": "1.0.2",
+	"keywords": [
+		"WordPress",
+		"block"
+	],
+	"repository": "git+https://github.com/theaminuli/pageflash.git",
+	"bugs": {
+		"url": "https://wordpress.org/support/plugin/pageflash/"
+	},
 	"scripts": {
 		"build": "concurrently \"wp-scripts build\" \"grunt\"",
 		"start": "wp-scripts start",
@@ -18,6 +26,10 @@
 		"packages-update": "wp-scripts packages-update",
 		"plugin-zip": "wp-scripts plugin-zip",
 		"zip": "concurrently \"wp-scripts build\" \"grunt\" && composer archive --file=../dist/pageflash"
+	},
+	"engines": {
+		"node": ">=20.10.0",
+		"npm": ">=10.2.3"
 	},
 	"devDependencies": {
 		"@wordpress/icons": "^9.46.0",
