@@ -1,6 +1,7 @@
 <?php
 
 namespace PageFlash;
+
 use PageFlash\AssetsManager\AssetsManager;
 use PageFlash\Admin\Admin;
 use PageFlash\Landmark\NoMoreReload\NoMoreReload;
@@ -56,13 +57,13 @@ final class Plugin {
 	 * @access private
 	 */
 	private function register_autoload() {
-		if( WP_DEBUG && PAGEFLASH_ENV === 'development' ) {
-			if(!file_exists(PAGEFLASH_PATH . 'vendor/autoload.php')){
+		if ( WP_DEBUG && PAGEFLASH_ENV === 'development' ) {
+			if ( ! file_exists( PAGEFLASH_PATH . 'vendor/autoload.php' ) ) {
 				require_once PAGEFLASH_PATH . 'autoload.php';
-			}else{
+			} else {
 				require_once PAGEFLASH_PATH . 'vendor/autoload.php';
 			}
-		}else{
+		} else {
 			require_once PAGEFLASH_PATH . 'autoload.php';
 		}
 	}
@@ -76,7 +77,7 @@ final class Plugin {
 	 * @access private
 	 */
 	private function init_assets() {
-		 new AssetsManager();
+		new AssetsManager();
 	}
 
 
