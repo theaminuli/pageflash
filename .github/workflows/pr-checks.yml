@@ -17,12 +17,17 @@ jobs:
           cache: npm
 
       - name: Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Install PHP dependencies
         uses: php-actions/composer@v6
         with:
           args: --ignore-platform-reqs
-
-      - name: Install Dependencies
-        run: npm i
 
       - name: Run WP Standard Lint
         run: npm run lint:standard
