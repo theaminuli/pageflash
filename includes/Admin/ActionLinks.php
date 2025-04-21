@@ -36,6 +36,7 @@ class ActionLinks {
 	 * @return array An array of plugin action links.
 	 */
 	public function pageflash_plugin_action_links( $links ) {
+		// phpcs:disable Generic.Commenting.Todo.Found
 		// $settings_link = sprintf( '<a href="%1$s">%2$s</a>', admin_url( 'options-general.php?page=pageflash_settings' ), esc_html__( 'Settings', 'pageflash' ) );
 		// array_unshift( $links, $settings_link );
 		// $links['go_pro'] = sprintf('<a href="%1$s" target="_blank" class="pageflash-plugins-gopro">%2$s</a>', '#', esc_html__('Get PageFlash Pro', 'pageflash'));
