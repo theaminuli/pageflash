@@ -136,9 +136,9 @@ final class Plugin {
 	 * @access public
 	 */
 	public function __construct() {
-		// init plugin
+		// Init plugin.
 		$this->init();
-	}
+	}	
 }
 
 // Instantiate Plugin Class
