@@ -1,4 +1,5 @@
 <?
+// Silence is golden.
 
 class Landmark {
 	/**

@@ -39,7 +39,6 @@ class Admin {
 	 * @access private
 	 */
 	private function init_admin() {
-		new AdminMenu();
 		new ActionLinks();
 	}
 }
