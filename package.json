@@ -28,6 +28,7 @@
         "load-grunt-tasks": "^5.1.0",
         "npm-check-updates": "^16.14.20",
         "path": "^0.12.7",
+        "simple-git": "^3.27.0",
         "webpack-remove-empty-scripts": "^1.0.4"
     },
     "scripts": {
@@ -38,12 +39,13 @@
         "format": "wp-scripts format",
         "lint:css": "wp-scripts lint-style",
         "lint:js": "wp-scripts lint-js",
-       	"lint:standard": "vendor\\bin\\phpcs --standard=phpcs.xml",
-		"lint:wpcs": "vendor\\bin\\phpcs --standard=phpcs.xml",
-    	"lint:wpcs:fix": "vendor\\bin\\phpcbf --standard=phpcs.xml",
+        "lint:standard": "vendor\\bin\\phpcs --standard=phpcs.xml",
+        "lint:wpcs": "vendor\\bin\\phpcs --standard=phpcs.xml",
+        "lint:wpcs:fix": "vendor\\bin\\phpcbf --standard=phpcs.xml",
         "lint:fix": "wp-scripts lint-js --fix && wp-scripts lint-style --fix",
         "lint:pkg-json": "wp-scripts lint-pkg-json",
         "packages-update": "wp-scripts packages-update",
+		"update-version": "node update-version-and-changelog.js",
         "plugin-zip": "wp-scripts plugin-zip",
         "zip": "concurrently \"wp-scripts build\" \"grunt\" && composer archive --file=../dist/pageflash"
     }
