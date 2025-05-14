@@ -26,7 +26,6 @@ class Admin {
 	 */
 	public function __construct() {
 		$this->init_admin();
-		// add_action( 'admin_init', array( $this, 'init_admin' ) );
 	}
 
 

@@ -47,6 +47,10 @@
 	<rule ref="WordPress">
 		<!-- This rule does not apply here since the _s prefix should be changed by the theme author. -->
 		<exclude name="WordPress.NamingConventions.PrefixAllGlobals.ShortPrefixPassed"/>
+		<!-- Ignore inline comment punctuation -->
+		<exclude name="WordPress.Commenting.InlineComment.NoEndPeriod"/>
+		<exclude name="Generic.Commenting.Todo.Found"/>
+		<exclude name="Generic.WhiteSpace.DisallowTabIndent.TabsUsed"/>
 	</rule>
 
 	<!--
