@@ -75,7 +75,7 @@ Yes, PageFlash is regularly tested and ensured to be compatible with the latest 
 1. [Screenshot 1](https://github.com/theaminuldev/pageflash/src/images/screenshot.png): Describe the screenshot here.
 
 == Changelog ==
-= 1.2.0 - 2024-12-21 =
+= 1.2.0 - 2025-05-14 =
 chore: Add initial configuration files 
 Improved: Update asset management
 Improved: Update security policy and PHPCS configuration
