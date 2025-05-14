@@ -1,5 +1,5 @@
 # Changelog
-## 1.2.0 - 2024-12-21
+## 1.2.0 - 2025-05-14
 - chore: Add initial configuration files 
 - Improved: Update asset management
 - Improved: Update security policy and PHPCS configuration
