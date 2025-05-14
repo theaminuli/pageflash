@@ -1,7 +1,7 @@
 <div align="center">
   <br />
     <a href="https://wordpress.org/plugins/pageflash/" target="_blank">
-      <img src="https://github.com/theaminuldev/pageflash/blob/development/src/images/screenshot.png" alt="PageFlash Banner">
+      <img src="https://github.com/theaminuli/pageflash/blob/development/assets/images/screenshot.png" alt="PageFlash Banner">
     </a>
   <br />
 
@@ -10,7 +10,7 @@
     <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="Javascript" />
     <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="php" />
     <img src="https://img.shields.io/badge/sponsor-30363D?style=for-the-badge&logo=GitHub-Sponsors&logoColor=#white" alt="Sponsors" />
-    <img alt="GitHub License" src="https://img.shields.io/github/license/theaminuldev/pageflash?style=for-the-badge&logo=License-GPLv3-blue" alt="License-GPLv3">
+    <img alt="GitHub License" src="https://img.shields.io/github/license/theaminuli/pageflash?style=for-the-badge&logo=License-GPLv3-blue" alt="License-GPLv3">
 
   </div>
 
@@ -132,7 +132,7 @@ We welcome contributions from the community! If you'd like to help improve PageF
 
 ## <a name="support"> ☎️ Support </a>
 
-If you encounter issues or have questions, please [open an issue](https://github.com/theaminuldev/pageflash/issues). We're here to help!
+If you encounter issues or have questions, please [open an issue](https://github.com/theaminuli/pageflash/issues). We're here to help!
 
 
 ## <a name="acknowledgments"> 🪧 Acknowledgments </a>
