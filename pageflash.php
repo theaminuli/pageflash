@@ -1,7 +1,7 @@
 <?php
 /*
  * @author      theaminul
- * @copyright   2024 theaminul.com
+ * @copyright   theaminul.com
  * @license     GNU General Public License v3 or later
  * @license URI https://www.gnu.org/licenses/gpl-3.0.html
  *
