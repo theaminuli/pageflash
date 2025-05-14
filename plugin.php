@@ -130,8 +130,6 @@ final class Plugin {
 	/**
 	 *  Plugin class constructor
 	 *
-	 * Register plugin action hooks and filters
-	 *
 	 * @since PageFlash 1.0.0
 	 * @access public
 	 */
