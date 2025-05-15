@@ -20,6 +20,7 @@
         "npm": ">=10.2.3"
     },
     "devDependencies": {
+        "@actions/core": "^1.11.1",
         "@wordpress/icons": "^9.46.0",
         "@wordpress/scripts": "^30.7.0",
         "concurrently": "^9.1.0",
@@ -45,7 +46,7 @@
         "lint:fix": "wp-scripts lint-js --fix && wp-scripts lint-style --fix",
         "lint:pkg-json": "wp-scripts lint-pkg-json",
         "packages-update": "wp-scripts packages-update",
-		"update-version": "node update-version-and-changelog.js",
+        "update-version": "node update-version-and-changelog.js",
         "plugin-zip": "wp-scripts plugin-zip",
         "zip": "concurrently \"wp-scripts build\" \"grunt\" && composer archive --file=../dist/pageflash"
     }
