@@ -6,7 +6,6 @@ vendor/
 build/
 log/
 composer.lock
-package-lock.json
 
 # Ignore system and editor-generated files
 .DS_Store
