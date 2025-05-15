@@ -3,7 +3,7 @@ Contributors: theaminuldev
 Tags: headless browser, quicklink, performance, speed, speculation rules
 Requires at least: 6.0
 Tested up to: 6.8.1
-Stable tag: 1.2.0
+Stable tag: 1.1.0
 License: GPL-3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 Copyright: © 2023 theaminul.com
