@@ -3,9 +3,11 @@
 node_modules/
 vendor/
 .gitignore
+.gitattributes
 update-google-fonts-json-file.js
 update-version-and-changelog.js
 package.json
+dev-note/
 src/
 test/
 .git
