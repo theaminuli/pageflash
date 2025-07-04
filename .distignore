@@ -8,6 +8,7 @@ update-google-fonts-json-file.js
 update-version-and-changelog.js
 package.json
 dev-note/
+screenshot.png
 src/
 test/
 .git

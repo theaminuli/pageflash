@@ -4,7 +4,7 @@ namespace PageFlash;
 
 use PageFlash\AssetsManager\AssetsManager;
 use PageFlash\Admin\Admin;
-use PageFlash\Landmark\NoReload;
+use PageFlash\Landmark;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -93,6 +93,8 @@ final class Plugin {
 		if ( is_admin() ) {
 			// Initialize your admin-related Landmark here
 			new Admin();
+			
+
 		}
 	}
 
@@ -107,8 +109,7 @@ final class Plugin {
 	 * @access private
 	 */
 	private function init_landmark() {
-		new NoReload\Quicklink();
-		new NoReload\NoReload();
+		new Landmark\Landmark();
 	}
 
 	/**
