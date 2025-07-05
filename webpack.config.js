@@ -14,7 +14,7 @@ module.exports = {
 			'admin/admin': path.resolve(
 				process.cwd(),
 				'src/admin',
-				'index.js'
+				'index.jsx'
 			),
 			'quicklink/quicklink': path.resolve(
 				process.cwd(),
