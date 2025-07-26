@@ -10,3 +10,19 @@ Tags: headless-browser, pageflash, prefetches, quicklink, quickload, performance
 	padding: 0;
 	box-sizing: border-box;
 }
+#pageflash-admin{
+	font-family: "Lexend", sans-serif;
+	font-optical-sizing: auto;
+	font-style: normal;
+}
+/* e.g. in styles.css */
+.pageflash-toast-container {
+  top: 50px !important;  /* override default 1em */
+  right: 25px !important;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+@import "./admin/header";
+@import "./admin/welcome";
+@import "./admin/addons";
+@import "./admin/settings";

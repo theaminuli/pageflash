@@ -1,0 +1,32 @@
+.pageflash-welcome {
+	max-width: 800px;
+	text-align: center;
+	margin: 2rem auto;
+	padding: 2rem;
+	&__features{
+		&-list {
+			padding: 0;
+			list-style: none;
+			margin: 0;
+			li {
+				margin-bottom: 1rem;
+				display: flex;
+				align-items: center;
+				& > span {
+					margin-left: 0.5rem;
+				}
+			}
+		}
+		&-badge{
+			color: white;
+			padding: 4px 10px;
+			border-radius: 30px;
+			font-size: 16px;
+			font-weight: 500;
+		}
+		&-title{
+			font-size: 14px;
+			font-weight: 400;
+		}
+	}
+}

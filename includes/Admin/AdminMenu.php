@@ -40,9 +40,9 @@ class AdminMenu {
 			__( 'PageFlash', 'pageflash' ),
 			__( 'PageFlash', 'pageflash' ),
 			'manage_options',
-			'pageflash_settings',
+			'pageflash',
 			array( $this, 'pageflash_settings_page' ),
-			'dashicons-admin-generic',
+			PAGEFLASH_ICON,
 			100
 		);
 	}

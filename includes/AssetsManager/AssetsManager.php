@@ -22,6 +22,7 @@ class AssetsManager {
 		add_action( 'wp_default_scripts', array( $this, 'pageflash_wp_default_scripts' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'pageflash_frontend_assets' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'pageflash_admin_enqueue_scripts' ) );
+		add_action( 'admin_init', array( $this, 'pageflash_admin_icon' ) );
 	}
 
 	/**
@@ -87,7 +88,7 @@ class AssetsManager {
 	 * @since PageFlash 1.0.0
 	 */
 	public function pageflash_admin_enqueue_scripts( $admin_page) {
-		if ( 'toplevel_page_pageflash_settings' !== $admin_page ) {
+		if ( 'toplevel_page_pageflash' !== $admin_page ) {
        		 return;
     	}
 		$asset_file =  PAGEFLASH_PATH . 'build/admin/admin.asset.php';
@@ -99,11 +100,9 @@ class AssetsManager {
 		wp_enqueue_style(
 			'pageflash-admin',
 			PAGEFLASH_BUILD_URL . 'admin/admin.css',
-			$script_asset['dependencies'],
-			$script_asset['version'],
+			array( 'wp-components' ),
+			isset( $script_asset['version'] ) ? $script_asset['version'] : '1.0.0'
 		);
-		
-		wp_enqueue_style( 'wp-components' );
 
 		wp_enqueue_script(
 			'pageflash-admin',
@@ -123,5 +122,35 @@ class AssetsManager {
 				'nonce'    => wp_create_nonce( 'pageflash_admin_nonce' ),
 			)
 		);
+
 	}
+	/**
+	 * Enqueue the PageFlash icon in the admin area.
+	 *
+	 * This method enqueues the icon for use in the admin area.
+	 *
+	 * @return void
+	 * @since PageFlash 1.0.0
+	 */
+	public function pageflash_admin_icon() {
+		wp_enqueue_style( 'wp-admin' );
+
+		wp_add_inline_style(
+			'wp-admin',
+			'.toplevel_page_pageflash .toplevel_page_pageflash .wp-menu-image:before {
+				content: "";
+				filter: invert(1);
+				width: 25px;
+				height: 25px;
+				margin-top: -2px;
+				background: url("' . esc_url( PAGEFLASH_URL . 'assets/logo/icon.svg' ) . '") no-repeat center;
+				background-size: contain;
+			
+			}
+			.toplevel_page_pageflash .wp-menu-image img {
+				display: none;
+			}'
+		);
+	}
+
 }

@@ -1,0 +1,46 @@
+.pageflash-header{
+	background-color: #FFFFFF !important;
+	padding: 0px 5px 0px 5px;
+	border-radius: 5px !important;
+	
+	&__z-stack{
+		width: 100%;
+		& > div{
+			width: 100% !important;
+		}
+	}
+	&__logo{
+		margin-right: 10px;
+	}
+	&__menu{
+		padding: 0px !important;
+		border-right: 1px solid #D8D8D8;
+		border-top-right-radius: 0px !important;
+		@media (max-width: 768px) {
+			border-right: none !important;
+			border-top-right-radius: 5px !important;
+		}
+		&-list{
+			background-color: #FFFFFF !important;
+			padding: 5px;
+		}
+		
+		&-button{
+			color: #1c1e24 !important;
+			box-shadow: none !important;
+			&.is-primary{
+				color: #FFFFFF !important;
+			}
+		}
+	}
+	&__card-body{
+		padding: 0px !important;
+		width: 100% !important;
+		background-color: white !important;
+		border-radius: 0px 5px 5px 0px !important;
+	}
+	&__h-stack{
+		border-bottom: 1px solid #D8D8D8;
+		padding: 15px 30px;
+	}
+}

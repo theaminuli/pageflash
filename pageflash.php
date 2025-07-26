@@ -38,6 +38,7 @@ define( 'PAGEFLASH_ASSETS_URL', PAGEFLASH_URL . 'assets/' );
 define( 'PAGEFLASH_BUILD_PATH', PAGEFLASH_PATH . 'build/' );
 define( 'PAGEFLASH_BUILD_URL', PAGEFLASH_URL . 'build/' );
 define( 'PAGEFLASH_ENV', WP_DEBUG ? 'development' : 'production' );
+define( 'PAGEFLASH_ICON', PAGEFLASH_URL . 'assets/logo/icon.svg' );
 
 add_action( 'plugins_loaded', 'pageflash_load_plugin_textdomain' );
 

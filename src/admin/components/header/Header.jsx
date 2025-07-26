@@ -1,118 +1,142 @@
-/**
- * WordPress dependencies.
- */
 import {
 	Button,
 	Card,
 	CardBody,
-	CardHeader,
+	Flex,
 	__experimentalHeading as Heading,
 	__experimentalHStack as HStack,
 	__experimentalVStack as VStack,
 	__experimentalZStack as ZStack,
-} from "@wordpress/components";
-import { useViewportMatch } from "@wordpress/compose";
-import {
-	close,
-	cog,
-	external,
-	home,
-	Icon,
-	key,
-	menu,
-	plugins,
-} from "@wordpress/icons";
+} from '@wordpress/components';
+import { useViewportMatch } from '@wordpress/compose';
+import { close, external, menu } from '@wordpress/icons';
+import { AiTwotoneRocket } from 'react-icons/ai';
+
 /**
  * Internal dependencies.
  */
-import { useState } from "react";
+import { useState } from 'react';
+import { setActiveMenu } from '../../actions';
+import { usePageflashContext } from '../../hooks';
+import { capitalizeFirstLetter } from '../../utils';
+import MenuList from './MenuList';
 
 /**
- * Render Shell 1
+ * Render Shell 2
  */
-function Header() {
-	const isMobile = !useViewportMatch("mobile");
-	const [showButtons, setShowButtons] = useState(false);
+const Header = ( { children } ) => {
+	const { activeMenu, dispatch } = usePageflashContext();
+	const isDesktop = useViewportMatch( 'medium', '>=' );
+	const isMobile = useViewportMatch( 'medium', '<' );
+	const [ showButtons, setShowButtons ] = useState( false );
 
-	const buttonData = [
-		{ icon: home, label: "Welcome" },
-		{ icon: cog, label: "Settings" },
-		{ icon: plugins, label: "Addons" },
-		{ icon: key, label: "License" },
-		{ icon: external, label: "Go Support" },
-	];
+	const handleButtonClick = ( buttonKey ) => {
+		dispatch( setActiveMenu( buttonKey ) );
+		if ( buttonKey === 'support' ) {
+			window.open(
+				'https://github.com/theaminuli/pageflash/issues',
+				'_blank'
+			);
+		}
+	};
+
 	return (
 		<>
-			<HStack expanded={false} style={{ padding: "12px 23px" }}>
-				<img
-					width="100px"
-					style={{ minWidth: "auto" }}
-					src="https://raw.githubusercontent.com/lubusIN/wpui/main/src/img/logo.png"
-				></img>
-				{isMobile ? (
-					<Button
-						icon={showButtons ? close : menu}
-						onClick={() => setShowButtons((prev) => !prev)}
-					></Button>
-				) : (
-					<>
-						<HStack expanded={false}>
-							{buttonData.slice(0, -1).map((btn, index) => (
-								<Button key={index}>
-									<Icon style={{ minWidth: "25px" }} icon={btn.icon} />
-									{btn.label}
-								</Button>
-							))}
-						</HStack>
-						<Button variant="primary" icon={external}>
-							Go Support
-						</Button>
-					</>
-				)}
-			</HStack>
-			<ZStack isReversed style={{ width: "100%" }}>
-				{isMobile && showButtons && (
-					<VStack
-						style={{ padding: "12px", backgroundColor: "white" }}
-						expanded={false}
+			<Card className="pageflash-header">
+				<Flex
+					expanded={ true }
+					gap={ 0 }
+					align="top"
+					direction={ [ 'column', 'column', 'row' ] }
+				>
+					<CardBody
+						style={ { width: isDesktop ? '280px' : '100%' } }
+						className="pageflash-header__menu"
 					>
-						{buttonData.map((btn, index) => (
-							<Button
-								key={index}
-								icon={btn.icon}
-								variant={btn.variant}
-								style={
-									btn.label === "Go Support" ? { justifyContent: "center" } : {}
-								}
+						<VStack spacing={ 15 } style={ { marginTop: '15px' } }>
+							<HStack
+								style={ {
+									marginLeft: '8px',
+									marginBottom: isDesktop ? '' : '10px',
+								} }
 							>
-								{btn.label}
-							</Button>
-						))}
-					</VStack>
-				)}
-				<Card variant="secondary" isBorderless>
-					<CardHeader isBorderless>
-						<Heading level={2}>Welcome</Heading>
-					</CardHeader>
-					<CardBody>
-						<Card
-							variant="secondary"
-							style={{ height: "300px", borderRadius: "10px" }}
-						>
-							{/* Display Your Content Here */}
-						</Card>
+								<Flex
+									className="pageflash-header__logo"
+									justify="left"
+								>
+									<AiTwotoneRocket
+										size={ 40 }
+										color="#1c1e24"
+									/>
+									<Heading
+										level={ 2 }
+										style={ { marginRight: '10px' } }
+									>
+										PageFlash
+									</Heading>
+								</Flex>
+								{ isMobile && (
+									<Button
+										icon={ showButtons ? close : menu }
+										onClick={ () =>
+											setShowButtons(
+												( prevState ) => ! prevState
+											)
+										}
+										style={ {
+											marginRight: '8px',
+											color: '#1c1e24',
+										} }
+									></Button>
+								) }
+							</HStack>
+							{ isDesktop && (
+								<MenuList
+									activeMenu={ activeMenu }
+									onButtonClick={ handleButtonClick }
+								/>
+							) }
+						</VStack>
 					</CardBody>
-				</Card>
-			</ZStack>
-			<style>
-				{`
-					.components-z-stack >div{
-						width: 100%;
-					}
-				`}
-			</style>
+					<ZStack isReversed className="pageflash-header__z-stack">
+						{ isMobile && showButtons && (
+							<MenuList
+								activeMenu={ activeMenu }
+								onButtonClick={ handleButtonClick }
+							/>
+						) }
+						<CardBody
+							size="large"
+							style={ { height: 'calc(100vh - 107.14px)' } }
+							className="pageflash-header__card-body"
+						>
+							<HStack
+								expanded={ false }
+								className={ 'pageflash-header__h-stack' }
+							>
+								<Heading>
+									{ capitalizeFirstLetter( activeMenu ) }
+								</Heading>
+								<Button
+									variant="primary"
+									icon={ external }
+									onClick={ () =>
+										window.open(
+											'https://github.com/theaminuli/pageflash/issues',
+											'_blank'
+										)
+									}
+								>
+									Go Support
+								</Button>
+							</HStack>
+							{ children }
+						</CardBody>
+					</ZStack>
+				</Flex>
+			</Card>
 		</>
 	);
-}
+};
 
 export default Header;
