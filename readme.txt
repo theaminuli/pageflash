@@ -3,7 +3,7 @@ Contributors: theaminuldev
 Tags: headless browser, quicklink, performance, speculation rules
 Requires at least: 6.0
 Tested up to: 6.8.1
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPL-3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 Copyright: © 2023 theaminul.com
@@ -75,6 +75,12 @@ Yes, PageFlash is regularly tested and ensured to be compatible with the latest 
 1. [Screenshot 1](https://github.com/theaminuldev/pageflash/src/images/screenshot.png): Describe the screenshot here.
 
 == Changelog ==
+
+= 1.3.0 =
+* Merge pull request #52 from theaminuli/development
+* Update .distignore to include .gitattributes and dev-note directory
+* Merge branch 'trunk' into development
+* Merge branch 'trunk' into development
 
 = 1.2.0 - 2025-05-14 =
 * Chore: Add initial configuration files 
