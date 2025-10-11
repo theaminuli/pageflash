@@ -7,7 +7,7 @@ use WP_REST_Response;
 use WP_Error;
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+	exit;
 }
 
 /**
@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class LandmarkAPI {
 
 	/**
-	 * Constructor to initialize REST API routes.
+	 * Initialize REST API routes.
 	 *
 	 * @since 1.0.0
 	 */
@@ -30,12 +30,14 @@ class LandmarkAPI {
 	}
 
 	/**
-	 * Registers REST API routes for landmarks.
+	 * Register REST API routes for landmarks.
+	 *
+	 * GET /wp-json/pageflash/v1/landmarks
+	 * POST /wp-json/pageflash/v1/landmarks
 	 *
 	 * @since 1.0.0
 	 */
 	public function register_routes() {
-
 		register_rest_route( 'pageflash/v1', '/landmarks', [
 			'methods'             => 'GET',
 			'callback'            => [ $this, 'pageflash_handle_get_landmarks' ],
@@ -48,81 +50,87 @@ class LandmarkAPI {
 			'permission_callback' => [ $this, 'check_permissions' ],
 		] );
 	}
-	/**
-	 * Handles POST requests to add or update landmarks.
-	 *
-	 * @param WP_REST_Request $request The REST request containing the landmark data.
-	 * @return WP_REST_Response|WP_Error
-	 */
 
+	/**
+	 * GET /landmarks
+	 *
+	 * Retrieve all landmarks or a specific landmark by ID.
+	 *
+	 * @param {WP_REST_Request} $request
+	 * @param {string} [$request->id] Optional landmark ID to fetch a single item
+	 *
+	 * @return {WP_REST_Response|WP_Error}
+	 */
 	public function pageflash_handle_get_landmarks( WP_REST_Request $request ) {
 		$id    = $request->get_param( 'id' );
 		$data  = get_option( 'pageflash_landmarks', [] );
-		$items = $data['data'] ?? $data;
+		$items = $data['data'] ?? [];
 
 		if ( $id ) {
-			$id = (int) $id;
 			foreach ( $items as $item ) {
-				if ( isset( $item['id'] ) && (int) $item['id'] === $id ) {
+				if ( isset( $item['id'] ) && $item['id'] === $id ) {
 					return rest_ensure_response( $item );
 				}
 			}
 			return new WP_Error( 'not_found', 'Landmark not found', [ 'status' => 404 ] );
 		}
 
-		// No ID - return all landmarks
 		return rest_ensure_response( $data );
 	}
 
 	/**
-	 * Handles POST requests to add or update landmarks.
+	 * POST /landmarks
 	 *
-	 * If no ID is provided, it replaces all landmarks with the new data.
-	 * If an ID is provided, it updates the specific landmark with that ID.
+	 * Add or update landmarks.
 	 *
-	 * @param WP_REST_Request $request The REST request containing the landmark data.
-	 * @return WP_REST_Response|WP_Error
+	 * If `id` is provided in request, updates specific landmark.
+	 * If no `id`, merges new data into existing landmarks.
+	 *
+	 * @param {WP_REST_Request} $request
+	 * @param {string} [$request->id] Optional landmark ID to update
+	 * @param {array} $request->get_json_params() Landmark data to add or update
+	 *
+	 * @return {WP_REST_Response|WP_Error}
 	 */
-
 	public function pageflash_handle_post_landmarks( WP_REST_Request $request ) {
 		$id       = $request->get_param( 'id' );
 		$new_data = $request->get_json_params();
 		$data     = get_option( 'pageflash_landmarks', [] );
 
-		// If no id param, replace all landmarks
-		if ( ! $id ) {
-			if ( ! is_array( $new_data ) ) {
-				return new WP_Error( 'invalid_data', 'Invalid landmarks format.', [ 'status' => 400 ] );
-			}
-			update_option( 'pageflash_landmarks', $new_data );
-			return rest_ensure_response( [
-				'message' => 'All landmarks updated successfully.',
-				'data'    => $new_data,
-			] );
-		}
-
-		// If ID param exists, update specific landmark
-		$id = (int) $id;
-
 		if ( ! isset( $data['data'] ) || ! is_array( $data['data'] ) ) {
-			return new WP_Error( 'no_data', 'Landmark data is not initialized', [ 'status' => 400 ] );
+			$data['data'] = [];
 		}
 
-		foreach ( $data['data'] as $key => $item ) {
-			if ( isset( $item['id'] ) && (int) $item['id'] === $id ) {
-				$data['data'][ $key ] = array_merge( $item, $new_data );
-				update_option( 'pageflash_landmarks', $data );
-				return rest_ensure_response( $data['data'][ $key ] );
+		// Update specific landmark by ID
+		if ( $id ) {
+			foreach ( $data['data'] as $key => $item ) {
+				if ( isset( $item['id'] ) && $item['id'] === $id ) {
+					$data['data'][ $key ] = array_merge( $item, $new_data );
+					update_option( 'pageflash_landmarks', $data );
+					return rest_ensure_response( $data['data'][ $key ] );
+				}
 			}
+			return new WP_Error( 'not_found', 'Landmark not found', [ 'status' => 404 ] );
 		}
 
-		return new WP_Error( 'not_found', 'Landmark not found', [ 'status' => 404 ] );
+		// No ID - merge new data into existing
+		if ( ! is_array( $new_data ) ) {
+			return new WP_Error( 'invalid_data', 'Invalid landmarks format.', [ 'status' => 400 ] );
+		}
+
+		$data['data'] = array_replace_recursive( $data['data'], $new_data );
+		update_option( 'pageflash_landmarks', $data );
+
+		return rest_ensure_response( [
+			'message' => 'Landmarks merged successfully.',
+			'data'    => $data['data'],
+		] );
 	}
 
 	/**
-	 * Checks if current user has permission to update data.
+	 * Permission check for POST requests.
 	 *
-	 * @return bool
+	 * @return {boolean} True if current user can manage options
 	 */
 	public function check_permissions() {
 		return current_user_can( 'manage_options' );

@@ -19,7 +19,7 @@ class LandmarkList {
 	/**
 	 * Constructor for the LandmarkList class.
 	 *
-	 * Hooks into the admin_init action to register landmarks.
+	 * Hooks into the init action to register landmarks.
 	 *
 	 * @since PageFlash 1.0.0
 	 */
@@ -30,7 +30,7 @@ class LandmarkList {
 	/**
 	 * Registers default landmarks into the WordPress options table.
 	 *
-	 * If the option already exists, it will update it only if needed.
+	 * Updates only if new properties or property values are introduced.
 	 *
 	 * @since PageFlash 1.0.0
 	 */
@@ -42,7 +42,7 @@ class LandmarkList {
 			'message' => __( 'PageFlash Dashboard Data', 'pageflash' ),
 			'data'    => [
 				'quicklink' => array(
-					'id'          => 1001,
+					'id'          => wp_unique_id('pf_'),
 					'label'       => __( 'Quicklink', 'pageflash' ),
 					'description' => __( "Quicklink, an active plugin, you'll experience a 50% increase in conversions and enjoy 4x faster page loading. Boost your website's speed, increase user engagement", 'pageflash' ),
 					'active'      => true,
@@ -51,7 +51,7 @@ class LandmarkList {
 					'package'     => 'free',
 				),
 				'instantpage' => array(
-					'id'          =>  1002,
+					'id'          => wp_unique_id('pf_'),
 					'label'       => __( 'InstantPage', 'pageflash' ),
 					'description' => __( 'InstantPage uses just-in-time preloading — it preloads a page right before a user clicks on it.', 'pageflash' ),
 					'active'      => true,
@@ -59,7 +59,7 @@ class LandmarkList {
 					'tabs'        => 'general',
 					'package'     => 'free',
 				),
-			]
+			],
 		);
 
 		// Allow developers to filter and modify default landmarks.
@@ -67,13 +67,17 @@ class LandmarkList {
 
 		$existing = get_option( 'pageflash_landmarks' );
 
-		// If no existing data, add it
 		if ( false === $existing ) {
+			// First-time save
 			add_option( 'pageflash_landmarks', $landmarks );
-		}
-		// If data already exists and is different, update it
-		elseif ( $existing !== $landmarks ) {
-			update_option( 'pageflash_landmarks', $landmarks );
+		} else {
+			// Merge existing with new (recursive, keeps old values if unchanged)
+			$merged = array_replace_recursive( $landmarks, $existing );
+
+			// Only update if merged data is different from existing
+			if ( $merged !== $existing ) {
+				update_option( 'pageflash_landmarks', $merged );
+			}
 		}
 	}
 }
