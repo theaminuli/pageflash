@@ -711,6 +711,7 @@ Before submitting code, ensure:
 - [WordPress Accessibility Handbook](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/accessibility/)
 - [PSR-4 Autoloading Standard](https://www.php-fig.org/psr/psr-4/)
 - [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
+- [Gutenberg Handbook](https://github.com/WordPress/gutenberg)
 
 ---
 

@@ -19,7 +19,7 @@ class Admin {
 	/**
 	 * Constructor for the Admin class.
 	 *
-	 * Initializes the settings API and adds necessary actions.
+	 * Initializes the settings adds necessary actions.
 	 *
 	 * @since PageFlash 1.0.0
 	 * @access public

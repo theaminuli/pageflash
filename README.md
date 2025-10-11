@@ -1,7 +1,7 @@
 <div align="center">
   <br />
     <a href="https://wordpress.org/plugins/pageflash/" target="_blank">
-      <img src="https://github.com/theaminuli/pageflash/blob/development/assets/images/screenshot.png" alt="PageFlash Banner">
+      <img src="https://github.com/theaminuli/pageflash/blob/development/screenshot.png" alt="PageFlash Banner">
     </a>
   <br />
 
@@ -14,7 +14,7 @@
 
   </div>
 
-  <h2 align="center">PageFlash - Fast and Efficient Headless Browser WordPress Plugin</h2>
+  <h2 align="center">🕒 PageFlash - Fast and Efficient Headless Browser WordPress Plugin</h2>
 
    <div align="left">
       <h3> By using PageFlash, an active plugin, you'll experience a 50% increase in conversions and enjoy 4x faster page loading. ⚡️ Boost your website's speed, increase user engagement 💬, and supercharge your online presence 🚀. - NewEgg </h3>
