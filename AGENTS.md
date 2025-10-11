@@ -414,7 +414,7 @@ Document all functions with JSDoc:
  */
 function validatePositiveNumber( value ) {
     const num = Number( value );
-    return ! isNaN( num ) && num > 0 ? num : null;
+    return isNaN( num ) || num <= 0 ? null : num;
 }
 ```
 
