@@ -118,11 +118,21 @@ Updates a landmark's properties (currently supports updating the `active` field)
 
 **Request Example (JavaScript):**
 ```javascript
+// Using wp.apiFetch (recommended - handles nonce automatically)
+wp.apiFetch({
+  path: '/pageflash/v1/landmark/1001',
+  method: 'PUT',
+  data: {
+    active: false
+  }
+});
+
+// Using vanilla Fetch API (requires manual nonce)
 const response = await fetch('https://example.com/wp-json/pageflash/v1/landmark/1001', {
   method: 'PUT',
   headers: {
     'Content-Type': 'application/json',
-    'X-WP-Nonce': wpApiSettings.nonce // WordPress provides this in wp.apiFetch
+    'X-WP-Nonce': wpApiSettings.nonce // Available from wp_localize_script
   },
   body: JSON.stringify({
     active: false
@@ -237,8 +247,9 @@ wp.apiFetch({
 ### Using Fetch API
 
 ```javascript
-// Get nonce from WordPress
-const nonce = document.getElementById('_wpnonce').value; // Or from wpApiSettings
+// Get nonce - typically available from wpApiSettings (added via wp_localize_script)
+// In WordPress admin, you can also use wp.apiFetch.nonceMiddleware
+const nonce = wpApiSettings.nonce; // Or generate via wp_create_nonce('wp_rest') in PHP
 
 // Update landmark
 fetch('/wp-json/pageflash/v1/landmark/1001', {
@@ -247,6 +258,7 @@ fetch('/wp-json/pageflash/v1/landmark/1001', {
     'Content-Type': 'application/json',
     'X-WP-Nonce': nonce
   },
+  credentials: 'same-origin', // Important: includes cookies for authentication
   body: JSON.stringify({
     active: false
   })
@@ -315,7 +327,7 @@ wp.apiFetch({
 
 ## Version History
 
-- **1.0.0** (2025-10-11)
+- **1.0.0** (2024-10-11)
   - Initial REST API implementation
   - Added GET /landmark endpoint
   - Added GET /landmark/:id endpoint
