@@ -408,14 +408,13 @@ Document all functions with JSDoc:
 /**
  * Validate and get a positive number.
  *
- * @param {number} value - Number to validate.
- * @return {number} - Validated positive number or default (Infinity) if invalid.
+ * @param {number|string} value - Number or numeric string to validate.
+ * @return {number|null} - Validated positive number or null if invalid.
  * @since PageFlash 1.0.0
  */
 function validatePositiveNumber( value ) {
-    return typeof value === 'string' && Number( value ) > 0
-        ? Number( value )
-        : Infinity;
+    const num = Number( value );
+    return ! isNaN( num ) && num > 0 ? num : null;
 }
 ```
 
@@ -529,7 +528,7 @@ function handleKeyboard( event ) {
     type="text" 
     required 
     aria-required="true"
-    aria-invalid="<?php echo $has_error ? 'true' : 'false'; ?>"
+    aria-invalid="<?php echo esc_attr( $has_error ? 'true' : 'false' ); ?>"
 >
 
 <!-- Error messages -->
@@ -712,7 +711,6 @@ Before submitting code, ensure:
 - [WordPress Accessibility Handbook](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/accessibility/)
 - [PSR-4 Autoloading Standard](https://www.php-fig.org/psr/psr-4/)
 - [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
-- [Gutenberg Handbook](https://github.com/WordPress/gutenberg)
 
 ---
 
