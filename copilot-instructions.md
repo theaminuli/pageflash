@@ -151,7 +151,7 @@ $results = $wpdb->get_results(
 - **Minimum PHP Version:** 8.1 (as per coding standards requirement)
 - **Tested up to:** Latest stable PHP version
 - Write code compatible with PHP 8.1+ features
-- Note: Ensure backward compatibility considerations are documented when writing new code
+- When using PHP 8.1+ features (e.g., named arguments, enums, readonly properties), document their usage and ensure graceful degradation or feature detection if the plugin needs to support older PHP versions in the future
 
 ### PSR-4 Autoloading
 
