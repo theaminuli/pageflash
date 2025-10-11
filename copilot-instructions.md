@@ -148,9 +148,10 @@ $results = $wpdb->get_results(
 
 ### Version Requirements
 
-- **Minimum PHP Version:** 8.1
+- **Minimum PHP Version:** 8.1 (as per coding standards requirement)
 - **Tested up to:** Latest stable PHP version
 - Write code compatible with PHP 8.1+ features
+- Note: Ensure backward compatibility considerations are documented when writing new code
 
 ### PSR-4 Autoloading
 
@@ -164,7 +165,9 @@ Follow PSR-4 autoloading standards for class organization:
 ```php
 <?php
 /**
- * Class file located at: includes/AssetsManager/AssetsManager.php
+ * AssetsManager class.
+ * File located at: includes/AssetsManager/AssetsManager.php
+ * Namespace PageFlash\AssetsManager maps to directory includes/AssetsManager/
  */
 
 namespace PageFlash\AssetsManager;
@@ -712,4 +715,3 @@ Before submitting code, ensure:
 ---
 
 *Last Updated: 2025-10-11*
-*PageFlash Version: 1.2.0*
