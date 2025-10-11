@@ -20,8 +20,12 @@ class Landmark {
     }
 
     /**
-     * Conditionally initialize landmark features like NoReload and Quicklink
-     * based on the 'active' flag in saved landmark data.
+     * Conditionally initialize landmark features based on the 'active' flag.
+     *
+     * Each landmark feature is initialized independently, allowing multiple
+     * features to be enabled simultaneously.
+     *
+     * @since PageFlash 1.0.0
      */
     public function pageflash_init_landmark() {
         $landmarks = get_option( 'pageflash_landmarks', [] );
@@ -31,8 +35,10 @@ class Landmark {
             if ( ! empty( $item['active'] ) ) {
                 switch ( $slug ) {
                     case 'quicklink':
+                        new Quicklink();
+                        break;
+                    case 'noreload':
                         new NoReload();
-						new Quicklink();
                         break;
                     case 'instantpage':
                         // new InstantPage();
