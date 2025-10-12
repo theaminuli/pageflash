@@ -9,45 +9,51 @@ use PageFlash\Landmark\LandmarkAPI;
 
 class Landmark {
 
-    /**
-     * Initialize the Landmark.
-     *
-     * @since PageFlash 1.0.0
-     */
-    public function __construct() {
-        $this->pageflash_register_landmarks();
-        $this->pageflash_init_landmark();
-    }
+	/**
+	 * Initialize the Landmark.
+	 *
+	 * @since PageFlash 1.0.0
+	 */
+	public function __construct() {
+		$this->pageflash_register_landmarks();
+		$this->pageflash_init_landmark();
+	}
 
-    /**
-     * Conditionally initialize landmark features like NoReload and Quicklink
-     * based on the 'active' flag in saved landmark data.
-     */
-    public function pageflash_init_landmark() {
-        $landmarks = get_option( 'pageflash_landmarks', [] );
-        $landmark_data = $landmarks['data'] ?? [];
+	/**
+	 * Conditionally initialize landmark features based on the 'active' flag.
+	 *
+	 * Each landmark feature is initialized independently, allowing multiple
+	 * features to be enabled simultaneously.
+	 *
+	 * @since PageFlash 1.0.0
+	 */
+	public function pageflash_init_landmark() {
+		$landmarks     = get_option( 'pageflash_landmarks', array() );
+		$landmark_data = $landmarks['data'] ?? array();
 
-        foreach ( $landmark_data as $slug => $item ) {
-            if ( ! empty( $item['active'] ) ) {
-                switch ( $slug ) {
-                    case 'quicklink':
-                        new NoReload();
+		foreach ( $landmark_data as $slug => $item ) {
+			if ( ! empty( $item['active'] ) ) {
+				switch ( $slug ) {
+					case 'quicklink':
 						new Quicklink();
-                        break;
-                    case 'instantpage':
-                        // new InstantPage();
-                        break;
-                    // Add more cases here as you add more landmark features
-                }
-            }
-        }
-    }
+						break;
+					case 'noreload':
+						new NoReload();
+						break;
+					case 'instantpage':
+						// TODO: Implement InstantPage functionality.
+						break;
+					// Add more cases here as you add more landmark features.
+				}
+			}
+		}
+	}
 
-    /**
-     * Register LandmarkList and LandmarkAPI.
-     */
-    public function pageflash_register_landmarks() {
-        new LandmarkList();
-        new LandmarkAPI();
-    }
+	/**
+	 * Register LandmarkList and LandmarkAPI.
+	 */
+	public function pageflash_register_landmarks() {
+		new LandmarkList();
+		new LandmarkAPI();
+	}
 }
