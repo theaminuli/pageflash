@@ -101,17 +101,6 @@ class LandmarkAPI {
 				),
 			)
 		);
-
-		// POST /landmarks - Legacy endpoint (kept for backward compatibility).
-		register_rest_route(
-			'pageflash/v1',
-			'/landmarks',
-			array(
-				'methods'             => 'POST',
-				'callback'            => array( $this, 'pageflash_handle_post_landmarks' ),
-				'permission_callback' => array( $this, 'check_permissions' ),
-			)
-		);
 	}
 	/**
 	 * Get all landmarks.
@@ -159,7 +148,12 @@ class LandmarkAPI {
 		// Search for the landmark by ID.
 		foreach ( $items as $item ) {
 			if ( isset( $item['id'] ) && (int) $item['id'] === (int) $id ) {
-				return rest_ensure_response( $item );
+				return rest_ensure_response( 
+					array(
+						'message' => __( 'Landmark retrieved successfully', 'pageflash' ),
+						'data'    => $item,
+					)
+				 );
 			}
 		}
 
@@ -250,75 +244,6 @@ class LandmarkAPI {
 				'message' => __( 'Landmark updated successfully', 'pageflash' ),
 				'data'    => $data['data'][ $key ],
 			)
-		);
-	}
-
-	/**
-	 * Handles POST requests to add or update landmarks (legacy endpoint).
-	 *
-	 * If no ID is provided, it replaces all landmarks with the new data.
-	 * If an ID is provided, it updates the specific landmark with that ID.
-	 *
-	 * @since 1.0.0
-	 * @param WP_REST_Request $request The REST request containing the landmark data.
-	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error on failure.
-	 */
-	public function pageflash_handle_post_landmarks( WP_REST_Request $request ) {
-		// Verify nonce for security.
-		$nonce = $request->get_header( 'X-WP-Nonce' );
-		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
-			return new WP_Error(
-				'invalid_nonce',
-				__( 'Security check failed', 'pageflash' ),
-				array( 'status' => 403 )
-			);
-		}
-
-		$id       = $request->get_param( 'id' );
-		$new_data = $request->get_json_params();
-		$data     = get_option( 'pageflash_landmarks', array() );
-
-		// If no id param, replace all landmarks.
-		if ( ! $id ) {
-			if ( ! is_array( $new_data ) ) {
-				return new WP_Error(
-					'invalid_data',
-					__( 'Invalid landmarks format', 'pageflash' ),
-					array( 'status' => 400 )
-				);
-			}
-			update_option( 'pageflash_landmarks', $new_data );
-			return rest_ensure_response(
-				array(
-					'message' => __( 'All landmarks updated successfully', 'pageflash' ),
-					'data'    => $new_data,
-				)
-			);
-		}
-
-		// If ID param exists, update specific landmark.
-		$id = (int) $id;
-
-		if ( ! isset( $data['data'] ) || ! is_array( $data['data'] ) ) {
-			return new WP_Error(
-				'no_data',
-				__( 'Landmark data is not initialized', 'pageflash' ),
-				array( 'status' => 400 )
-			);
-		}
-
-		foreach ( $data['data'] as $key => $item ) {
-			if ( isset( $item['id'] ) && (int) $item['id'] === $id ) {
-				$data['data'][ $key ] = array_merge( $item, $new_data );
-				update_option( 'pageflash_landmarks', $data );
-				return rest_ensure_response( $data['data'][ $key ] );
-			}
-		}
-
-		return new WP_Error(
-			'not_found',
-			__( 'Landmark not found', 'pageflash' ),
-			array( 'status' => 404 )
 		);
 	}
 
