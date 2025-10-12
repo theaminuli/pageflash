@@ -36,6 +36,8 @@
 	<!-- Exclude patterns. -->
 	<exclude-pattern>/vendor/*</exclude-pattern>
 	<exclude-pattern>/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/tests/*</exclude-pattern>
+	<exclude-pattern>/build/*</exclude-pattern>
 
 
 	<!--
@@ -95,7 +97,13 @@
 		</properties>
 	</rule>
 
-
+	<!-- Do not apply filename rules for unit tests -->
+	<rule ref="WordPress.Files.FileName.NotHyphenatedLowercase">
+		<exclude-pattern>tests/*</exclude-pattern>
+	</rule>
+	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
+		<exclude-pattern>tests/*</exclude-pattern>
+	</rule>
 	<!--
 	#############################################################################
 	USE THE PHPCompatibility RULESET

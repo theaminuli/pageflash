@@ -148,12 +148,12 @@ class LandmarkAPI {
 		// Search for the landmark by ID.
 		foreach ( $items as $item ) {
 			if ( isset( $item['id'] ) && (int) $item['id'] === (int) $id ) {
-				return rest_ensure_response( 
+				return rest_ensure_response(
 					array(
 						'message' => __( 'Landmark retrieved successfully', 'pageflash' ),
 						'data'    => $item,
 					)
-				 );
+				);
 			}
 		}
 
