@@ -2,8 +2,6 @@
 
 namespace PageFlash\Landmark;
 
-use PageFlash\Landmark\NoReload\NoReload;
-use PageFlash\Landmark\NoReload\Quicklink;
 use PageFlash\Landmark\LandmarkList;
 use PageFlash\Landmark\LandmarkAPI;
 
@@ -35,10 +33,10 @@ class Landmark {
 			if ( ! empty( $item['active'] ) ) {
 				switch ( $slug ) {
 					case 'quicklink':
-						new Quicklink();
+						new NoReload\Quicklink();
 						break;
 					case 'noreload':
-						new NoReload();
+						new NoReload\NoReload();
 						break;
 					case 'instantpage':
 						// TODO: Implement InstantPage functionality.
