@@ -41,9 +41,9 @@ class Landmark {
 						new NoReload();
 						break;
 					case 'instantpage':
-						// new InstantPage();
+						// TODO: Implement InstantPage functionality.
 						break;
-					// Add more cases here as you add more landmark features
+					// Add more cases here as you add more landmark features.
 				}
 			}
 		}
