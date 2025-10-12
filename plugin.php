@@ -93,7 +93,6 @@ final class Plugin {
 		if ( is_admin() ) {
 			// Initialize your admin-related Landmark here
 			new Admin();
-			
 
 		}
 	}
