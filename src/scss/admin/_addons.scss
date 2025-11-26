@@ -1,5 +1,16 @@
 .pageflash-addons {
+	padding: 50px;
+	@media (max-width: 1024px) {
+		padding: 30px;
+	}
+	@media (max-width: 768px) {
+		padding: 20px;
+	}
+	.components-card{
+		padding: 20px 0px;
+	}
 	&__explore-link {
+		padding-top: 20px;
 		display: flex;
 		justify-content: flex-end;
 
@@ -21,6 +32,9 @@
 		object-fit: cover;
 	}
 	&__badge {
+		position: absolute;
+		right: 23px;
+		top: 23px;
 		background-color: #f0f0f0;
 		color: #333;
 		padding: 4px 8px;

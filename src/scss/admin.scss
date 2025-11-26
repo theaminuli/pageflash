@@ -5,6 +5,13 @@ Description: PageFlash - Fast and Efficient Headless Browser WordPress Plugin.
 Tags: headless-browser, pageflash, prefetches, quicklink, quickload, performance, speed, fast, prefetch, seo preconnect, optimization.
 */
 
+@use "./admin/header";
+@use "./admin/addons";
+@use "./admin/settings";
+@use "./admin/general";
+
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
 * {
 	margin: 0;
 	padding: 0;
@@ -20,9 +27,3 @@ Tags: headless-browser, pageflash, prefetches, quicklink, quickload, performance
   top: 50px !important;  /* override default 1em */
   right: 25px !important;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
-@import "./admin/header";
-@import "./admin/welcome";
-@import "./admin/addons";
-@import "./admin/settings";
