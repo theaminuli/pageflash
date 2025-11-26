@@ -84,13 +84,13 @@ jobs:
           # Insert the PR header after the first version line
           sed -i "${FIRST_VERSION_LINE}a\\${PR_HEADER}" CHANGELOG.md
 
-          # Read changed files and add each as a sub-entry with PR reference
+          # Read changed files and add each as a sub-entry
           if [ -f /tmp/changed_files.txt ]; then
             # Read files in reverse order so they appear in correct order after insertion
             tac /tmp/changed_files.txt | while read -r FILE; do
               if [ -n "$FILE" ]; then
                 # Insert file entry after the PR header (which is now at FIRST_VERSION_LINE + 1)
-                FILE_ENTRY="  - [#${PR_NUMBER}](${PR_URL}) \`${FILE}\`"
+                FILE_ENTRY="  - \`${FILE}\`"
                 sed -i "$((FIRST_VERSION_LINE + 1))a\\${FILE_ENTRY}" CHANGELOG.md
               fi
             done
