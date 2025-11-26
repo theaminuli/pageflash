@@ -4,6 +4,8 @@ namespace PageFlash\Landmark;
 
 use PageFlash\Landmark\LandmarkList;
 use PageFlash\Landmark\LandmarkAPI;
+use PageFlash\Landmark\NoReload\NoReload;             
+use PageFlash\Landmark\General\General;
 
 class Landmark {
 
@@ -18,14 +20,10 @@ class Landmark {
 	}
 
 	/**
-	 * Conditionally initialize landmark features based on the 'active' flag.
-	 *
-	 * Each landmark feature is initialized independently, allowing multiple
-	 * features to be enabled simultaneously.
-	 *
-	 * @since PageFlash 1.0.0
+	 * Initialize Landmark features.
 	 */
 	public function pageflash_init_landmark() {
+<<<<<<< Updated upstream
 		$landmarks     = get_option( 'pageflash_landmarks', array() );
 		$landmark_data = $landmarks['data'] ?? array();
 
@@ -45,6 +43,10 @@ class Landmark {
 				}
 			}
 		}
+=======
+		new NoReload();
+		new General();
+>>>>>>> Stashed changes
 	}
 
 	/**

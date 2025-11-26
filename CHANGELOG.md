@@ -1,20 +1,13 @@
 # Changelog
 ## x.y.z - 2025-11-26
-- Remove auto-format PR title workflow ([#102](https://github.com/theaminuli/pageflash/pull/102)) @theaminuli
-- Clean up FAQ section formatting in readme.txt ([#101](https://github.com/theaminuli/pageflash/pull/101)) @theaminuli
-- Improve PR title formatting after merge ([#100](https://github.com/theaminuli/pageflash/pull/100)) @theaminuli
-- Update changelog formatting in readme.txt ([#99](https://github.com/theaminuli/pageflash/pull/99)) @theaminuli
-- Update workflow to format merged PR titles ([#98](https://github.com/theaminuli/pageflash/pull/98)) @theaminuli
 -  Remove Helper.php global helper class (#97) ([#97](https://github.com/theaminuli/pageflash/pull/97)) @theaminuli
 -  Update CSS filter and clean up Compatibility (#96) ([#96](https://github.com/theaminuli/pageflash/pull/96)) @theaminuli
 - Add workflow to auto-format PR titles ([#95](https://github.com/theaminuli/pageflash/pull/95)) @theaminuli
-- Remove sub-entry file listings from changelog ([#93](https://github.com/theaminuli/pageflash/pull/93)) @Copilot
 -  Put PR reference number at front of changelog entries @Copilot [#91](https://github.com/theaminuli/pageflash/pull/91)
 - Enhance PR template with clearer guidance for What, Why, How, and Testing sections ([#87](https://github.com/theaminuli/pageflash/pull/87)) @Copilot
 - Update changelog formatting and readme entries ([#84](https://github.com/theaminuli/pageflash/pull/84)) @theaminuli
 - Add GitHub Actions workflow for automated PR descriptions and Copilot review ([#83](https://github.com/theaminuli/pageflash/pull/83)) @Copilot
 - Remove automatic readme.txt updates and add x.y.z version for changelog with file tracking ([#80](https://github.com/theaminuli/pageflash/pull/80)) @Copilot
-- Add pull request template ([#81](https://github.com/theaminuli/pageflash/pull/81)) @theaminuli
 - Update license, add react-router, and init compatibility ([#76](https://github.com/theaminuli/pageflash/pull/76)) @theaminuli
 - Add PR reference tracking to changelog workflow ([#75](https://github.com/theaminuli/pageflash/pull/75)) @Copilot
 
