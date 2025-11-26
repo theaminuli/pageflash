@@ -47,6 +47,7 @@ class LandmarkList {
 					'description' => __( "Quicklink, an active plugin, you'll experience a 50% increase in conversions and enjoy 4x faster page loading. Boost your website's speed, increase user engagement", 'pageflash' ),
 					'active'      => true,
 					'slug'        => 'quicklink',
+					'tabs'        => 'general',
 					'package'     => 'free',
 				),
 				'noreload' => array(
@@ -63,6 +64,7 @@ class LandmarkList {
 					'description' => __( 'InstantPage uses just-in-time preloading — it preloads a page right before a user clicks on it.', 'pageflash' ),
 					'active'      => false,
 					'slug'        => 'instantpage',
+					'tabs'        => 'general',
 					'package'     => 'free',
 				),
 			),
