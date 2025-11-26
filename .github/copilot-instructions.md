@@ -584,6 +584,23 @@ try {
 
 ---
 
+## Code Review Checklist
+
+When reviewing pull requests, Copilot should verify the following criteria:
+
+1. **WordPress Coding Standards**: Code follows the [WordPress Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/)
+2. **No New Warnings/Errors**: Changes generate no new warnings or errors
+3. **WordPress Compatibility**: Tested on WordPress 6.4+
+4. **Pattern Compliance**: Code follows patterns documented in [AGENTS.md](../AGENTS.md)
+5. **File Size Limit**: All files are under 300 lines (if applicable)
+6. **Documentation**: JSDoc comments added to new functions
+7. **Accessibility**: WCAG 2.1 AA compliant
+8. **Security**: All user input is validated and sanitized
+9. **Internationalization**: All user-facing strings use `__()`, `_e()`, `esc_html__()`, `esc_html_e()`, or other WordPress translation functions
+10. **Issue Linking**: If the pull request is merged, the related issue will be closed
+
+---
+
 ## Summary Checklist
 
 Before submitting code, ensure:
