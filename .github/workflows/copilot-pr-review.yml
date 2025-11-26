@@ -30,9 +30,8 @@ jobs:
               return 0
             fi
             # Check if body only contains template comments (hasn't been filled in)
-            # Remove HTML comments (non-greedy, single line) and whitespace
-            # Then check if anything meaningful remains
-            local cleaned=$(echo "$body" | sed 's/<!--[^>]*-->//g' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | grep -v '^$' | grep -v '^## ' | grep -v '^Closes[[:space:]]*$')
+            # Remove HTML comments and whitespace, then check if anything meaningful remains
+            local cleaned=$(echo "$body" | perl -pe 's/<!--.*?-->//gs' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | grep -v '^$' | grep -v '^## ' | grep -v '^Closes[[:space:]]*$')
             if [ -z "$cleaned" ]; then
               return 0
             fi
@@ -44,11 +43,8 @@ jobs:
 
             # Get list of changed files from the PR
             CHANGED_FILES=$(gh pr view $PR_NUMBER --json files --jq '.files[].path' | sort)
-            # Count files correctly - wc -l handles empty input properly
-            FILE_COUNT=$(echo "$CHANGED_FILES" | grep -c '.' || true)
-            if [ -z "$CHANGED_FILES" ]; then
-              FILE_COUNT=0
-            fi
+            # Count files - grep returns 1 when no match, so use || echo 0
+            FILE_COUNT=$(echo "$CHANGED_FILES" | grep -c '.' || echo 0)
 
             # Get PR title
             PR_TITLE=$(gh pr view $PR_NUMBER --json title --jq '.title')
@@ -111,5 +107,5 @@ jobs:
           # Assign Copilot to the PR for review
           # Note: GitHub Copilot code review is automatically triggered when enabled
           # in repository settings. This step assigns Copilot to track the PR.
-          gh pr edit $PR_NUMBER --add-assignee "@copilot" || echo "Note: Copilot assignment may require repository configuration"
+          gh pr edit $PR_NUMBER --add-assignee "@copilot" || echo "Note: Copilot assignment requires GitHub Copilot to be enabled in repository settings (Settings > Copilot > Pull Request Reviews)"
           echo "Copilot has been assigned to PR #$PR_NUMBER for review"
