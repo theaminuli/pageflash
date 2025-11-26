@@ -1,4 +1,16 @@
 # Changelog
+## 1.3.0 - 2025-11-26
+- Added: Admin Dashboard component to manage routing between Welcome, Settings, and Addons
+- Added: withHeaderLayout HOC for consistent header layout across components
+- Added: Action types and actions for managing active menu state
+- Added: Addons component to display available plugins with details
+- Added: Settings component with toggle functionality and notifications
+- Added: DynamicTabs component for reusable tab functionality
+- Added: Context and provider for state management using useReducer
+- Added: Initial state and root reducer for managing application state
+- Added: Utility functions for string manipulation and random ID generation
+- Added: SCSS styling for admin components
+
 ## 1.2.0 - 2025-05-14
 - chore: Add initial configuration files 
 - Improved: Update asset management
