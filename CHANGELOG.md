@@ -1,5 +1,8 @@
 # Changelog
 ## x.y.z - 2025-11-26
+- Add GitHub Actions workflow for automated PR descriptions and Copilot review ([#83](https://github.com/theaminuli/pageflash/pull/83)) @Copilot
+  - `.github/copilot-instructions.md` ([#83](https://github.com/theaminuli/pageflash/pull/83))
+  - `.github/workflows/copilot-pr-review.yml` ([#83](https://github.com/theaminuli/pageflash/pull/83))
 - Remove automatic readme.txt updates and add x.y.z version for changelog with file tracking ([#80](https://github.com/theaminuli/pageflash/pull/80)) @Copilot
   - `.github/workflows/changelog.yml` ([#80](https://github.com/theaminuli/pageflash/pull/80))
 ## 1.2.0 - 2025-05-14
