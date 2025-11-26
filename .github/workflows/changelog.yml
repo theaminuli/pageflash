@@ -53,62 +53,6 @@ jobs:
           echo "Added new changelog entry:"
           echo "$NEW_ENTRY"
 
-      - name: Generate Formatted Changelog
-        run: |
-          # Check if CHANGELOG.md exists
-          if [ ! -f "CHANGELOG.md" ]; then
-            echo "CHANGELOG.md file not found"
-            exit 1
-          fi
-
-          # Extract the changelog content starting from '# Changelog'
-          START_LINE=$(grep -n "^# Changelog" CHANGELOG.md | cut -d':' -f1)
-          if [ -z "$START_LINE" ]; then
-            echo "No '# Changelog' section found in CHANGELOG.md"
-            exit 1
-          fi
-
-          # Extract the changelog entries, starting from the first '## ' section
-          tail -n +$((START_LINE + 1)) CHANGELOG.md > changelog_entries.txt
-
-          # Format the changelog entries into the desired format
-          awk '
-          BEGIN { print "== Changelog ==" }
-          /^##/ {
-            if (version != "") {
-              print formatted_changelog;
-            }
-            version = $2;
-            date = $4;
-            formatted_changelog = "= " version " - " date " =";
-            next;
-          }
-          /^- / {
-            gsub(/^- /, "");
-            formatted_changelog = formatted_changelog "\n" $0;
-          }
-          END {
-            print formatted_changelog;
-          }
-          ' changelog_entries.txt > formatted_changelog.txt
-
-          echo "Generated formatted changelog:"
-          cat formatted_changelog.txt
-
-      - name: Update readme.txt
-        run: |
-          # Check if readme.txt exists
-          if [ ! -f "readme.txt" ]; then
-            echo "readme.txt file not found"
-            exit 1
-          fi
-
-          # Remove existing '== Changelog ==' and everything below it
-          sed -i '/== Changelog ==/,$d' readme.txt
-
-          # Add the new formatted changelog content
-          cat formatted_changelog.txt >> readme.txt
-
       - name: Commit and Push Changes to GitHub
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -116,15 +60,10 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add CHANGELOG.md readme.txt
+          git add CHANGELOG.md
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
             git commit -m "Add PR #${PR_NUMBER} reference to changelog"
             git push origin development
           fi
-
-      - name: Cleanup temporary files
-        if: always()
-        run: |
-          rm -f formatted_changelog.txt changelog_entries.txt
