@@ -4,6 +4,8 @@ on:
   pull_request:
     types:
       - closed
+    branches:
+      - development
 
 permissions:
   contents: write
@@ -17,7 +19,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.base.ref }}
+          ref: development
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -33,9 +35,6 @@ jobs:
             echo "CHANGELOG.md file not found"
             exit 1
           fi
-
-          # Get current date
-          CURRENT_DATE=$(date +%Y-%m-%d)
 
           # Create the new changelog entry with PR reference
           NEW_ENTRY="- ${PR_TITLE} ([#${PR_NUMBER}](${PR_URL})) @${PR_AUTHOR}"
@@ -54,7 +53,7 @@ jobs:
           echo "Added new changelog entry:"
           echo "$NEW_ENTRY"
 
-      - name: Generate Formatted Changelog for readme.txt
+      - name: Generate Formatted Changelog
         run: |
           # Check if CHANGELOG.md exists
           if [ ! -f "CHANGELOG.md" ]; then
@@ -72,7 +71,7 @@ jobs:
           # Extract the changelog entries, starting from the first '## ' section
           tail -n +$((START_LINE + 1)) CHANGELOG.md > changelog_entries.txt
 
-          # Format the changelog entries into the desired format for readme.txt
+          # Format the changelog entries into the desired format
           awk '
           BEGIN { print "== Changelog ==" }
           /^##/ {
@@ -85,7 +84,7 @@ jobs:
             next;
           }
           /^- / {
-            gsub(/^- /, "* ");
+            gsub(/^- /, "");
             formatted_changelog = formatted_changelog "\n" $0;
           }
           END {
@@ -112,22 +111,20 @@ jobs:
 
       - name: Commit and Push Changes to GitHub
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add CHANGELOG.md readme.txt
-
-          # Check if there are staged changes before committing
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
             git commit -m "Add PR #${PR_NUMBER} reference to changelog"
-            git push origin ${{ github.event.pull_request.base.ref }}
+            git push origin development
           fi
 
-      - name: Cleanup
+      - name: Cleanup temporary files
         if: always()
         run: |
-          # Delete temporary files
           rm -f formatted_changelog.txt changelog_entries.txt
