@@ -36,9 +36,12 @@ jobs:
             exit 1
           fi
 
-          # Create the new changelog entry with PR reference
-          NEW_ENTRY="- ${PR_TITLE} ([#${PR_NUMBER}](${PR_URL})) @${PR_AUTHOR}"
-
+          # Get current date in YYYY-MM-DD format
+          CURRENT_DATE=$(date +%Y-%m-%d)
+          
+          # Check if there's already an unreleased version section (x.y.z) with today's date
+          UNRELEASED_HEADER="## x.y.z - ${CURRENT_DATE}"
+          
           # Find the first version section line number
           FIRST_VERSION_LINE=$(grep -n "^## " CHANGELOG.md | head -1 | cut -d':' -f1)
 
@@ -46,6 +49,28 @@ jobs:
             echo "No version section found in CHANGELOG.md"
             exit 1
           fi
+
+          # Get the first version line content
+          FIRST_VERSION_CONTENT=$(sed -n "${FIRST_VERSION_LINE}p" CHANGELOG.md)
+
+          # Check if the first version is already an unreleased version (x.y.z)
+          if echo "$FIRST_VERSION_CONTENT" | grep -q "^## x.y.z"; then
+            # Update the date of existing unreleased version to today
+            sed -i "${FIRST_VERSION_LINE}s/.*/## x.y.z - ${CURRENT_DATE}/" CHANGELOG.md
+            echo "Updated unreleased version date to ${CURRENT_DATE}"
+          else
+            # Insert new unreleased version section after # Changelog header
+            sed -i "1a\\${UNRELEASED_HEADER}" CHANGELOG.md
+            # Update the line number since we added a line
+            FIRST_VERSION_LINE=$((FIRST_VERSION_LINE + 1))
+            echo "Created new unreleased version section: ${UNRELEASED_HEADER}"
+          fi
+
+          # Create the new changelog entry with PR reference
+          NEW_ENTRY="- ${PR_TITLE} ([#${PR_NUMBER}](${PR_URL})) @${PR_AUTHOR}"
+
+          # Find the updated first version section line number (x.y.z section)
+          FIRST_VERSION_LINE=$(grep -n "^## " CHANGELOG.md | head -1 | cut -d':' -f1)
 
           # Insert the new entry after the first version line
           sed -i "${FIRST_VERSION_LINE}a\\${NEW_ENTRY}" CHANGELOG.md
