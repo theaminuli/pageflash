@@ -10,9 +10,8 @@ This document provides comprehensive coding guidelines and standards for working
 4. [JavaScript Standards](#javascript-standards)
 5. [Accessibility Standards](#accessibility-standards)
 6. [Block Editor Standards](#block-editor-standards)
-7. [Additional Best Practices](#additional-best-practices)
-8. [Summary Checklist](#summary-checklist)
-9. [References](#references)
+7. [Summary Checklist](#summary-checklist)
+8. [References](#references)
 
 ---
 
@@ -22,44 +21,16 @@ Security is paramount in WordPress plugin development. Always follow these secur
 
 ### Nonces (Number Used Once)
 
-- **Always verify nonces** for form submissions and AJAX requests to prevent CSRF attacks
-- Use `wp_nonce_field()` to add nonce fields to forms
-- Use `wp_create_nonce()` to create nonces for AJAX requests
-- Use `wp_verify_nonce()` or `check_ajax_referer()` to verify nonces
+- **Always verify nonces** for form submissions and AJAX requests to prevent CSRF attacks with wordpress/api-fetch
+**Example:**
+```javascript
+import apiFetch from '@wordpress/api-fetch';
+import { addQueryArgs } from '@wordpress/url';
 
-**Example - Form with Nonce:**
-```php
-// Creating a nonce field
-wp_nonce_field( 'pageflash_save_settings', 'pageflash_settings_nonce' );
+const queryParams = { include: [1,2,3] }; // Return posts with ID = 1,2,3.
 
-// Verifying a nonce
-if ( ! isset( $_POST['pageflash_settings_nonce'] ) || 
-     ! wp_verify_nonce( $_POST['pageflash_settings_nonce'], 'pageflash_save_settings' ) ) {
-    wp_die( esc_html__( 'Security check failed', 'pageflash' ) );
-}
-```
-
-**Example - AJAX with Nonce:**
-```php
-// PHP: Creating nonce for AJAX
-wp_localize_script( 'pageflash-admin', 'pageflashAjax', array(
-    'nonce' => wp_create_nonce( 'pageflash_ajax_nonce' ),
-    'ajaxurl' => admin_url( 'admin-ajax.php' )
-) );
-
-// PHP: Verifying AJAX nonce
-check_ajax_referer( 'pageflash_ajax_nonce', 'nonce' );
-
-// JavaScript: Sending nonce with AJAX
-fetch( pageflashAjax.ajaxurl, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams( {
-        action: 'pageflash_action',
-        nonce: pageflashAjax.nonce
-    } )
+apiFetch( { path: addQueryArgs( '/wp/v2/posts', queryParams ) } ).then( ( posts ) => {
+	console.log( posts );
 } );
 ```
 
@@ -73,7 +44,7 @@ fetch( pageflashAjax.ajaxurl, {
 ```php
 // Check if user has permission to manage options
 if ( ! current_user_can( 'manage_options' ) ) {
-    wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'pageflash' ) );
+	wp_die( esc_html__( 'You do not have sufficient permissions to access this page.', 'pageflash' ) );
 }
 ```
 
@@ -137,11 +108,11 @@ global $wpdb;
 
 // Prepared statement
 $results = $wpdb->get_results( 
-    $wpdb->prepare( 
-        "SELECT * FROM {$wpdb->prefix}pageflash WHERE id = %d AND status = %s",
-        $id,
-        $status
-    )
+	$wpdb->prepare( 
+		"SELECT * FROM {$wpdb->prefix}pageflash WHERE id = %d AND status = %s",
+		$id,
+		$status
+	)
 );
 ```
 
@@ -151,7 +122,7 @@ $results = $wpdb->get_results(
 
 ### Version Requirements
 
-- **Minimum PHP Version:** 8.1 (as per coding standards requirement)
+- **Minimum PHP Version:** 8.1
 - **Tested up to:** Latest stable PHP version
 - Write code compatible with PHP 8.1+ features
 - When using PHP 8.1+ features (e.g., named arguments, enums, readonly properties), document their usage and ensure graceful degradation or feature detection if the plugin needs to support older PHP versions in the future
@@ -176,11 +147,11 @@ Follow PSR-4 autoloading standards for class organization:
 namespace PageFlash\AssetsManager;
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly
+	exit; // Exit if accessed directly
 }
 
 class AssetsManager {
-    // Class implementation
+	// Class implementation
 }
 ```
 
@@ -199,22 +170,22 @@ class AssetsManager {
 namespace PageFlash\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
 class Settings {
-    
-    /**
-     * Get setting value.
-     *
-     * @param string $key Setting key.
-     * @param mixed  $default Default value.
-     * @return mixed Setting value.
-     */
-    public function get_setting( string $key, $default = '' ) {
-        $value = get_option( "pageflash_{$key}", $default );
-        return $value;
-    }
+	
+	/**
+	 * Get setting value.
+	 *
+	 * @param string $key Setting key.
+	 * @param mixed  $default Default value.
+	 * @return mixed Setting value.
+	 */
+	public function get_setting( string $key, $default = '' ) {
+		$value = get_option( "pageflash_{$key}", $default );
+		return $value;
+	}
 }
 ```
 
@@ -243,7 +214,7 @@ Follow [WordPress Coding Standards](https://developer.wordpress.org/coding-stand
  * @return void
  */
 function pageflash_load_plugin_textdomain() {
-    load_plugin_textdomain( 'pageflash' );
+	load_plugin_textdomain( 'pageflash' );
 }
 ```
 
@@ -263,20 +234,20 @@ echo esc_html__( 'Welcome to PageFlash', 'pageflash' );
 
 // Text with variables (use sprintf)
 echo sprintf(
-    /* translators: %s: plugin version */
-    esc_html__( 'PageFlash Version %s', 'pageflash' ),
-    PAGEFLASH_VERSION
+	/* translators: %s: plugin version */
+	esc_html__( 'PageFlash Version %s', 'pageflash' ),
+	PAGEFLASH_VERSION
 );
 
 // Plural forms
 echo sprintf(
-    _n(
-        'One link prefetched',
-        '%s links prefetched',
-        $count,
-        'pageflash'
-    ),
-    number_format_i18n( $count )
+	_n(
+		'One link prefetched',
+		'%s links prefetched',
+		$count,
+		'pageflash'
+	),
+	number_format_i18n( $count )
 );
 ```
 
@@ -307,6 +278,12 @@ $settings = apply_filters( 'pageflash_settings', $settings );
 do_action( 'pageflash_settings_saved', $settings );
 ```
 
+### WordPress Version Requirements
+
+- **Minimum WordPress Version:** 6.0
+- **Tested up to:** Latest WordPress version
+- Use WordPress 6.x+ features and APIs
+
 ### File Organization
 
 - **Main plugin file:** `pageflash.php`
@@ -314,12 +291,6 @@ do_action( 'pageflash_settings_saved', $settings );
 - **Includes directory:** All classes in `includes/` following PSR-4
 - **Assets directory:** JavaScript, CSS, images in `assets/`
 - **Source directory:** Development files in `src/`
-
-### WordPress Version Requirements
-
-- **Minimum WordPress Version:** 6.0
-- **Tested up to:** Latest WordPress version
-- Use WordPress 6.x+ features and APIs
 
 ---
 
@@ -350,30 +321,14 @@ do_action( 'pageflash_settings_saved', $settings );
  * @since PageFlash 1.0.0
  * @return {Promise<Object>} Promise resolving to settings object.
  */
-async function fetchSettings() {
-    try {
-        const response = await fetch( pageflashAjax.ajaxurl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams( {
-                action: 'pageflash_get_settings',
-                nonce: pageflashAjax.nonce
-            } )
-        } );
-        
-        if ( ! response.ok ) {
-            throw new Error( 'Network response was not ok' );
-        }
-        
-        const data = await response.json();
-        return data;
-    } catch ( error ) {
-        console.error( 'Error fetching settings:', error );
-        return null;
-    }
-}
+import apiFetch from '@wordpress/api-fetch';
+import { addQueryArgs } from '@wordpress/url';
+
+const queryParams = { include: [1,2,3] }; // Return posts with ID = 1,2,3.
+
+apiFetch( { path: addQueryArgs( '/wp/v2/posts', queryParams ) } ).then( ( posts ) => {
+	console.log( posts );
+} );
 ```
 
 ### DOM Manipulation
@@ -387,8 +342,8 @@ const elements = document.querySelectorAll( '.pageflash-item' );
 
 // Event listeners
 element.addEventListener( 'click', ( event ) => {
-    event.preventDefault();
-    // Handle click
+	event.preventDefault();
+	// Handle click
 } );
 
 // Class manipulation
@@ -410,14 +365,13 @@ Document all functions with JSDoc:
 /**
  * Validate and get a positive number.
  *
- * @param {number} value - Number to validate.
- * @return {number} - Validated positive number or default (Infinity) if invalid.
+ * @param {number|string} value - Number or numeric string to validate.
+ * @return {number|null} - Validated positive number or null if invalid.
  * @since PageFlash 1.0.0
  */
 function validatePositiveNumber( value ) {
-    return typeof value === 'string' && Number( value ) > 0
-        ? Number( value )
-        : Infinity;
+	const num = Number( value );
+	return isNaN( num ) || num <= 0 ? null : num;
 }
 ```
 
@@ -459,47 +413,23 @@ Add ARIA attributes for enhanced accessibility:
 ```html
 <!-- Buttons -->
 <button aria-label="<?php esc_attr_e( 'Close settings panel', 'pageflash' ); ?>">
-    <span aria-hidden="true">&times;</span>
+	<span aria-hidden="true">&times;</span>
 </button>
 
 <!-- Links -->
 <a href="#" aria-label="<?php esc_attr_e( 'View PageFlash Documentation', 'pageflash' ); ?>">
-    <?php esc_html_e( 'Docs', 'pageflash' ); ?>
+	<?php esc_html_e( 'Docs', 'pageflash' ); ?>
 </a>
 
 <!-- Live regions -->
 <div role="status" aria-live="polite" aria-atomic="true">
-    <?php esc_html_e( 'Settings saved successfully', 'pageflash' ); ?>
+	<?php esc_html_e( 'Settings saved successfully', 'pageflash' ); ?>
 </div>
 
 <!-- Hidden content -->
 <span class="screen-reader-text">
-    <?php esc_html_e( 'Additional information for screen readers', 'pageflash' ); ?>
+	<?php esc_html_e( 'Additional information for screen readers', 'pageflash' ); ?>
 </span>
-```
-
-### Keyboard Navigation
-
-- Ensure all interactive elements are keyboard accessible
-- Use proper focus indicators
-- Support Tab, Enter, Space, Arrow keys
-- Implement focus management for dynamic content
-
-**Example:**
-```javascript
-/**
- * Handle keyboard navigation.
- *
- * @param {KeyboardEvent} event - Keyboard event.
- */
-function handleKeyboard( event ) {
-    if ( event.key === 'Enter' || event.key === ' ' ) {
-        event.preventDefault();
-        activateElement( event.target );
-    } else if ( event.key === 'Escape' ) {
-        closePanel();
-    }
-}
 ```
 
 ### Color and Contrast
@@ -513,30 +443,30 @@ function handleKeyboard( event ) {
 ```html
 <!-- Labels -->
 <label for="pageflash-timeout">
-    <?php esc_html_e( 'Timeout (ms)', 'pageflash' ); ?>
+	<?php esc_html_e( 'Timeout (ms)', 'pageflash' ); ?>
 </label>
 <input 
-    type="number" 
-    id="pageflash-timeout" 
-    name="timeout" 
-    aria-describedby="timeout-description"
-    value="<?php echo esc_attr( $timeout ); ?>"
+	type="number" 
+	id="pageflash-timeout" 
+	name="timeout" 
+	aria-describedby="timeout-description"
+	value="<?php echo esc_attr( $timeout ); ?>"
 >
 <p id="timeout-description" class="description">
-    <?php esc_html_e( 'Time in milliseconds before prefetching starts', 'pageflash' ); ?>
+	<?php esc_html_e( 'Time in milliseconds before prefetching starts', 'pageflash' ); ?>
 </p>
 
 <!-- Required fields -->
 <input 
-    type="text" 
-    required 
-    aria-required="true"
-    aria-invalid="<?php echo $has_error ? 'true' : 'false'; ?>"
+	type="text" 
+	required 
+	aria-required="true"
+	aria-invalid="<?php echo esc_attr( $has_error ? 'true' : 'false' ); ?>"
 >
 
 <!-- Error messages -->
 <div role="alert" aria-live="assertive">
-    <?php esc_html_e( 'Please enter a valid timeout value', 'pageflash' ); ?>
+	<?php esc_html_e( 'Please enter a valid timeout value', 'pageflash' ); ?>
 </div>
 ```
 
@@ -546,78 +476,48 @@ function handleKeyboard( event ) {
 
 Follow [Block Editor Handbook](https://developer.wordpress.org/block-editor/) standards when working with Gutenberg blocks:
 
-### Block Registration
-
-```javascript
-/**
- * Register PageFlash block.
- *
- * @since PageFlash 1.0.0
- */
-import { registerBlockType } from '@wordpress/blocks';
-import { __ } from '@wordpress/i18n';
-
-registerBlockType( 'pageflash/prefetch-control', {
-    title: __( 'PageFlash Prefetch Control', 'pageflash' ),
-    description: __( 'Control prefetch behavior for specific content', 'pageflash' ),
-    category: 'common',
-    icon: 'performance',
-    supports: {
-        html: false,
-    },
-    attributes: {
-        enabled: {
-            type: 'boolean',
-            default: true,
-        },
-    },
-    edit: Edit,
-    save: Save,
-} );
-```
-
 ### Block Components
 
 Use WordPress components:
 
 ```javascript
 import { 
-    PanelBody, 
-    ToggleControl,
-    TextControl,
-    RangeControl 
+	PanelBody, 
+	ToggleControl,
+	TextControl,
+	RangeControl 
 } from '@wordpress/components';
 import { InspectorControls } from '@wordpress/block-editor';
 
 function Edit( { attributes, setAttributes } ) {
-    const { enabled, timeout } = attributes;
-    
-    return (
-        <>
-            <InspectorControls>
-                <PanelBody 
-                    title={ __( 'PageFlash Settings', 'pageflash' ) }
-                    initialOpen={ true }
-                >
-                    <ToggleControl
-                        label={ __( 'Enable Prefetch', 'pageflash' ) }
-                        checked={ enabled }
-                        onChange={ ( value ) => setAttributes( { enabled: value } ) }
-                    />
-                    <RangeControl
-                        label={ __( 'Timeout (ms)', 'pageflash' ) }
-                        value={ timeout }
-                        onChange={ ( value ) => setAttributes( { timeout: value } ) }
-                        min={ 0 }
-                        max={ 5000 }
-                    />
-                </PanelBody>
-            </InspectorControls>
-            <div>
-                { __( 'PageFlash Prefetch Control', 'pageflash' ) }
-            </div>
-        </>
-    );
+	const { enabled, timeout } = attributes;
+	
+	return (
+		<>
+			<InspectorControls>
+				<PanelBody 
+					title={ __( 'PageFlash Settings', 'pageflash' ) }
+					initialOpen={ true }
+				>
+					<ToggleControl
+						label={ __( 'Enable Prefetch', 'pageflash' ) }
+						checked={ enabled }
+						onChange={ ( value ) => setAttributes( { enabled: value } ) }
+					/>
+					<RangeControl
+						label={ __( 'Timeout (ms)', 'pageflash' ) }
+						value={ timeout }
+						onChange={ ( value ) => setAttributes( { timeout: value } ) }
+						min={ 0 }
+						max={ 5000 }
+					/>
+				</PanelBody>
+			</InspectorControls>
+			<div>
+				{ __( 'PageFlash Prefetch Control', 'pageflash' ) }
+			</div>
+		</>
+	);
 }
 ```
 
@@ -639,22 +539,22 @@ Always implement proper error handling:
 ```php
 // PHP
 try {
-    // Code that might throw exception
-    $result = risky_operation();
+	// Code that might throw exception
+	$result = risky_operation();
 } catch ( Exception $e ) {
-    error_log( 'PageFlash Error: ' . $e->getMessage() );
-    wp_die( esc_html__( 'An error occurred', 'pageflash' ) );
+	error_log( 'PageFlash Error: ' . $e->getMessage() );
+	wp_die( esc_html__( 'An error occurred', 'pageflash' ) );
 }
 ```
 
 ```javascript
 // JavaScript
 try {
-    const data = await fetchData();
-    processData( data );
+	const data = await fetchData();
+	processData( data );
 } catch ( error ) {
-    console.error( 'PageFlash Error:', error );
-    showErrorMessage( error.message );
+	console.error( 'PageFlash Error:', error );
+	showErrorMessage( error.message );
 }
 ```
 
@@ -714,7 +614,6 @@ Before submitting code, ensure:
 - [WordPress Accessibility Handbook](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/accessibility/)
 - [PSR-4 Autoloading Standard](https://www.php-fig.org/psr/psr-4/)
 - [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
-- [Gutenberg Handbook](https://github.com/WordPress/gutenberg)
 
 ---
 

@@ -40,24 +40,34 @@ class LandmarkList {
 			'author'  => 'PageFlash Team',
 			'url'     => 'https://github.com/theaminuli/pageflash/',
 			'message' => __( 'PageFlash Dashboard Data', 'pageflash' ),
-			'data'    => [
+			'data'    => array(
 				'quicklink' => array(
-					'id'          => 1001,
+					'id'          => wp_unique_id( 'pf-' ),
 					'label'       => __( 'Quicklink', 'pageflash' ),
 					'description' => __( "Quicklink, an active plugin, you'll experience a 50% increase in conversions and enjoy 4x faster page loading. Boost your website's speed, increase user engagement", 'pageflash' ),
 					'active'      => true,
 					'slug'        => 'quicklink',
+					'tabs'        => 'general',
+					'package'     => 'free',
+				),
+				'noreload' => array(
+					'id'          => wp_unique_id( 'pf-' ),
+					'label'       => __( 'NoReload', 'pageflash' ),
+					'description' => __( 'NoReload prevents page reloads by intercepting navigation and loading content dynamically.', 'pageflash' ),
+					'active'      => false,
+					'slug'        => 'noreload',
 					'package'     => 'free',
 				),
 				'instantpage' => array(
-					'id'          =>  1002,
+					'id'          => wp_unique_id( 'pf-' ),
 					'label'       => __( 'InstantPage', 'pageflash' ),
 					'description' => __( 'InstantPage uses just-in-time preloading — it preloads a page right before a user clicks on it.', 'pageflash' ),
-					'active'      => true,
+					'active'      => false,
 					'slug'        => 'instantpage',
+					'tabs'        => 'general',
 					'package'     => 'free',
 				),
-			]
+			),
 		);
 
 		// Allow developers to filter and modify default landmarks.

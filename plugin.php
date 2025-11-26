@@ -5,6 +5,7 @@ namespace PageFlash;
 use PageFlash\AssetsManager\AssetsManager;
 use PageFlash\Admin\Admin;
 use PageFlash\Landmark;
+use PageFlash\Compatibility\Compatibility;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -93,7 +94,6 @@ final class Plugin {
 		if ( is_admin() ) {
 			// Initialize your admin-related Landmark here
 			new Admin();
-			
 
 		}
 	}
@@ -113,6 +113,18 @@ final class Plugin {
 	}
 
 	/**
+	 * Initialize compatibility modules.
+	 *
+	 * This method initializes compatibility handlers for third-party plugins.
+	 *
+	 * @since PageFlash 1.2.0
+	 * @access private
+	 */
+	private function init_compatibility() {
+		new Compatibility();
+	}
+
+	/**
 	 * Init.
 	 *
 	 * Initialize PageFlash Plugin. Register PageFlash support for all the
@@ -126,6 +138,7 @@ final class Plugin {
 		$this->init_assets();
 		$this->init_admin();
 		$this->init_landmark();
+		$this->init_compatibility();
 	}
 
 	/**

@@ -4,6 +4,11 @@ on:
   pull_request:
     types:
       - closed
+    branches:
+      - development
+
+permissions:
+  contents: write
 
 jobs:
   update-changelog:
@@ -12,7 +17,41 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          ref: development
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add PR Reference to CHANGELOG.md
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+        run: |
+          # Check if CHANGELOG.md exists
+          if [ ! -f "CHANGELOG.md" ]; then
+            echo "CHANGELOG.md file not found"
+            exit 1
+          fi
+
+          # Create the new changelog entry with PR reference
+          NEW_ENTRY="- ${PR_TITLE} ([#${PR_NUMBER}](${PR_URL})) @${PR_AUTHOR}"
+
+          # Find the first version section line number
+          FIRST_VERSION_LINE=$(grep -n "^## " CHANGELOG.md | head -1 | cut -d':' -f1)
+
+          if [ -z "$FIRST_VERSION_LINE" ]; then
+            echo "No version section found in CHANGELOG.md"
+            exit 1
+          fi
+
+          # Insert the new entry after the first version line
+          sed -i "${FIRST_VERSION_LINE}a\\${NEW_ENTRY}" CHANGELOG.md
+
+          echo "Added new changelog entry:"
+          echo "$NEW_ENTRY"
 
       - name: Generate Formatted Changelog
         run: |
@@ -66,21 +105,26 @@ jobs:
 
           # Remove existing '== Changelog ==' and everything below it
           sed -i '/== Changelog ==/,$d' readme.txt
-          
+
           # Add the new formatted changelog content
           cat formatted_changelog.txt >> readme.txt
 
       - name: Commit and Push Changes to GitHub
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "github-actions@github.com"
-          git add readme.txt
-          git commit -m "Update changelog after merging PR #${{ github.event.pull_request.number }}" || echo "No changes to commit"
-          git push origin development || echo "Nothing to push"
-
-      - name: Cleanup formatted changelog
-        run: |
-          # Delete the formatted_changelog.txt file
-          if [ -f "formatted_changelog.txt" ]; then
-            rm formatted_changelog.txt
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md readme.txt
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Add PR #${PR_NUMBER} reference to changelog"
+            git push origin development
           fi
+
+      - name: Cleanup temporary files
+        if: always()
+        run: |
+          rm -f formatted_changelog.txt changelog_entries.txt
