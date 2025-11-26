@@ -25,7 +25,7 @@
 
 1. 🤖 [Overview](#overview)
 2. </> [Tech Stack](#tech-stack)
-3.  ⬇️ [Installation](#installation)
+3. ⬇️ [Installation](#installation)
 4. 📜 [License](#license)
 5. ✍ [Contributing](#contributing)
 6. ☎️ [Support](#support)
