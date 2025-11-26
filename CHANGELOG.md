@@ -1,18 +1,10 @@
 # Changelog
 ## x.y.z - 2025-11-26
 -  Put PR reference number at front of changelog entries @Copilot [#91](https://github.com/theaminuli/pageflash/pull/91)
-  - `.github/workflows/changelog.yml`
 - Enhance PR template with clearer guidance for What, Why, How, and Testing sections ([#87](https://github.com/theaminuli/pageflash/pull/87)) @Copilot
-  - `.github/PULL_REQUEST_TEMPLATE.md`
-  - `.github/workflows/copilot-pr-review.yml`
 - Update changelog formatting and readme entries ([#84](https://github.com/theaminuli/pageflash/pull/84)) @theaminuli
-  - `CHANGELOG.md`
-  - `readme.txt`
 - Add GitHub Actions workflow for automated PR descriptions and Copilot review ([#83](https://github.com/theaminuli/pageflash/pull/83)) @Copilot
-  - `.github/copilot-instructions.md`
-  - `.github/workflows/copilot-pr-review.yml`
 - Remove automatic readme.txt updates and add x.y.z version for changelog with file tracking ([#80](https://github.com/theaminuli/pageflash/pull/80)) @Copilot
-  - `.github/workflows/changelog.yml`
 - Add pull request template ([#81](https://github.com/theaminuli/pageflash/pull/81)) @theaminuli
 - Update license, add react-router, and init compatibility ([#76](https://github.com/theaminuli/pageflash/pull/76)) @theaminuli
 - Add PR reference tracking to changelog workflow ([#75](https://github.com/theaminuli/pageflash/pull/75)) @Copilot

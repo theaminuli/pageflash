@@ -23,19 +23,6 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Get Changed Files
-        id: changed-files
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: |
-          # Get list of changed files from the PR
-          CHANGED_FILES=$(gh pr view $PR_NUMBER --json files --jq '.files[].path' | sort)
-          echo "Changed files:"
-          echo "$CHANGED_FILES"
-          # Save to file for next step
-          echo "$CHANGED_FILES" > /tmp/changed_files.txt
-
       - name: Add PR Reference to CHANGELOG.md
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
@@ -84,21 +71,8 @@ jobs:
           # Insert the PR header after the first version line
           sed -i "${FIRST_VERSION_LINE}a\\${PR_HEADER}" CHANGELOG.md
 
-          # Read changed files and add each as a sub-entry
-          if [ -f /tmp/changed_files.txt ]; then
-            # Read files in reverse order so they appear in correct order after insertion
-            tac /tmp/changed_files.txt | while read -r FILE; do
-              if [ -n "$FILE" ]; then
-                # Insert file entry after the PR header (which is now at FIRST_VERSION_LINE + 1)
-                FILE_ENTRY="  - \`${FILE}\`"
-                sed -i "$((FIRST_VERSION_LINE + 1))a\\${FILE_ENTRY}" CHANGELOG.md
-              fi
-            done
-          fi
-
-          echo "Added new changelog entry with files:"
+          echo "Added new changelog entry:"
           echo "$PR_HEADER"
-          cat /tmp/changed_files.txt 2>/dev/null || true
 
       - name: Commit and Push Changes to GitHub
         env:
