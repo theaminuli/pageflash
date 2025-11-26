@@ -139,7 +139,7 @@ class AssetsManager {
 			'wp-admin',
 			'.toplevel_page_pageflash .toplevel_page_pageflash .wp-menu-image:before {
 				content: "";
-				filter: invert(1);
+				filter: invert(.7);
 				width: 25px;
 				height: 25px;
 				margin-top: -2px;

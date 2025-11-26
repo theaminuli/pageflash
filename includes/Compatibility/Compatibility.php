@@ -1,4 +1,11 @@
 <?php
+
+namespace PageFlash\Compatibility;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * Compatibility Class
  *
@@ -9,21 +16,6 @@
  * @since 1.2.0
  */
 
-namespace PageFlash\Compatibility;
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
-}
-
-/**
- * Class Compatibility
- *
- * Main compatibility handler that initializes compatibility modules
- * for third-party plugins and themes.
- *
- * @package PageFlash\Compatibility
- * @since 1.2.0
- */
 class Compatibility {
 
 	/**
