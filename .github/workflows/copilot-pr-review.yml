@@ -1,0 +1,109 @@
+name: Copilot PR Description and Review
+
+on:
+  pull_request:
+    types: [opened]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  generate-description:
+    name: Generate PR Description
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Check and Generate PR Description
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          # Check if PR body is empty or contains only template placeholders
+          is_empty_or_template() {
+            local body="$1"
+            # Check if body is empty
+            if [ -z "$body" ]; then
+              return 0
+            fi
+            # Check if body only contains template comments (hasn't been filled in)
+            # Remove HTML comments and whitespace, then check if anything meaningful remains
+            local cleaned=$(echo "$body" | sed 's/<!--.*-->//g' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | grep -v '^$' | grep -v '^## ' | grep -v '^Closes[[:space:]]*$')
+            if [ -z "$cleaned" ]; then
+              return 0
+            fi
+            return 1
+          }
+
+          if is_empty_or_template "$PR_BODY"; then
+            echo "PR description is empty or contains only template. Generating description..."
+
+            # Get list of changed files from the PR
+            CHANGED_FILES=$(gh pr view $PR_NUMBER --json files --jq '.files[].path' | sort)
+            FILE_COUNT=$(echo "$CHANGED_FILES" | grep -c '^' || echo "0")
+
+            # Get PR title
+            PR_TITLE=$(gh pr view $PR_NUMBER --json title --jq '.title')
+
+            # Generate description based on changed files following PR template format
+            DESCRIPTION="## What?
+          Closes #<!-- ISSUE-NUMBER or URL -->
+
+          This PR modifies **${FILE_COUNT} file(s)**:
+          "
+
+            # Add file list (limited to first 20 files to avoid too long descriptions)
+            while IFS= read -r file; do
+              if [ -n "$file" ]; then
+                DESCRIPTION="${DESCRIPTION}
+          - \`${file}\`"
+              fi
+            done <<< "$(echo "$CHANGED_FILES" | head -20)"
+
+            # Add note if there are more files
+            if [ "$FILE_COUNT" -gt 20 ]; then
+              REMAINING=$((FILE_COUNT - 20))
+              DESCRIPTION="${DESCRIPTION}
+          - ... and ${REMAINING} more file(s)"
+            fi
+
+            DESCRIPTION="${DESCRIPTION}
+
+          ## Why?
+          <!-- Why is this PR necessary? What problem does it solve? -->
+
+          ## How?
+          <!-- How does this PR address the issue? What are the implementation details? -->
+
+          ## Testing Instructions
+          <!-- Please provide step-by-step instructions on how to test this PR -->
+          1. Review the changed files listed above
+          2. Verify the changes align with the PR title: \"${PR_TITLE}\"
+          3. Test any affected functionality
+          "
+
+            # Update PR description
+            gh pr edit $PR_NUMBER --body "$DESCRIPTION"
+            echo "PR description has been generated based on $FILE_COUNT changed file(s)."
+          else
+            echo "PR description already exists. Skipping generation."
+          fi
+
+  copilot-review:
+    name: Copilot Code Review
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Request Copilot Review
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          # Request review from Copilot
+          gh pr edit $PR_NUMBER --add-reviewer copilot
+          echo "Copilot review has been requested for PR #$PR_NUMBER"
