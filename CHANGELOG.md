@@ -1,5 +1,8 @@
 # Changelog
 ## x.y.z - 2025-11-26
+- Enhance PR template with clearer guidance for What, Why, How, and Testing sections ([#87](https://github.com/theaminuli/pageflash/pull/87)) @Copilot
+  - `.github/PULL_REQUEST_TEMPLATE.md` ([#87](https://github.com/theaminuli/pageflash/pull/87))
+  - `.github/workflows/copilot-pr-review.yml` ([#87](https://github.com/theaminuli/pageflash/pull/87))
 - Update changelog formatting and readme entries ([#84](https://github.com/theaminuli/pageflash/pull/84)) @theaminuli
   - `CHANGELOG.md` ([#84](https://github.com/theaminuli/pageflash/pull/84))
   - `readme.txt` ([#84](https://github.com/theaminuli/pageflash/pull/84))
