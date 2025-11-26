@@ -1,4 +1,4 @@
-name: Auto Format PR Title
+name: Auto Format PR Title (after merge)
 
 on:
   pull_request:
@@ -18,9 +18,17 @@ jobs:
       - name: Keep PR number in commit title
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          PR_TITLE="${{ github.event.pull_request.title }}"
-          PR_NUMBER="${{ github.event.pull_request.number }}"
-          NEW_TITLE="$PR_TITLE (#$PR_NUMBER)"
+          # If PR already contains (#XX), skip
+          if echo "$PR_TITLE" | grep -q "(#$PR_NUMBER)"; then
+            echo "PR title already correct. Skipping."
+            exit 0
+          fi
 
-          gh pr edit $PR_NUMBER --title "$NEW_TITLE"
+          # Otherwise fix the title
+          NEW_TITLE="$PR_TITLE (#$PR_NUMBER)"
+          echo "Updating PR title to: $NEW_TITLE"
+          
+          gh pr edit "$PR_NUMBER" --title "$NEW_TITLE"
