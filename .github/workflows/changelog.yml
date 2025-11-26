@@ -76,7 +76,7 @@ jobs:
           fi
 
           # Create the PR header entry with reference number at front
-          PR_HEADER="- [#${PR_NUMBER}](${PR_URL}) ${PR_TITLE} @${PR_AUTHOR}"
+          PR_HEADER="- ${PR_TITLE} ([#${PR_NUMBER}](${PR_URL})) @${PR_AUTHOR}"
 
           # Find the updated first version section line number (x.y.z section)
           FIRST_VERSION_LINE=$(grep -n "^## " CHANGELOG.md | head -1 | cut -d':' -f1)

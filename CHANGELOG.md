@@ -1,6 +1,6 @@
 # Changelog
 ## x.y.z - 2025-11-26
-- [#91](https://github.com/theaminuli/pageflash/pull/91) Put PR reference number at front of changelog entries @Copilot
+-  Put PR reference number at front of changelog entries @Copilot [#91](https://github.com/theaminuli/pageflash/pull/91)
   - `.github/workflows/changelog.yml`
 - Enhance PR template with clearer guidance for What, Why, How, and Testing sections ([#87](https://github.com/theaminuli/pageflash/pull/87)) @Copilot
   - `.github/PULL_REQUEST_TEMPLATE.md`
