@@ -1,5 +1,6 @@
 # Changelog
 ## 1.2.0 - 2025-05-14
+- Add pull request template ([#81](https://github.com/theaminuli/pageflash/pull/81)) @theaminuli
 - Update license, add react-router, and init compatibility ([#76](https://github.com/theaminuli/pageflash/pull/76)) @theaminuli
 - Add PR reference tracking to changelog workflow ([#75](https://github.com/theaminuli/pageflash/pull/75)) @Copilot
 - chore: Add initial configuration files 
