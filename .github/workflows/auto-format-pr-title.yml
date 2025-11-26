@@ -1,0 +1,25 @@
+name: Auto Format PR Title
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  format-title:
+    permissions:
+      pull-requests: write
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set formatted title
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          # Remove existing (#xx) if someone added manually
+          CLEAN_TITLE=$(echo "$PR_TITLE" | sed -E 's/ \(#([0-9]+)\)//')
+
+          NEW_TITLE="- $CLEAN_TITLE (#$PR_NUMBER)"
+
+          gh pr edit "$PR_NUMBER" --title "$NEW_TITLE"
