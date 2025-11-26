@@ -2,27 +2,25 @@ name: Auto Format PR Title
 
 on:
   pull_request:
-    types: [opened, edited, synchronize, reopened]
+    types: [closed]
 
 jobs:
-  format-title:
+  update-merge-title:
+    if: github.event.pull_request.merged == true
     permissions:
+      contents: write
       pull-requests: write
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set formatted title
+      - name: Keep PR number in commit title
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_TITLE: ${{ github.event.pull_request.title }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          # Remove existing (#xx) if someone added manually
-          CLEAN_TITLE=$(echo "$PR_TITLE" | sed -E 's/ \(#([0-9]+)\)//')
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          PR_NUMBER="${{ github.event.pull_request.number }}"
+          NEW_TITLE="$PR_TITLE (#$PR_NUMBER)"
 
-          NEW_TITLE=" $CLEAN_TITLE (#$PR_NUMBER)"
-
-          gh pr edit "$PR_NUMBER" --title "$NEW_TITLE"
+          gh pr edit $PR_NUMBER --title "$NEW_TITLE"
