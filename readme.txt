@@ -53,13 +53,11 @@ This plugin also works perfectly on popular browsers.
 3. Click "Install Now" and then "Activate."
 
 == Frequently Asked Questions ==
-
 = How do I enable PageFlash for a specific post or page? =
 
 After activation, go to the post or page where you want to enable PageFlash's headless browsing features. In the editor, look for the PageFlash settings panel to configure your preferences.
 
 = Where should I check the plugin's features? =
-
 - A. In Chrome's incognito mode.
 - B. After logging out of the admin account.
 - C. In Firefox's private browsing mode.
@@ -67,7 +65,6 @@ After activation, go to the post or page where you want to enable PageFlash's he
 The best places to check the plugin's features are either in Chrome's incognito mode (Option A) or after logging out of the admin account (Option B). These methods ensure that the plugin works correctly without any interference from browser history, cookies, or admin privileges.
 
 = Is PageFlash compatible with the latest version of WordPress? =
-
 Yes, PageFlash is regularly tested and ensured to be compatible with the latest WordPress version.
 
 
