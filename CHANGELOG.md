@@ -1,5 +1,8 @@
 # Changelog
 ## x.y.z - 2025-11-26
+- Update changelog formatting and readme entries ([#84](https://github.com/theaminuli/pageflash/pull/84)) @theaminuli
+  - `CHANGELOG.md` ([#84](https://github.com/theaminuli/pageflash/pull/84))
+  - `readme.txt` ([#84](https://github.com/theaminuli/pageflash/pull/84))
 - Add GitHub Actions workflow for automated PR descriptions and Copilot review ([#83](https://github.com/theaminuli/pageflash/pull/83)) @Copilot
   - `.github/copilot-instructions.md` ([#83](https://github.com/theaminuli/pageflash/pull/83))
   - `.github/workflows/copilot-pr-review.yml` ([#83](https://github.com/theaminuli/pageflash/pull/83))
