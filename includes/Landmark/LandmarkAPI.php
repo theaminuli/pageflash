@@ -55,48 +55,35 @@ class LandmarkAPI {
 			)
 		);
 
-		// GET /landmark/:id - Get landmark by ID.
+		// GET /landmark/:slug - Get landmark by slug.
 		register_rest_route(
 			'pageflash/v1',
-			'/landmark/(?P<id>\d+)',
+			'/landmark/(?P<slug>[a-zA-Z0-9_-]+)',
 			array(
 				'methods'             => 'GET',
-				'callback'            => array( $this, 'get_landmark_by_id' ),
+				'callback'            => array( $this, 'get_landmark_by_slug' ),
 				'permission_callback' => '__return_true',
 				'args'                => array(
-					'id' => array(
+					'slug' => array(
 						'required'          => true,
-						'validate_callback' => function ( $param ) {
-							return is_numeric( $param );
-						},
-						'sanitize_callback' => 'absint',
+						'sanitize_callback' => 'sanitize_key',
 					),
 				),
 			)
 		);
 
-		// PUT /landmark/:id - Update landmark by ID.
+		// PUT /landmark/:slug - Update landmark by slug.
 		register_rest_route(
 			'pageflash/v1',
-			'/landmark/(?P<id>\d+)',
+			'/landmark/(?P<slug>[a-zA-Z0-9_-]+)',
 			array(
 				'methods'             => 'PUT',
-				'callback'            => array( $this, 'update_landmark_by_id' ),
+				'callback'            => array( $this, 'update_landmark_by_slug' ),
 				'permission_callback' => array( $this, 'check_permissions' ),
 				'args'                => array(
-					'id'     => array(
+					'slug' => array(
 						'required'          => true,
-						'validate_callback' => function ( $param ) {
-							return is_numeric( $param );
-						},
-						'sanitize_callback' => 'absint',
-					),
-					'active' => array(
-						'required'          => false,
-						'validate_callback' => function ( $param ) {
-							return is_bool( $param );
-						},
-						'sanitize_callback' => 'rest_sanitize_boolean',
+						'sanitize_callback' => 'sanitize_key',
 					),
 				),
 			)
@@ -119,19 +106,18 @@ class LandmarkAPI {
 		// Return all landmarks.
 		return rest_ensure_response( $data );
 	}
-	// phpcs:enable Generic.CodeAnalysis.UnusedFunctionParameter.Found
 
 	/**
-	 * Get landmark by ID.
+	 * Get landmark by slug.
 	 *
-	 * Handles GET requests to /landmark/:id endpoint.
+	 * Handles GET requests to /landmark/:slug endpoint.
 	 *
 	 * @since 1.0.0
 	 * @param WP_REST_Request $request The REST request object.
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error on failure.
 	 */
-	public function get_landmark_by_id( WP_REST_Request $request ) {
-		$id   = $request->get_param( 'id' );
+	public function get_landmark_by_slug( WP_REST_Request $request ) {
+		$slug = $request->get_param( 'slug' );
 		$data = get_option( 'pageflash_landmarks', array() );
 
 		// Get the data array from the landmarks option.
@@ -145,9 +131,9 @@ class LandmarkAPI {
 			);
 		}
 
-		// Search for the landmark by ID.
+		// Search for the landmark by slug.
 		foreach ( $items as $item ) {
-			if ( isset( $item['id'] ) && (int) $item['id'] === (int) $id ) {
+			if ( isset( $item['slug'] ) && $item['slug'] === $slug ) {
 				return rest_ensure_response(
 					array(
 						'message' => __( 'Landmark retrieved successfully', 'pageflash' ),
@@ -165,16 +151,16 @@ class LandmarkAPI {
 	}
 
 	/**
-	 * Update landmark by ID.
+	 * Update landmark by slug.
 	 *
-	 * Handles PUT requests to /landmark/:id endpoint.
+	 * Handles PUT requests to /landmark/:slug endpoint.
 	 * Updates the landmark with the provided data (supports 'active' field).
 	 *
 	 * @since 1.0.0
 	 * @param WP_REST_Request $request The REST request object.
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error on failure.
 	 */
-	public function update_landmark_by_id( WP_REST_Request $request ) {
+	public function update_landmark_by_slug( WP_REST_Request $request ) {
 		// Verify nonce for security.
 		$nonce = $request->get_header( 'X-WP-Nonce' );
 		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
@@ -185,7 +171,7 @@ class LandmarkAPI {
 			);
 		}
 
-		$id   = $request->get_param( 'id' );
+		$slug = $request->get_param( 'slug' );
 		$data = get_option( 'pageflash_landmarks', array() );
 
 		// Get the data array from the landmarks option.
@@ -203,13 +189,10 @@ class LandmarkAPI {
 			$body_params = $request->get_body_params();
 		}
 
-		// Sanitize the active field if provided.
-		$update_data = array();
-		if ( isset( $body_params['active'] ) ) {
-			$update_data['active'] = rest_sanitize_boolean( $body_params['active'] );
-		}
+		// Remove slug from update data to prevent overwriting.
+		unset( $body_params['slug'] );
 
-		if ( empty( $update_data ) ) {
+		if ( empty( $body_params ) ) {
 			return new WP_Error(
 				'missing_data',
 				__( 'No valid update data provided', 'pageflash' ),
@@ -217,11 +200,14 @@ class LandmarkAPI {
 			);
 		}
 
+		// Sanitize and prepare update data.
+		$update_data = $this->sanitize_landmark_data( $body_params );
+
 		// Find and update the landmark.
 		$found = false;
 		foreach ( $data['data'] as $key => $item ) {
-			if ( isset( $item['id'] ) && (int) $item['id'] === (int) $id ) {
-				$data['data'][ $key ] = array_merge( $item, $update_data );
+			if ( isset( $item['slug'] ) && $item['slug'] === $slug ) {
+				$data['data'][ $key ] = $this->deep_merge( $item, $update_data );
 				$found                = true;
 				break;
 			}
@@ -235,16 +221,58 @@ class LandmarkAPI {
 			);
 		}
 
-		// Update the option.
 		update_option( 'pageflash_landmarks', $data );
-
 		// Return the updated landmark.
 		return rest_ensure_response(
 			array(
 				'message' => __( 'Landmark updated successfully', 'pageflash' ),
+				'status'  => 200,
 				'data'    => $data['data'][ $key ],
 			)
 		);
+	}
+
+	/**
+	 * Recursively sanitize landmark data.
+	 *
+	 * @since 1.0.0
+	 * @param mixed $data Data to sanitize.
+	 * @return mixed Sanitized data.
+	 */
+	private function sanitize_landmark_data( $data ) {
+		if ( is_array( $data ) ) {
+			$sanitized = array();
+			foreach ( $data as $key => $value ) {
+				$sanitized_key = sanitize_key( $key );
+				$sanitized[ $sanitized_key ] = $this->sanitize_landmark_data( $value );
+			}
+			return $sanitized;
+		} elseif ( is_bool( $data ) ) {
+			return (bool) $data;
+		} elseif ( is_numeric( $data ) ) {
+			return is_float( $data ) ? (float) $data : (int) $data;
+		} else {
+			return sanitize_text_field( $data );
+		}
+	}
+
+	/**
+	 * Recursively merge arrays, preserving nested structures.
+	 *
+	 * @since 1.0.0
+	 * @param array $original Original array.
+	 * @param array $updates Updates to merge.
+	 * @return array Merged array.
+	 */
+	private function deep_merge( $original, $updates ) {
+		foreach ( $updates as $key => $value ) {
+			if ( is_array( $value ) && isset( $original[ $key ] ) && is_array( $original[ $key ] ) ) {
+				$original[ $key ] = $this->deep_merge( $original[ $key ], $value );
+			} else {
+				$original[ $key ] = $value;
+			}
+		}
+		return $original;
 	}
 
 	/**
