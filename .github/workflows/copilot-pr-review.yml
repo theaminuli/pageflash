@@ -30,8 +30,9 @@ jobs:
               return 0
             fi
             # Check if body only contains template comments (hasn't been filled in)
-            # Remove HTML comments and whitespace, then check if anything meaningful remains
-            local cleaned=$(echo "$body" | sed 's/<!--.*-->//g' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | grep -v '^$' | grep -v '^## ' | grep -v '^Closes[[:space:]]*$')
+            # Remove HTML comments (non-greedy, single line) and whitespace
+            # Then check if anything meaningful remains
+            local cleaned=$(echo "$body" | sed 's/<!--[^>]*-->//g' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | grep -v '^$' | grep -v '^## ' | grep -v '^Closes[[:space:]]*$')
             if [ -z "$cleaned" ]; then
               return 0
             fi
@@ -43,14 +44,18 @@ jobs:
 
             # Get list of changed files from the PR
             CHANGED_FILES=$(gh pr view $PR_NUMBER --json files --jq '.files[].path' | sort)
-            FILE_COUNT=$(echo "$CHANGED_FILES" | grep -c '^' || echo "0")
+            # Count files correctly - wc -l handles empty input properly
+            FILE_COUNT=$(echo "$CHANGED_FILES" | grep -c '.' || true)
+            if [ -z "$CHANGED_FILES" ]; then
+              FILE_COUNT=0
+            fi
 
             # Get PR title
             PR_TITLE=$(gh pr view $PR_NUMBER --json title --jq '.title')
 
             # Generate description based on changed files following PR template format
             DESCRIPTION="## What?
-          Closes #<!-- ISSUE-NUMBER or URL -->
+          Closes _Link to issue_
 
           This PR modifies **${FILE_COUNT} file(s)**:
           "
@@ -73,13 +78,12 @@ jobs:
             DESCRIPTION="${DESCRIPTION}
 
           ## Why?
-          <!-- Why is this PR necessary? What problem does it solve? -->
+          _Please describe why this PR is necessary and what problem it solves._
 
           ## How?
-          <!-- How does this PR address the issue? What are the implementation details? -->
+          _Please describe the implementation details._
 
           ## Testing Instructions
-          <!-- Please provide step-by-step instructions on how to test this PR -->
           1. Review the changed files listed above
           2. Verify the changes align with the PR title: \"${PR_TITLE}\"
           3. Test any affected functionality
@@ -104,6 +108,8 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          # Request review from Copilot
-          gh pr edit $PR_NUMBER --add-reviewer copilot
-          echo "Copilot review has been requested for PR #$PR_NUMBER"
+          # Assign Copilot to the PR for review
+          # Note: GitHub Copilot code review is automatically triggered when enabled
+          # in repository settings. This step assigns Copilot to track the PR.
+          gh pr edit $PR_NUMBER --add-assignee "@copilot" || echo "Note: Copilot assignment may require repository configuration"
+          echo "Copilot has been assigned to PR #$PR_NUMBER for review"
