@@ -5,10 +5,11 @@
   - `.github/workflows/copilot-pr-review.yml` ([#83](https://github.com/theaminuli/pageflash/pull/83))
 - Remove automatic readme.txt updates and add x.y.z version for changelog with file tracking ([#80](https://github.com/theaminuli/pageflash/pull/80)) @Copilot
   - `.github/workflows/changelog.yml` ([#80](https://github.com/theaminuli/pageflash/pull/80))
-## 1.2.0 - 2025-05-14
 - Add pull request template ([#81](https://github.com/theaminuli/pageflash/pull/81)) @theaminuli
 - Update license, add react-router, and init compatibility ([#76](https://github.com/theaminuli/pageflash/pull/76)) @theaminuli
 - Add PR reference tracking to changelog workflow ([#75](https://github.com/theaminuli/pageflash/pull/75)) @Copilot
+
+## 1.2.0 - 2025-05-14
 - chore: Add initial configuration files 
 - Improved: Update asset management
 - Improved: Update security policy and PHPCS configuration
