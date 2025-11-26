@@ -1,5 +1,6 @@
 # Changelog
 ## x.y.z - 2025-11-26
+- Add workflow to auto-format PR titles ([#95](https://github.com/theaminuli/pageflash/pull/95)) @theaminuli
 - Remove sub-entry file listings from changelog ([#93](https://github.com/theaminuli/pageflash/pull/93)) @Copilot
 -  Put PR reference number at front of changelog entries @Copilot [#91](https://github.com/theaminuli/pageflash/pull/91)
 - Enhance PR template with clearer guidance for What, Why, How, and Testing sections ([#87](https://github.com/theaminuli/pageflash/pull/87)) @Copilot
