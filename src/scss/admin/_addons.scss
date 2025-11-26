@@ -1,0 +1,45 @@
+.pageflash-addons {
+	padding: 50px;
+	@media (max-width: 1024px) {
+		padding: 30px;
+	}
+	@media (max-width: 768px) {
+		padding: 20px;
+	}
+	.components-card{
+		padding: 20px 0px;
+	}
+	&__explore-link {
+		padding-top: 20px;
+		display: flex;
+		justify-content: flex-end;
+
+		a {
+			background: #3858e9; 
+			color: white; 
+            padding: 7px;
+			font-size: 14px;
+			text-decoration: none; 
+			border-radius: 2px;
+			display: flex;
+			align-items: center;
+		}
+	}
+	&__image {
+		border-radius: 4px;
+		width: 70px;
+		height: 70px;
+		object-fit: cover;
+	}
+	&__badge {
+		position: absolute;
+		right: 23px;
+		top: 23px;
+		background-color: #f0f0f0;
+		color: #333;
+		padding: 4px 8px;
+		border-radius: 4px;
+		font-size: 14px;
+		margin-left: 10px;
+	}
+}

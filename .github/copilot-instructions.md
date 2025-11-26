@@ -10,6 +10,8 @@ This document provides coding guidelines and standards for working on the PageFl
 4. [JavaScript Standards](#javascript-standards)
 5. [Accessibility Standards](#accessibility-standards)
 6. [Block Editor Standards](#block-editor-standards)
+7. [Summary Checklist](#summary-checklist)
+8. [References](#references)
 
 ---
 
@@ -19,44 +21,16 @@ Security is paramount in WordPress plugin development. Always follow these secur
 
 ### Nonces (Number Used Once)
 
-- **Always verify nonces** for form submissions and AJAX requests to prevent CSRF attacks
-- Use `wp_nonce_field()` to add nonce fields to forms
-- Use `wp_create_nonce()` to create nonces for AJAX requests
-- Use `wp_verify_nonce()` or `check_ajax_referer()` to verify nonces
+- **Always verify nonces** for form submissions and AJAX requests to prevent CSRF attacks with wordpress/api-fetch
+**Example:**
+```javascript
+import apiFetch from '@wordpress/api-fetch';
+import { addQueryArgs } from '@wordpress/url';
 
-**Example - Form with Nonce:**
-```php
-// Creating a nonce field
-wp_nonce_field( 'pageflash_save_settings', 'pageflash_settings_nonce' );
+const queryParams = { include: [1,2,3] }; // Return posts with ID = 1,2,3.
 
-// Verifying a nonce
-if ( ! isset( $_POST['pageflash_settings_nonce'] ) || 
-     ! wp_verify_nonce( $_POST['pageflash_settings_nonce'], 'pageflash_save_settings' ) ) {
-    wp_die( esc_html__( 'Security check failed', 'pageflash' ) );
-}
-```
-
-**Example - AJAX with Nonce:**
-```php
-// PHP: Creating nonce for AJAX
-wp_localize_script( 'pageflash-admin', 'pageflashAjax', array(
-    'nonce' => wp_create_nonce( 'pageflash_ajax_nonce' ),
-    'ajaxurl' => admin_url( 'admin-ajax.php' )
-) );
-
-// PHP: Verifying AJAX nonce
-check_ajax_referer( 'pageflash_ajax_nonce', 'nonce' );
-
-// JavaScript: Sending nonce with AJAX
-fetch( pageflashAjax.ajaxurl, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams( {
-        action: 'pageflash_action',
-        nonce: pageflashAjax.nonce
-    } )
+apiFetch( { path: addQueryArgs( '/wp/v2/posts', queryParams ) } ).then( ( posts ) => {
+    console.log( posts );
 } );
 ```
 
@@ -148,7 +122,7 @@ $results = $wpdb->get_results(
 
 ### Version Requirements
 
-- **Minimum PHP Version:** 8.1 (as per coding standards requirement)
+- **Minimum PHP Version:** 8.1
 - **Tested up to:** Latest stable PHP version
 - Write code compatible with PHP 8.1+ features
 - When using PHP 8.1+ features (e.g., named arguments, enums, readonly properties), document their usage and ensure graceful degradation or feature detection if the plugin needs to support older PHP versions in the future
@@ -304,6 +278,12 @@ $settings = apply_filters( 'pageflash_settings', $settings );
 do_action( 'pageflash_settings_saved', $settings );
 ```
 
+### WordPress Version Requirements
+
+- **Minimum WordPress Version:** 6.0
+- **Tested up to:** Latest WordPress version
+- Use WordPress 6.x+ features and APIs
+
 ### File Organization
 
 - **Main plugin file:** `pageflash.php`
@@ -311,12 +291,6 @@ do_action( 'pageflash_settings_saved', $settings );
 - **Includes directory:** All classes in `includes/` following PSR-4
 - **Assets directory:** JavaScript, CSS, images in `assets/`
 - **Source directory:** Development files in `src/`
-
-### WordPress Version Requirements
-
-- **Minimum WordPress Version:** 6.0
-- **Tested up to:** Latest WordPress version
-- Use WordPress 6.x+ features and APIs
 
 ---
 
@@ -347,30 +321,14 @@ do_action( 'pageflash_settings_saved', $settings );
  * @since PageFlash 1.0.0
  * @return {Promise<Object>} Promise resolving to settings object.
  */
-async function fetchSettings() {
-    try {
-        const response = await fetch( pageflashAjax.ajaxurl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: new URLSearchParams( {
-                action: 'pageflash_get_settings',
-                nonce: pageflashAjax.nonce
-            } )
-        } );
-        
-        if ( ! response.ok ) {
-            throw new Error( 'Network response was not ok' );
-        }
-        
-        const data = await response.json();
-        return data;
-    } catch ( error ) {
-        console.error( 'Error fetching settings:', error );
-        return null;
-    }
-}
+import apiFetch from '@wordpress/api-fetch';
+import { addQueryArgs } from '@wordpress/url';
+
+const queryParams = { include: [1,2,3] }; // Return posts with ID = 1,2,3.
+
+apiFetch( { path: addQueryArgs( '/wp/v2/posts', queryParams ) } ).then( ( posts ) => {
+    console.log( posts );
+} );
 ```
 
 ### DOM Manipulation
@@ -407,14 +365,13 @@ Document all functions with JSDoc:
 /**
  * Validate and get a positive number.
  *
- * @param {number} value - Number to validate.
- * @return {number} - Validated positive number or default (Infinity) if invalid.
+ * @param {number|string} value - Number or numeric string to validate.
+ * @return {number|null} - Validated positive number or null if invalid.
  * @since PageFlash 1.0.0
  */
 function validatePositiveNumber( value ) {
-    return typeof value === 'string' && Number( value ) > 0
-        ? Number( value )
-        : Infinity;
+    const num = Number( value );
+    return isNaN( num ) || num <= 0 ? null : num;
 }
 ```
 
@@ -475,30 +432,6 @@ Add ARIA attributes for enhanced accessibility:
 </span>
 ```
 
-### Keyboard Navigation
-
-- Ensure all interactive elements are keyboard accessible
-- Use proper focus indicators
-- Support Tab, Enter, Space, Arrow keys
-- Implement focus management for dynamic content
-
-**Example:**
-```javascript
-/**
- * Handle keyboard navigation.
- *
- * @param {KeyboardEvent} event - Keyboard event.
- */
-function handleKeyboard( event ) {
-    if ( event.key === 'Enter' || event.key === ' ' ) {
-        event.preventDefault();
-        activateElement( event.target );
-    } else if ( event.key === 'Escape' ) {
-        closePanel();
-    }
-}
-```
-
 ### Color and Contrast
 
 - Ensure sufficient color contrast (WCAG AA minimum: 4.5:1 for normal text)
@@ -528,7 +461,7 @@ function handleKeyboard( event ) {
     type="text" 
     required 
     aria-required="true"
-    aria-invalid="<?php echo $has_error ? 'true' : 'false'; ?>"
+    aria-invalid="<?php echo esc_attr( $has_error ? 'true' : 'false' ); ?>"
 >
 
 <!-- Error messages -->
@@ -542,36 +475,6 @@ function handleKeyboard( event ) {
 ## Block Editor Standards
 
 Follow [Block Editor Handbook](https://developer.wordpress.org/block-editor/) standards when working with Gutenberg blocks:
-
-### Block Registration
-
-```javascript
-/**
- * Register PageFlash block.
- *
- * @since PageFlash 1.0.0
- */
-import { registerBlockType } from '@wordpress/blocks';
-import { __ } from '@wordpress/i18n';
-
-registerBlockType( 'pageflash/prefetch-control', {
-    title: __( 'PageFlash Prefetch Control', 'pageflash' ),
-    description: __( 'Control prefetch behavior for specific content', 'pageflash' ),
-    category: 'common',
-    icon: 'performance',
-    supports: {
-        html: false,
-    },
-    attributes: {
-        enabled: {
-            type: 'boolean',
-            default: true,
-        },
-    },
-    edit: Edit,
-    save: Save,
-} );
-```
 
 ### Block Components
 
@@ -711,7 +614,6 @@ Before submitting code, ensure:
 - [WordPress Accessibility Handbook](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/accessibility/)
 - [PSR-4 Autoloading Standard](https://www.php-fig.org/psr/psr-4/)
 - [WCAG 2.1 Guidelines](https://www.w3.org/WAI/WCAG21/quickref/)
-- [Gutenberg Handbook](https://github.com/WordPress/gutenberg)
 
 ---
 
