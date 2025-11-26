@@ -1,5 +1,6 @@
 # Changelog
 ## x.y.z - 2025-11-26
+- Clean up FAQ section formatting in readme.txt ([#101](https://github.com/theaminuli/pageflash/pull/101)) @theaminuli
 - Improve PR title formatting after merge ([#100](https://github.com/theaminuli/pageflash/pull/100)) @theaminuli
 - Update changelog formatting in readme.txt ([#99](https://github.com/theaminuli/pageflash/pull/99)) @theaminuli
 - Update workflow to format merged PR titles ([#98](https://github.com/theaminuli/pageflash/pull/98)) @theaminuli
