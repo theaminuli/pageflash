@@ -1,7 +1,7 @@
 import domReady from '@wordpress/dom-ready';
 import { createRoot } from '@wordpress/element';
 import '../scss/admin.scss';
-import App from './App';
+import App from './app';
 
 domReady( () => {
 	const pageflashAdmin = document.getElementById( 'pageflash-admin' );

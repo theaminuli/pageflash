@@ -1,5 +1,5 @@
-import { setActiveMenu } from './actions';
-import { ACTIVE_MENU } from './actionTypes';
+import { setActiveMenu, setLandmarks } from './actions';
+import { ACTIVE_MENU, SET_LANDMARKS } from './actionTypes';
 
-export { ACTIVE_MENU };
-export { setActiveMenu };
+export { ACTIVE_MENU, SET_LANDMARKS };
+export { setActiveMenu, setLandmarks };

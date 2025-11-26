@@ -22,11 +22,10 @@ const Addons = () => {
 		<Grid
 			columns={[1, 2, 4]}
 			gap={5}
-			style={{ padding: "50px" }}
 			className="pageflash-addons"
 		>
 			{ADDONS.plugins.map((addon) => (
-				<Card key={addon.id} size="large">
+				<Card key={addon.id} >
 					<CardBody>
 						<VStack spacing={4}>
 							<HStack>

@@ -1,7 +1,6 @@
 // pages/AdminDashboard.jsx
 import { ToastContainer } from "react-toastify";
 import AdminDashboard from "./AdminDashboard";
-import withHeaderLayout from "./HOC/withHeaderLayout";
 import AdminProvider from "./provider/AdminProvider";
 /**
  * * Main application component that wraps the AdminDashboard with the AdminProvider.
@@ -9,7 +8,6 @@ import AdminProvider from "./provider/AdminProvider";
  */
 
 const App = () => {
-	const AppWithHeader = withHeaderLayout(AdminDashboard);
 	return (
 		<AdminProvider>
 			<ToastContainer
@@ -25,7 +23,7 @@ const App = () => {
 				pauseOnHover
 				theme="light"
 			/>
-			<AppWithHeader />
+			<AdminDashboard />
 		</AdminProvider>
 	);
 };

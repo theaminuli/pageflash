@@ -1,13 +1,18 @@
 import { __ } from '@wordpress/i18n';
-import { cog, external, plugins } from '@wordpress/icons';
-import { PiHandWaving } from 'react-icons/pi';
+import { cog } from '@wordpress/icons';
+import { LiaExternalLinkAltSolid } from "react-icons/lia";
+import { LuPlug2 } from "react-icons/lu";
+import { RxLapTimer } from "react-icons/rx";
+
+
+
 import { createRandomId } from '../utils';
 export const MENU_LIST = [
 	{
 		id: createRandomId(),
-		key: 'welcome',
-		label: __('Welcome', 'pageflash'),
-		icon: <PiHandWaving style={{ width: '20px' }} />,
+		key: 'general',
+		label: __('General', 'pageflash'),
+		icon: <RxLapTimer style={{ width: '20px' }} />,
 	},
 	{
 		id: createRandomId(),
@@ -19,7 +24,7 @@ export const MENU_LIST = [
 		id: createRandomId(),
 		key: 'addons',
 		label: __('Addons', 'pageflash'),
-		icon: plugins,
+		icon: <LuPlug2 />,
 	},
 	// {
 	// 	id: createRandomId(),
@@ -31,54 +36,10 @@ export const MENU_LIST = [
 		id: createRandomId(),
 		key: 'support',
 		label: __('Support', 'pageflash'),
-		icon: external,
+		icon: <LiaExternalLinkAltSolid />,
 	},
 ];
-export const WELCOME = {
-	id: createRandomId(),
-	key: 'welcome',
-	label: __('Welcome to PageFlash!', 'pageflash'),
-	description: __(
-		'Fast and Efficient Headless Browser WordPress Plugin. Enjoy seamless navigation, lightning-fast loading, and no reloads.',
-		'pageflash'
-	),
-	buttonText: __('Get Started', 'pageflash'),
-	featureList: [
-		{
-			id: createRandomId(),
-			title: __('Fast Browsing', 'pageflash'),
-			description: __(
-				'Lightning Fast Browsing with advanced prefetching',
-				'pageflash'
-			),
-		},
-		{
-			id: createRandomId(),
-			title: __('No Reloads', 'pageflash'),
-			description: __(
-				'Enjoy seamless navigation without page reloads',
-				'pageflash'
-			),
-		},
-		{
-			id: createRandomId(),
-			title: __('Easy Setup', 'pageflash'),
-			description: __(
-				'Quick and simple to configure with a single toggle.',
-				'pageflash'
-			),
-		},
-	],
-};
-export const SETTINGS = {
-	id: createRandomId(),
-	key: 'settings',
-	label: __('Settings', 'pageflash'),
-	description: __(
-		'Configure your PageFlash settings for optimal performance.',
-		'pageflash'
-	),
-};
+
 export const ADDONS = {
 	id: createRandomId(),
 	key: 'addons',

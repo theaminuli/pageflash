@@ -1,4 +1,5 @@
 const initialState = {
-	activeMenu: 'welcome',
+	activeMenu: 'general',
+	landmarks: [],
 };
 export default initialState;
