@@ -51,7 +51,7 @@ jobs:
 
             # Generate description based on changed files following PR template format
             DESCRIPTION="## What?
-          Closes _Link to issue_
+          Closes #<!-- ISSUE-NUMBER - Please link to the related issue -->
 
           This PR modifies **${FILE_COUNT} file(s)**:
           "
@@ -74,15 +74,21 @@ jobs:
             DESCRIPTION="${DESCRIPTION}
 
           ## Why?
-          _Please describe why this PR is necessary and what problem it solves._
+          _Please describe why this PR is necessary:_
+          - What problem does it solve?
+          - What user need or bug does it address?
 
           ## How?
-          _Please describe the implementation details._
+          _Please describe the implementation details:_
+          - What approach was taken?
+          - What are the key changes?
 
           ## Testing Instructions
           1. Review the changed files listed above
-          2. Verify the changes align with the PR title: \"${PR_TITLE}\"
-          3. Test any affected functionality
+          2. Pull this branch and test locally
+          3. Verify the changes align with the PR title: \"${PR_TITLE}\"
+          4. Test any affected functionality
+          5. Check for any errors in browser console or PHP logs
           "
 
             # Update PR description
