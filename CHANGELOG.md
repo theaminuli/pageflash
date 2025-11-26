@@ -1,5 +1,6 @@
 # Changelog
 ## x.y.z - 2025-11-26
+- Improve PR title formatting after merge ([#100](https://github.com/theaminuli/pageflash/pull/100)) @theaminuli
 - Update changelog formatting in readme.txt ([#99](https://github.com/theaminuli/pageflash/pull/99)) @theaminuli
 - Update workflow to format merged PR titles ([#98](https://github.com/theaminuli/pageflash/pull/98)) @theaminuli
 -  Remove Helper.php global helper class (#97) ([#97](https://github.com/theaminuli/pageflash/pull/97)) @theaminuli
