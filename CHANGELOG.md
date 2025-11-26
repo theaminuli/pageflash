@@ -1,4 +1,7 @@
 # Changelog
+## x.y.z - 2025-11-26
+- Remove automatic readme.txt updates and add x.y.z version for changelog with file tracking ([#80](https://github.com/theaminuli/pageflash/pull/80)) @Copilot
+  - `.github/workflows/changelog.yml` ([#80](https://github.com/theaminuli/pageflash/pull/80))
 ## 1.2.0 - 2025-05-14
 - Add pull request template ([#81](https://github.com/theaminuli/pageflash/pull/81)) @theaminuli
 - Update license, add react-router, and init compatibility ([#76](https://github.com/theaminuli/pageflash/pull/76)) @theaminuli
