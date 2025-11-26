@@ -1,5 +1,6 @@
 # Changelog
 ## x.y.z - 2025-11-26
+-  Remove Helper.php global helper class (#97) ([#97](https://github.com/theaminuli/pageflash/pull/97)) @theaminuli
 -  Update CSS filter and clean up Compatibility (#96) ([#96](https://github.com/theaminuli/pageflash/pull/96)) @theaminuli
 - Add workflow to auto-format PR titles ([#95](https://github.com/theaminuli/pageflash/pull/95)) @theaminuli
 - Remove sub-entry file listings from changelog ([#93](https://github.com/theaminuli/pageflash/pull/93)) @Copilot
