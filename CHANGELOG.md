@@ -1,5 +1,8 @@
 # Changelog
 ## x.y.z - 2025-11-26
+- Update changelog entry formatting in workflow ([#94](https://github.com/theaminuli/pageflash/pull/94)) @theaminuli
+ - `.github/workflows/changelog.yml` ([#94](https://github.com/theaminuli/pageflash/pull/94))
+ - `CHANGELOG.md` ([#94](https://github.com/theaminuli/pageflash/pull/94))
 - Put PR reference number at front of changelog entries @Copilot [#91](https://github.com/theaminuli/pageflash/pull/91) 
 - Enhance PR template with clearer guidance for What, Why, How, and Testing sections ([#87](https://github.com/theaminuli/pageflash/pull/87)) @Copilot
 - Update changelog formatting and readme entries ([#84](https://github.com/theaminuli/pageflash/pull/84)) @theaminuli
