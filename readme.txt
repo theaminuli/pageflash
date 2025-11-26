@@ -76,6 +76,7 @@ Yes, PageFlash is regularly tested and ensured to be compatible with the latest 
 
 == Changelog ==
 = 1.2.0 - 2025-05-14 =
+Add PR reference tracking to changelog workflow ([#75](https://github.com/theaminuli/pageflash/pull/75)) @Copilot
 chore: Add initial configuration files 
 Improved: Update asset management
 Improved: Update security policy and PHPCS configuration
