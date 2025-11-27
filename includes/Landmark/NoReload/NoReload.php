@@ -50,7 +50,7 @@ class NoReload {
 		$settings = Helper::get_settings();
 
 		$features = [
-			'instantpage' => InstantPage::class,
+			// 'instantpage' => InstantPage::class,
 			'quicklink'   => Quicklink::class,
 		];
 
