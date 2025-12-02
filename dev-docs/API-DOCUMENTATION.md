@@ -1,8 +1,8 @@
 # PageFlash REST API Documentation
 
-## Overview
+Quick reference for PageFlash REST API v1.
 
-The PageFlash REST API provides endpoints for managing landmarks (performance optimization features) in the PageFlash WordPress plugin. All endpoints use the `/wp-json/pageflash/v1` namespace.
+---
 
 ## Base URL
 
@@ -10,444 +10,411 @@ The PageFlash REST API provides endpoints for managing landmarks (performance op
 https://your-site.com/wp-json/pageflash/v1
 ```
 
+**API Version:** v1  
+**WordPress Required:** 6.0+  
+**PHP Required:** 8.1+
+
+---
+
+## Quick Reference
+
+| Method | Endpoint | Auth | Description |
+|--------|----------|------|-------------|
+| GET | `/landmark` | No | Get all landmarks |
+| GET | `/landmark/:slug` | No | Get single landmark |
+| PUT | `/landmark/:slug` | Yes | Update landmark |
+
+---
+
 ## Authentication
 
-- **GET** requests: No authentication required (public access)
-- **PUT/POST/DELETE** requests: Requires WordPress authentication with `manage_options` capability
-- Include `X-WP-Nonce` header for authenticated requests
+**Public Endpoints:** GET requests (no auth)  
+**Protected Endpoints:** PUT requests (requires `manage_options`)
 
-## Endpoints
-
-### 1. Get All Landmarks
-
-Retrieve all registered landmarks with their configuration.
-
-#### Request
-
-```
-GET /wp-json/pageflash/v1/landmark
+```javascript
+// Include nonce in PUT requests
+headers: {
+  'Content-Type': 'application/json',
+  'X-WP-Nonce': wpApiSettings.nonce
+}
 ```
 
-#### Parameters
+**Application Passwords (External Clients):**
+```bash
+curl -u "username:app-password" \
+  -X PUT https://site.com/wp-json/pageflash/v1/landmark/quicklink \
+  -d '{"active": true}'
+```
 
-None
+---
 
-#### Response
+## GET /landmark
 
-**Success (200 OK)**
+Get all landmarks with complete configuration.
 
+**Request:**
+```bash
+curl https://your-site.com/wp-json/pageflash/v1/landmark
+```
+
+**Response (200):**
 ```json
 {
   "version": "1.0.0",
   "author": "PageFlash Team",
-  "url": "https://github.com/theaminuli/pageflash/",
-  "message": "PageFlash Dashboard Data",
   "data": {
     "quicklink": {
-      "id": "pf-1",
+      "id": "pf-123",
+      "type": "switch",
       "label": "Quicklink",
-      "description": "Quicklink, an active plugin, you'll experience a 50% increase in conversions and enjoy 4x faster page loading.",
+      "description": "Experience 50% increase in conversions...",
       "active": true,
       "slug": "quicklink",
-      "tabs": "general",
+      "menu": "preloading",
       "package": "free"
     },
-    "noreload": {
-      "id": "pf-2",
-      "label": "NoReload",
-      "description": "NoReload prevents page reloads by intercepting navigation and loading content dynamically.",
+    "heartbeat": {
+      "id": "pf-128",
       "active": false,
-      "slug": "noreload",
-      "package": "free"
-    },
-    "instantpage": {
-      "id": "pf-3",
-      "label": "InstantPage",
-      "description": "InstantPage uses just-in-time preloading — it preloads a page right before a user clicks on it.",
-      "active": false,
-      "slug": "instantpage",
-      "tabs": "general",
-      "package": "free"
+      "slug": "heartbeat",
+      "input": {
+        "behavior": {
+          "type": "select",
+          "value": "disable_everywhere",
+          "options": {
+            "default": "Default Behavior",
+            "disable_everywhere": "Disable Everywhere",
+            "allow_posts": "Only Allow When Editing"
+          }
+        },
+        "frequency": {
+          "type": "select",
+          "value": 60,
+          "options": { "15": "15s", "30": "30s", "60": "60s" }
+        }
+      }
     }
   }
 }
 ```
 
-#### Example
-
-```bash
-curl -X GET https://your-site.com/wp-json/pageflash/v1/landmark
-```
-
+**JavaScript:**
 ```javascript
-// Using fetch API
-fetch('https://your-site.com/wp-json/pageflash/v1/landmark')
-  .then(response => response.json())
-  .then(data => console.log(data));
+const { data } = await fetch('/wp-json/pageflash/v1/landmark')
+  .then(r => r.json());
+
+console.log(data.quicklink.active); // true/false
 ```
 
 ---
 
-### 2. Get Landmark by ID
+## GET /landmark/:slug
 
-Retrieve a specific landmark by its ID.
+Get specific landmark by slug.
 
-#### Request
-
+**Request:**
+```bash
+curl https://your-site.com/wp-json/pageflash/v1/landmark/quicklink
 ```
-GET /wp-json/pageflash/v1/landmark/:id
-```
 
-#### Parameters
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `id` | integer | Yes | The unique ID of the landmark |
-
-#### Response
-
-**Success (200 OK)**
-
+**Response (200):**
 ```json
 {
   "message": "Landmark retrieved successfully",
   "data": {
-    "id": "pf-1",
-    "label": "Quicklink",
-    "description": "Quicklink, an active plugin, you'll experience a 50% increase in conversions and enjoy 4x faster page loading.",
-    "active": true,
+    "id": "pf-123",
     "slug": "quicklink",
-    "tabs": "general",
-    "package": "free"
+    "active": true,
+    "label": "Quicklink"
   }
 }
 ```
 
-**Error Responses**
-
-**404 Not Found**
+**Error (404):**
 ```json
 {
   "code": "not_found",
   "message": "Landmark not found",
-  "data": {
-    "status": 404
-  }
+  "data": { "status": 404 }
 }
-```
-
-**500 Internal Server Error**
-```json
-{
-  "code": "invalid_data",
-  "message": "Landmark data is not properly formatted",
-  "data": {
-    "status": 500
-  }
-}
-```
-
-#### Example
-
-```bash
-curl -X GET https://your-site.com/wp-json/pageflash/v1/landmark/1
-```
-
-```javascript
-// Using fetch API
-fetch('https://your-site.com/wp-json/pageflash/v1/landmark/1')
-  .then(response => response.json())
-  .then(data => console.log(data));
 ```
 
 ---
 
-### 3. Update Landmark by ID
+## PUT /landmark/:slug
 
-Update a specific landmark's configuration (requires authentication).
+Update landmark (requires authentication).
 
-#### Request
-
-```
-PUT /wp-json/pageflash/v1/landmark/:id
-```
-
-#### Parameters
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `id` | integer | Yes | The unique ID of the landmark (URL parameter) |
-| `active` | boolean | No | Enable or disable the landmark (body parameter) |
-
-#### Headers
-
-```
-Content-Type: application/json
-X-WP-Nonce: {nonce_value}
-```
-
-#### Request Body
-
-```json
-{
-  "active": true
-}
-```
-
-#### Response
-
-**Success (200 OK)**
-
-```json
-{
-  "message": "Landmark updated successfully",
-  "data": {
-    "id": "pf-1",
-    "label": "Quicklink",
-    "description": "Quicklink, an active plugin, you'll experience a 50% increase in conversions and enjoy 4x faster page loading.",
-    "active": true,
-    "slug": "quicklink",
-    "tabs": "general",
-    "package": "free"
-  }
-}
-```
-
-**Error Responses**
-
-**400 Bad Request**
-```json
-{
-  "code": "missing_data",
-  "message": "No valid update data provided",
-  "data": {
-    "status": 400
-  }
-}
-```
-
-**403 Forbidden**
-```json
-{
-  "code": "invalid_nonce",
-  "message": "Security check failed",
-  "data": {
-    "status": 403
-  }
-}
-```
-
-**404 Not Found**
-```json
-{
-  "code": "not_found",
-  "message": "Landmark not found",
-  "data": {
-    "status": 404
-  }
-}
-```
-
-**500 Internal Server Error**
-```json
-{
-  "code": "invalid_data",
-  "message": "Landmark data is not initialized",
-  "data": {
-    "status": 500
-  }
-}
-```
-
-#### Example
-
-```bash
-# Get nonce first (if using cURL)
-curl -X PUT https://your-site.com/wp-json/pageflash/v1/landmark/1 \
-  -H "Content-Type: application/json" \
-  -H "X-WP-Nonce: abc123xyz" \
-  --cookie "wordpress_logged_in_cookie=..." \
-  -d '{"active": true}'
-```
-
+**Simple Toggle:**
 ```javascript
-// Using fetch API with WordPress nonce
-const nonce = wpApiSettings.nonce; // WordPress provides this
-
-fetch('https://your-site.com/wp-json/pageflash/v1/landmark/1', {
+await fetch('/wp-json/pageflash/v1/landmark/quicklink', {
   method: 'PUT',
   headers: {
     'Content-Type': 'application/json',
-    'X-WP-Nonce': nonce
+    'X-WP-Nonce': wpApiSettings.nonce
   },
-  credentials: 'same-origin',
-  body: JSON.stringify({
-    active: true
-  })
-})
-  .then(response => response.json())
-  .then(data => console.log(data));
+  body: JSON.stringify({ active: true })
+});
 ```
 
----
+**Update Nested Properties:**
+```javascript
+await fetch('/wp-json/pageflash/v1/landmark/heartbeat', {
+  method: 'PUT',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-WP-Nonce': wpApiSettings.nonce
+  },
+  body: JSON.stringify({
+    active: true,
+    input: {
+      behavior: 'allow_posts',
+      frequency: 120
+    }
+  })
+});
+```
 
-## Data Models
-
-### Landmark Object
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | string | Unique identifier for the landmark |
-| `label` | string | Display name of the landmark |
-| `description` | string | Detailed description of the landmark's functionality |
-| `active` | boolean | Whether the landmark is currently active/enabled |
-| `slug` | string | URL-friendly identifier for the landmark |
-| `tabs` | string | (Optional) Tab category for UI organization |
-| `package` | string | Package type: "free" or "premium" |
-
-### Landmarks Collection
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `version` | string | API version |
-| `author` | string | Plugin author |
-| `url` | string | Plugin URL |
-| `message` | string | Informational message |
-| `data` | object | Object containing all landmark configurations keyed by slug |
-
----
-
-## Error Handling
-
-All endpoints return standard WordPress REST API error responses with the following structure:
-
+**Response (200):**
 ```json
 {
-  "code": "error_code",
-  "message": "Human-readable error message",
-  "data": {
-    "status": 400
-  }
+  "message": "Landmark updated successfully",
+  "status": 200,
+  "data": { "slug": "quicklink", "active": true }
 }
 ```
 
-### Common Error Codes
-
-| Code | Status | Description |
-|------|--------|-------------|
-| `not_found` | 404 | Landmark with specified ID not found |
-| `invalid_data` | 500 | Landmark data is corrupted or not properly formatted |
-| `invalid_nonce` | 403 | Security nonce verification failed |
-| `missing_data` | 400 | Required data not provided in request |
-| `rest_forbidden` | 403 | User lacks required permissions |
+**Errors:**
+- `400` - Missing data
+- `403` - Invalid nonce or permission denied
+- `404` - Landmark not found
+- `500` - Data corrupted
 
 ---
 
-## Security & Permissions
+## Data Structures
 
-### Public Endpoints
-- `GET /landmark` - No authentication required
-- `GET /landmark/:id` - No authentication required
+```typescript
+interface Landmark {
+  id: string;
+  type: "switch" | "select" | "text";
+  label: string;
+  description: string;
+  active: boolean;
+  slug: string;
+  menu: "general" | "preloading";
+  package: "free" | "premium";
+  input?: {
+    [key: string]: {
+      type: string;
+      value: any;
+      default: any;
+      options?: object;
+    };
+  };
+}
 
-### Protected Endpoints
-- `PUT /landmark/:id` - Requires `manage_options` capability (typically Administrator role)
-
-### Nonce Verification
-
-For authenticated requests, the WordPress nonce must be:
-1. Obtained from WordPress (e.g., `wpApiSettings.nonce`)
-2. Included in the `X-WP-Nonce` header
-3. Valid and not expired
-
----
-
-## Rate Limiting
-
-WordPress does not implement rate limiting by default. Consider using a security plugin or server-level rate limiting for production environments.
-
----
-
-## Versioning
-
-Current API version: **v1**
-
-The API version is included in the endpoint path: `/wp-json/pageflash/v1/`
-
----
-
-## Best Practices
-
-1. **Always check response status codes** before processing data
-2. **Cache GET responses** when appropriate to reduce server load
-3. **Include error handling** for network failures and API errors
-4. **Use proper authentication** for write operations
-5. **Validate data** before sending PUT requests
-6. **Handle nonce expiration** by refreshing when needed
+interface LandmarksResponse {
+  version: string;
+  author: string;
+  url: string;
+  message: string;
+  data: { [slug: string]: Landmark };
+}
+```
 
 ---
 
-## Integration Examples
+## Available Landmarks
 
-### React Integration
+| Slug | Menu | Nested Input |
+|------|------|--------------|
+| `quicklink` | preloading | No |
+| `instantpage` | preloading | No |
+| `dashicons` | general | No |
+| `embeds` | general | No |
+| `emojis` | general | No |
+| `heartbeat` | general | Yes |
+
+---
+
+## Error Codes
+
+| Code | Status | Meaning | Solution |
+|------|--------|---------|----------|
+| `not_found` | 404 | Landmark doesn't exist | Check slug |
+| `invalid_nonce` | 403 | Security failed | Refresh nonce |
+| `missing_data` | 400 | No data provided | Include update fields |
+| `invalid_data` | 500 | Data corrupted | Reinstall plugin |
+
+---
+
+## Examples
+
+### React Toggle Component
 
 ```jsx
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import apiFetch from '@wordpress/api-fetch';
 
-function LandmarkManager() {
-  const [landmarks, setLandmarks] = useState(null);
-  const [loading, setLoading] = useState(true);
+function Toggle({ slug, initialActive, label }) {
+  const [active, setActive] = useState(initialActive);
 
-  useEffect(() => {
-    fetchLandmarks();
-  }, []);
-
-  const fetchLandmarks = async () => {
+  const handleToggle = async () => {
     try {
-      const response = await fetch('/wp-json/pageflash/v1/landmark');
-      const data = await response.json();
-      setLandmarks(data);
+      const res = await apiFetch({
+        path: `/pageflash/v1/landmark/${slug}`,
+        method: 'PUT',
+        data: { active: !active }
+      });
+      setActive(res.data.active);
     } catch (error) {
-      console.error('Error fetching landmarks:', error);
-    } finally {
-      setLoading(false);
+      console.error('Update failed:', error);
     }
   };
 
-  const toggleLandmark = async (id, currentStatus) => {
-    try {
-      const response = await fetch(`/wp-json/pageflash/v1/landmark/${id}`, {
+  return (
+    <label>
+      <input type="checkbox" checked={active} onChange={handleToggle} />
+      {label}
+    </label>
+  );
+}
+```
+
+### Filter by Menu
+
+```javascript
+async function getLandmarksByMenu(menu) {
+  const { data } = await fetch('/wp-json/pageflash/v1/landmark')
+    .then(r => r.json());
+  
+  return Object.values(data).filter(l => l.menu === menu);
+}
+
+const general = await getLandmarksByMenu('general');
+```
+
+### Bulk Update
+
+```javascript
+async function bulkUpdate(updates) {
+  const results = await Promise.allSettled(
+    updates.map(({ slug, data }) =>
+      fetch(`/wp-json/pageflash/v1/landmark/${slug}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           'X-WP-Nonce': wpApiSettings.nonce
         },
-        credentials: 'same-origin',
-        body: JSON.stringify({ active: !currentStatus })
-      });
-
-      if (response.ok) {
-        fetchLandmarks(); // Refresh data
-      }
-    } catch (error) {
-      console.error('Error updating landmark:', error);
-    }
-  };
-
-  if (loading) return <div>Loading...</div>;
-
-  return (
-    <div>
-      {landmarks?.data && Object.values(landmarks.data).map(landmark => (
-        <div key={landmark.id}>
-          <h3>{landmark.label}</h3>
-          <p>{landmark.description}</p>
-          <button onClick={() => toggleLandmark(landmark.id, landmark.active)}>
-            {landmark.active ? 'Disable' : 'Enable'}
-          </button>
-        </div>
-      ))}
-    </div>
+        body: JSON.stringify(data)
+      })
+    )
   );
+
+  const success = results.filter(r => r.status === 'fulfilled').length;
+  console.log(`Updated ${success}/${updates.length} landmarks`);
+}
+
+await bulkUpdate([
+  { slug: 'quicklink', data: { active: true } },
+  { slug: 'dashicons', data: { active: false } }
+]);
+```
+
+---
+
+## Testing
+
+### Manual Testing
+
+```bash
+# GET all landmarks
+curl https://site.local/wp-json/pageflash/v1/landmark | jq
+
+# GET specific landmark
+curl https://site.local/wp-json/pageflash/v1/landmark/quicklink | jq
+
+# PUT update (with auth)
+curl -X PUT https://site.local/wp-json/pageflash/v1/landmark/quicklink \
+  -H "Content-Type: application/json" \
+  -H "X-WP-Nonce: your-nonce" \
+  --cookie "wordpress_logged_in_=..." \
+  -d '{"active": true}' | jq
+```
+
+### Browser Console
+
+```javascript
+// In WordPress admin, open console
+
+// Test GET
+fetch('/wp-json/pageflash/v1/landmark')
+  .then(r => r.json())
+  .then(console.log);
+
+// Test PUT
+fetch('/wp-json/pageflash/v1/landmark/quicklink', {
+  method: 'PUT',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-WP-Nonce': wpApiSettings.nonce
+  },
+  body: JSON.stringify({ active: true })
+})
+  .then(r => r.json())
+  .then(console.log);
+```
+
+## Best Practices
+
+### Caching
+
+```javascript
+const cache = new Map();
+const CACHE_TTL = 5 * 60 * 1000; // 5 min
+
+async function getCached() {
+  const cached = cache.get('landmarks');
+  if (cached && Date.now() - cached.time < CACHE_TTL) {
+    return cached.data;
+  }
+
+  const res = await fetch('/wp-json/pageflash/v1/landmark');
+  const data = await res.json();
+  
+  cache.set('landmarks', { data, time: Date.now() });
+  return data;
+}
+```
+
+### Optimistic Updates
+
+```javascript
+async function optimisticToggle(slug, currentActive) {
+  setActive(!currentActive); // Update UI first
+
+  try {
+    await updateLandmark(slug, { active: !currentActive });
+  } catch (error) {
+    setActive(currentActive); // Revert on error
+    showError('Failed to update');
+  }
+}
+```
+
+### Nonce Refresh
+
+```javascript
+async function apiRequest(path, options = {}) {
+  try {
+    return await apiFetch({ path, ...options });
+  } catch (error) {
+    if (error.code === 'invalid_nonce') {
+      window.location.reload(); // Refresh to get new nonce
+    }
+    throw error;
+  }
 }
 ```
 
@@ -455,16 +422,25 @@ function LandmarkManager() {
 
 ## Support
 
-For issues or questions:
-- **GitHub**: https://github.com/theaminuli/pageflash/
-- **Documentation**: Check the plugin's README and dev-docs folder
+**GitHub:** https://github.com/theaminuli/pageflash/  
+**Issues:** https://github.com/theaminuli/pageflash/issues
+
+**Related Files:**
+- `includes/Landmark/LandmarkAPI.php` - API endpoints
+- `includes/Landmark/LandmarkList.php` - Landmark registration
+- `src/admin/hooks/useGetLandmark.js` - Fetch hook
+- `src/admin/hooks/usePutLandmarkSlug.js` - Update hook
 
 ---
 
 ## Changelog
 
-### Version 1.0.0
-- Initial API implementation
+**v1.0.0** (Current)
 - GET /landmark - Retrieve all landmarks
-- GET /landmark/:id - Retrieve landmark by ID
-- PUT /landmark/:id - Update landmark by ID
+- GET /landmark/:slug - Retrieve by slug
+- PUT /landmark/:slug - Update with deep merge support
+- Nonce security & permission checks
+
+---
+
+*Last Updated: December 2, 2025*

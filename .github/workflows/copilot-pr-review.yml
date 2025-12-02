@@ -93,7 +93,7 @@ jobs:
 
             # Update PR description
             gh pr edit $PR_NUMBER --body "$DESCRIPTION"
-            echo "PR description has been generated based on $FILE_COUNT changed file(s)."
+            echo "PR description has been generated based on $FILE_COUNT changed file(s) and features."
           else
             echo "PR description already exists. Skipping generation."
           fi
