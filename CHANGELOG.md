@@ -1,5 +1,6 @@
 # Changelog
-## x.y.z - 2025-11-27
+## x.y.z - 2025-12-02
+- Revise API and architecture documentation for clarity ([#111](https://github.com/theaminuli/pageflash/pull/111)) @theaminuli
 - Add global helper class for content sanitization ([#104](https://github.com/theaminuli/pageflash/pull/104)) @theaminuli
 - Refactor Landmark API to use slugs and add new features #72 ([#103](https://github.com/theaminuli/pageflash/pull/103)) @theaminuli
 -  Remove Helper.php global helper class (#97) ([#97](https://github.com/theaminuli/pageflash/pull/97)) @theaminuli
