@@ -2,11 +2,12 @@ name: Copilot PR Description and Review
 
 on:
   pull_request:
-    types: [opened]
+    types: [opened, synchronize]
 
 permissions:
   contents: read
   pull-requests: write
+  issues: write
 
 jobs:
   generate-description:
@@ -29,9 +30,16 @@ jobs:
             if [ -z "$body" ]; then
               return 0
             fi
-            # Check if body only contains template comments (hasn't been filled in)
-            # Remove HTML comments and whitespace, then check if anything meaningful remains
-            local cleaned=$(echo "$body" | perl -pe 's/<!--.*?-->//gs' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | grep -v '^$' | grep -v '^## ' | grep -v '^Closes[[:space:]]*$')
+            # Remove HTML comments
+            local cleaned=$(echo "$body" | perl -pe 's/<!--.*?-->//gs')
+            # Remove whitespace
+            cleaned=$(echo "$cleaned" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+            # Remove lines that are just "Closes #XXX" or "Fixes #XXX" or "Resolves #XXX"
+            cleaned=$(echo "$cleaned" | grep -vE '^(Closes|Fixes|Resolves)[[:space:]]+#[0-9]+[[:space:]]*$')
+            # Remove empty lines and template headers
+            cleaned=$(echo "$cleaned" | grep -v '^$' | grep -v '^## ')
+            
+            # If nothing remains, it's considered empty/template
             if [ -z "$cleaned" ]; then
               return 0
             fi
@@ -48,10 +56,13 @@ jobs:
 
             # Get PR title
             PR_TITLE=$(gh pr view $PR_NUMBER --json title --jq '.title')
+            
+            # Extract issue number from PR body if it exists
+            ISSUE_REF=$(echo "$PR_BODY" | grep -oE '(Closes|Fixes|Resolves)[[:space:]]+#[0-9]+' || echo "")
 
             # Generate description based on changed files following PR template format
             DESCRIPTION="## What?
-          Closes #<!-- ISSUE-NUMBER - Please link to the related issue -->
+          ${ISSUE_REF}
 
           This PR modifies **${FILE_COUNT} file(s)**:
           "
@@ -93,7 +104,7 @@ jobs:
 
             # Update PR description
             gh pr edit $PR_NUMBER --body "$DESCRIPTION"
-            echo "PR description has been generated based on $FILE_COUNT changed file(s) and features."
+            echo "PR description has been generated based on $FILE_COUNT changed file(s)."
           else
             echo "PR description already exists. Skipping generation."
           fi
@@ -111,7 +122,5 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
           # Assign Copilot to the PR for review
-          # Note: GitHub Copilot code review is automatically triggered when enabled
-          # in repository settings. This step assigns Copilot to track the PR.
           gh pr edit $PR_NUMBER --add-assignee "@copilot" || echo "Note: Copilot assignment requires GitHub Copilot to be enabled in repository settings (Settings > Copilot > Pull Request Reviews)"
           echo "Copilot has been assigned to PR #$PR_NUMBER for review"
