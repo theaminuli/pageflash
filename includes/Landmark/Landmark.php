@@ -24,10 +24,10 @@ class Landmark {
 	 */
 	public function pageflash_init_landmark() {
 		new NoReload();
-		// new General();
-	}
+			// new General();
+		}
 
-	/**
+		/**
 	 * Register LandmarkList and LandmarkAPI.
 	 */
 	public function pageflash_register_landmarks() {
