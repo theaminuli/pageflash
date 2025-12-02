@@ -1,5 +1,6 @@
 # Changelog
 ## x.y.z - 2025-12-02
+- Fix autoloader function prefix: rename exoole_autoloader to pageflash_autoloader and format issue ([#115](https://github.com/theaminuli/pageflash/pull/115)) @Copilot
 - Remove emoji from user engagement text in README ([#114](https://github.com/theaminuli/pageflash/pull/114)) @theaminuli
 - Update PR workflow trigger and permissions ([#113](https://github.com/theaminuli/pageflash/pull/113)) @theaminuli
 - Revise API and architecture documentation for clarity ([#111](https://github.com/theaminuli/pageflash/pull/111)) @theaminuli
