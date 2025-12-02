@@ -17,7 +17,7 @@
   <h2 align="center">🕒 PageFlash - Fast and Efficient Headless Browser WordPress Plugin</h2>
 
    <div align="left">
-      <h3> By using PageFlash, an active plugin, you'll experience a 50% increase in conversions and enjoy 4x faster page loading.⚡️ Boost your website's speed, increase user engagement 💬, and supercharge your online presence 🚀. - NewEgg </h3>
+      <h3> By using PageFlash, an active plugin, you'll experience a 50% increase in conversions and enjoy 4x faster page loading.⚡️ Boost your website's speed, increase user engagement, and supercharge your online presence 🚀. - NewEgg </h3>
     </div>
 </div>
 
