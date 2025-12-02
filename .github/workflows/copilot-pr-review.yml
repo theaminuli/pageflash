@@ -2,11 +2,12 @@ name: Copilot PR Description and Review
 
 on:
   pull_request:
-    types: [opened]
+    types: [opened, synchronize]
 
 permissions:
   contents: read
   pull-requests: write
+  issues: write
 
 jobs:
   generate-description:
