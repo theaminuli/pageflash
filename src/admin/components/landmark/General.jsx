@@ -1,17 +1,12 @@
 /**
  * WordPress dependencies.
  */
-
-/**
- * WordPress dependencies.
- */
 import { __experimentalHStack as HStack } from '@wordpress/components';
 
 import { toast } from 'react-toastify';
 import { Switch } from '../../common';
 import {
 	useGetLandmarks,
-	usePageflashContext,
 	usePutLandmarkSlug,
 } from '../../hooks';
 import { filterLandmarksByMenu } from '../../utils';

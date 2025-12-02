@@ -222,10 +222,10 @@ class Helper {
 	 *                     full settings array (defaults to an empty array if no
 	 *                     options are stored).
 	 */
-	public static function get_settings ( $key = '' ) {
-		$settings = get_option( 'pageflash_landmarks', array() );
+	public static function get_settings( $key = '' ) {
+		$settings      = get_option( 'pageflash_landmarks', array() );
 		$settings_data = $settings['data'] ?? array();
-		
+
 		if ( $key && isset( $settings_data[ $key ] ) ) {
 			return $settings_data[ $key ];
 		}

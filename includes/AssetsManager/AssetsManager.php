@@ -42,7 +42,7 @@ class AssetsManager {
 		// Include the asset file for script dependencies and version
 		$asset_file = PAGEFLASH_PATH . 'build/quicklink/quicklink.asset.php';
 		if ( ! file_exists( $asset_file ) ) {
-			return $scripts; 
+			return $scripts;
 		}
 
 		$script_asset = include $asset_file;
@@ -87,14 +87,14 @@ class AssetsManager {
 	 * @return void
 	 * @since PageFlash 1.0.0
 	 */
-	public function pageflash_admin_enqueue_scripts( $admin_page) {
+	public function pageflash_admin_enqueue_scripts( $admin_page ) {
 		if ( 'toplevel_page_pageflash' !== $admin_page ) {
-       		 return;
-    	}
-		$asset_file =  PAGEFLASH_PATH . 'build/admin/admin.asset.php';
+			return;
+		}
+		$asset_file = PAGEFLASH_PATH . 'build/admin/admin.asset.php';
 		if ( ! file_exists( $asset_file ) ) {
-        	return;
-   		}
+			return;
+		}
 
 		$script_asset = include $asset_file;
 		wp_enqueue_style(
@@ -110,8 +110,8 @@ class AssetsManager {
 			$script_asset['dependencies'],
 			$script_asset['version'],
 			array(
-            	'in_footer' => true,
-        	)
+				'in_footer' => true,
+			)
 		);
 
 		wp_localize_script(
@@ -122,7 +122,6 @@ class AssetsManager {
 				'nonce'    => wp_create_nonce( 'pageflash_admin_nonce' ),
 			)
 		);
-
 	}
 	/**
 	 * Enqueue the PageFlash icon in the admin area.
@@ -152,5 +151,4 @@ class AssetsManager {
 			}'
 		);
 	}
-
 }

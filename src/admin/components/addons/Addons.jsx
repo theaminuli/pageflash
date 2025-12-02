@@ -27,12 +27,12 @@ const Addons = () => {
 							<HStack>
 								<CardBody
 									style={ { padding: '0px' } }
-									size={ 'XSmall' }
+									size="XSmall"
 								>
 									<img
 										className="pageflash-addons__image"
 										src={ addon.logo }
-										alt="Addon Image"
+										alt="Addon logo"
 									/>
 								</CardBody>
 								<span className="pageflash-addons__badge">

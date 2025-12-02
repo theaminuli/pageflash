@@ -8,7 +8,6 @@ import {
 	ToggleControl,
 } from '@wordpress/components';
 
-import { useEffect } from 'react';
 import { LiaExternalLinkAltSolid } from 'react-icons/lia';
 
 const Switch = ( { heading, description, checked, onToggle } ) => {
@@ -27,6 +26,7 @@ const Switch = ( { heading, description, checked, onToggle } ) => {
 							<a
 								href="#"
 								target="_blank"
+								rel="noreferrer"
 								style={ { textDecoration: 'none' } }
 							>
 								<Text>

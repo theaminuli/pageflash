@@ -4,7 +4,7 @@ import AdminDashboard from './AdminDashboard';
 import AdminProvider from './provider/AdminProvider';
 /**
  * * Main application component that wraps the AdminDashboard with the AdminProvider.
- * @returns {JSX.Element} The main application component.
+ * @return {JSX.Element} The main application component.
  */
 
 const App = () => {
