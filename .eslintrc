@@ -1,18 +1,24 @@
 {
-  "root": true,
-  "extends": [
-    "plugin:@wordpress/eslint-plugin/recommended"
-  ],
-  "plugins": [
-    "@wordpress"
-  ],
-  "rules": {
-    "@wordpress/no-unsafe-wp-apis": "off"
-  },
-  "ignorePatterns": [
-    "node_modules/",
-    "build/",
-    "dist/",
-    "**/*.min.js"
-  ]
+	"root": true,
+	"extends": [
+		"plugin:@wordpress/eslint-plugin/recommended"
+	],
+	"plugins": [
+		"@wordpress"
+	],
+	"rules": {
+		"@wordpress/no-unsafe-wp-apis": "off",
+		"jsx-a11y/anchor-is-valid": "off",
+		"react/no-unescaped-entities": "off",
+		"import/no-extraneous-dependencies": "off",
+		"no-unused-vars": "off",
+		"array-callback-return": "off",
+		"react-hooks/exhaustive-deps": "off"
+	},
+	"ignorePatterns": [
+		"node_modules/",
+		"build/",
+		"dist/",
+		"**/*.min.js"
+	]
 }

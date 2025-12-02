@@ -10,29 +10,29 @@ import usePageflashContext from './usePageflashContext';
  */
 export const useGetLandmarks = () => {
 	const { landmarks, dispatch } = usePageflashContext();
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
+	const [ loading, setLoading ] = useState( true );
+	const [ error, setError ] = useState( null );
 
-	const fetchLandmarks = useCallback(async () => {
-		setLoading(true);
-		setError(null);
+	const fetchLandmarks = useCallback( async () => {
+		setLoading( true );
+		setError( null );
 
 		try {
-			const response = await apiFetch({
+			const response = await apiFetch( {
 				path: '/pageflash/v1/landmark',
 				method: 'GET',
-			});
-			dispatch(setLandmarks(response.data));
-		} catch (err) {
-			setError(err.message || 'Failed to fetch landmarks');
+			} );
+			dispatch( setLandmarks( response.data ) );
+		} catch ( err ) {
+			setError( err.message || 'Failed to fetch landmarks' );
 		} finally {
-			setLoading(false);
+			setLoading( false );
 		}
-	}, []);
+	}, [] );
 
-	useEffect(() => {
+	useEffect( () => {
 		fetchLandmarks();
-	}, []);
+	}, [] );
 
 	return {
 		landmarks,
