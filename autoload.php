@@ -9,7 +9,7 @@
  * @param string $class_name The fully qualified class name.
  * @return void
  */
-function exoole_autoloader( $class_name ) {
+function pf_autoloader( $class_name ) {
 	$project_prefix = 'PageFlash\\';
 	$namespace_map  = array(
 		'PageFlash' => PAGEFLASH_DIR . '/includes/',
@@ -33,4 +33,4 @@ function exoole_autoloader( $class_name ) {
 	}
 }
 
-spl_autoload_register( 'exoole_autoloader' );
+spl_autoload_register( 'pf_autoloader' );

@@ -59,5 +59,4 @@ class AdminMenu {
 		<div class="wrap pageflash-admin" id="pageflash-admin"></div>
 		<?php
 	}
-	
 }

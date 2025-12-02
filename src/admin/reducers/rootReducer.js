@@ -1,7 +1,7 @@
 import { ACTIVE_MENU, SET_LANDMARKS } from '../actions';
 
-const rootReducer = (state, action) => {
-	switch (action.type) {
+const rootReducer = ( state, action ) => {
+	switch ( action.type ) {
 		case ACTIVE_MENU:
 			return {
 				...state,
@@ -12,7 +12,7 @@ const rootReducer = (state, action) => {
 				...state,
 				landmarks: action.payload,
 			};
-		
+
 		default:
 			return state;
 	}

@@ -11,8 +11,8 @@ import {
 import { useViewportMatch } from '@wordpress/compose';
 import { close, menu } from '@wordpress/icons';
 import { AiTwotoneRocket } from 'react-icons/ai';
-import { LiaExternalLinkAltSolid } from "react-icons/lia";
-import { toast } from "react-toastify";
+import { LiaExternalLinkAltSolid } from 'react-icons/lia';
+import { toast } from 'react-toastify';
 /**
  * Internal dependencies.
  */
@@ -23,7 +23,11 @@ import { capitalizeFirstLetter } from '../../utils';
 import MenuList from './MenuList';
 
 /**
- * Render Shell 2
+ * Header component that renders the main navigation and content area.
+ *
+ * @param {Object}                    props          - The properties object.
+ * @param {import('react').ReactNode} props.children - The child components to be rendered in the content area.
+ * @return {JSX.Element} The header component with navigation and content.
  */
 const Header = ({ children }) => {
 	const { activeMenu, dispatch } = usePageflashContext();
@@ -31,6 +35,11 @@ const Header = ({ children }) => {
 	const isMobile = useViewportMatch('medium', '<');
 	const [showButtons, setShowButtons] = useState(false);
 
+	/**
+	 * Handles button click events for menu navigation.
+	 *
+	 * @param {string} buttonKey - The key of the button that was clicked.
+	 */
 	const handleButtonClick = (buttonKey) => {
 		dispatch(setActiveMenu(buttonKey));
 		// if (buttonKey === 'support') {
@@ -106,9 +115,7 @@ const Header = ({ children }) => {
 								onButtonClick={handleButtonClick}
 							/>
 						)}
-						<CardBody
-							className="pageflash-header__card-body"
-						>
+						<CardBody className="pageflash-header__card-body">
 							<HStack
 								expanded={false}
 								className={'pageflash-header__h-stack'}
@@ -120,16 +127,19 @@ const Header = ({ children }) => {
 									variant="primary"
 									icon={<LiaExternalLinkAltSolid />}
 									onClick={() =>
-										toast.success('Get feature coming soon!', {
-											position: "top-right",
-											autoClose: 3000,
-											hideProgressBar: false,
-											closeOnClick: true,
-											pauseOnHover: true,
-											draggable: true,
-											progress: undefined,
-											theme: "light",
-										})
+										toast.success(
+											'Get feature coming soon!',
+											{
+												position: 'top-right',
+												autoClose: 3000,
+												hideProgressBar: false,
+												closeOnClick: true,
+												pauseOnHover: true,
+												draggable: true,
+												progress: undefined,
+												theme: 'light',
+											}
+										)
 									}
 								>
 									Get Feature

@@ -5,8 +5,8 @@ import usePageflashContext from './usePageflashContext';
 
 /**
  * Custom hook to fetch all landmarks
- * 
- * @returns {Object} { landmarks, loading, error, refetch }
+ *
+ * @return {Object} { landmarks, loading, error, refetch }
  */
 export const useGetLandmarks = () => {
 	const { landmarks, dispatch } = usePageflashContext();
@@ -25,7 +25,6 @@ export const useGetLandmarks = () => {
 			dispatch(setLandmarks(response.data));
 		} catch (err) {
 			setError(err.message || 'Failed to fetch landmarks');
-			console.error('Error fetching landmarks:', err);
 		} finally {
 			setLoading(false);
 		}
@@ -38,6 +37,6 @@ export const useGetLandmarks = () => {
 	return {
 		landmarks,
 		loading,
-		error
+		error,
 	};
 };

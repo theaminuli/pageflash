@@ -43,17 +43,17 @@ class LandmarkList {
 			'data'    => array(
 				'quicklink' => array(
 					'id'          => wp_unique_id( 'pf-' ),
-					'type' 		  => 'switch',
+					'type'        => 'switch',
 					'label'       => __( 'Quicklink', 'pageflash' ),
 					'description' => __( "Quicklink, an active plugin, you'll experience a 50% increase in conversions and enjoy 4x faster page loading. Boost your website's speed, increase user engagement", 'pageflash' ),
 					'active'      => true,
 					'slug'        => 'quicklink',
-					'menu'        => 'preloading',	
+					'menu'        => 'preloading',
 					'package'     => 'free',
 				),
 				'instantpage' => array(
 					'id'          => wp_unique_id( 'pf-' ),
-					'type' 		  => 'switch',
+					'type'        => 'switch',
 					'label'       => __( 'InstantPage', 'pageflash' ),
 					'description' => __( 'InstantPage uses just-in-time preloading — it preloads a page right before a user clicks on it.', 'pageflash' ),
 					'active'      => false,
@@ -63,7 +63,7 @@ class LandmarkList {
 				),
 				'dashicons' => array(
 					'id'          => wp_unique_id( 'pf-' ),
-					'type' 		  => 'switch',
+					'type'        => 'switch',
 					'label'       => __( 'Disable Dashicons', 'pageflash' ),
 					'description' => __( 'Disable Dashicons on the frontend for non-logged-in users to improve performance.', 'pageflash' ),
 					'active'      => true,
@@ -73,7 +73,7 @@ class LandmarkList {
 				),
 				'embeds' => array(
 					'id'          => wp_unique_id( 'pf-' ),
-					'type' 		  => 'switch',
+					'type'        => 'switch',
 					'label'       => __( 'Disable Embeds', 'pageflash' ),
 					'description' => __( 'Disable the WordPress oEmbed feature to reduce unnecessary HTTP requests and improve page load times.', 'pageflash' ),
 					'active'      => false,
@@ -83,7 +83,7 @@ class LandmarkList {
 				),
 				'emojis' => array(
 					'id'          => wp_unique_id( 'pf-' ),
-					'type'		  => 'switch',
+					'type'        => 'switch',
 					'label'       => __( 'Disable Emojis', 'pageflash' ),
 					'description' => __( 'Disable the built-in WordPress emoji scripts and styles to reduce page size and improve load times.', 'pageflash' ),
 					'active'      => false,
@@ -93,7 +93,7 @@ class LandmarkList {
 				),
 				'heartbeat' => array(
 					'id'          => wp_unique_id( 'pf-' ),
-					'type'		  => 'switch',
+					'type'        => 'switch',
 					'label'       => __( 'Disable Heartbeat', 'pageflash' ),
 					'description' => __( 'Disable WordPress Heartbeat everywhere or in certain areas (used for auto saving and revision tracking).', 'pageflash' ),
 					'active'      => false,
@@ -108,9 +108,9 @@ class LandmarkList {
 							'value'       => 'disable_everywhere',
 							'default'     => 'disable_everywhere',
 							'options'     => array(
-								'default'        => __( 'Default Behavior', 'pageflash' ),
+								'default'            => __( 'Default Behavior', 'pageflash' ),
 								'disable_everywhere' => __( 'Disable Everywhere', 'pageflash' ),
-								'allow_posts'   => __( 'Only Allow When Editing Posts/Pages', 'pageflash' ),
+								'allow_posts'        => __( 'Only Allow When Editing Posts/Pages', 'pageflash' ),
 							),
 						),
 						'frequency' => array(
@@ -129,7 +129,7 @@ class LandmarkList {
 							),
 						),
 					),
-					
+
 				),
 			),
 		);

@@ -1,9 +1,9 @@
-import { createContext } from 'react';
+import { createContext } from '@wordpress/element';
 
 /**
- * @constant {React.Context} AdminContext - A context object created using React's createContext API.
+ * @constant {import('react').Context<null>} AdminContext - A context object created using React's createContext API.
  * Initialized with a default value of null.
  */
-const AdminContext = createContext( null );
+const AdminContext = createContext(null);
 
 export { AdminContext };
