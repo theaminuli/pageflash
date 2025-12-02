@@ -4,21 +4,21 @@
  * @param {string} menu - Menu type to filter by (e.g., 'general', 'settings')
  * @returns {Array} Filtered landmarks
  */
-export const filterLandmarksByMenu = (landmarks, menu) => {
-	if (!landmarks) {
+export const filterLandmarksByMenu = ( landmarks, menu ) => {
+	if ( ! landmarks ) {
 		return [];
 	}
 
 	// Convert object to array if needed
-	const landmarksArray = Array.isArray(landmarks)
+	const landmarksArray = Array.isArray( landmarks )
 		? landmarks
-		: Object.values(landmarks);
+		: Object.values( landmarks );
 
-	if (!menu) {
+	if ( ! menu ) {
 		return landmarksArray;
 	}
 
-	return landmarksArray.filter(landmark => landmark.menu === menu);
+	return landmarksArray.filter( ( landmark ) => landmark.menu === menu );
 };
 
 /**
@@ -26,8 +26,8 @@ export const filterLandmarksByMenu = (landmarks, menu) => {
  * @param {Object|Array} landmarks - Landmarks object or array
  * @returns {Array} General menu landmarks
  */
-export const getGeneralLandmarks = (landmarks) => {
-	return filterLandmarksByMenu(landmarks, 'general');
+export const getGeneralLandmarks = ( landmarks ) => {
+	return filterLandmarksByMenu( landmarks, 'general' );
 };
 
 /**
@@ -35,6 +35,6 @@ export const getGeneralLandmarks = (landmarks) => {
  * @param {Object|Array} landmarks - Landmarks object or array
  * @returns {Array} Settings menu landmarks
  */
-export const getSettingsLandmarks = (landmarks) => {
-	return filterLandmarksByMenu(landmarks, 'settings');
+export const getSettingsLandmarks = ( landmarks ) => {
+	return filterLandmarksByMenu( landmarks, 'settings' );
 };
