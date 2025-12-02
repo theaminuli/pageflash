@@ -1,6 +1,7 @@
 <?php
 
 namespace PageFlash\Landmark\NoReload;
+
 use PageFlash\Helpers\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -49,16 +50,15 @@ class NoReload {
 	private function init() {
 		$settings = Helper::get_settings();
 
-		$features = [
+		$features = array(
 			// 'instantpage' => InstantPage::class,
 			'quicklink'   => Quicklink::class,
-		];
+		);
 
-		foreach ($features as $key => $class) {
-			if (!empty($settings[$key]['active'])) {
+		foreach ( $features as $key => $class ) {
+			if ( ! empty( $settings[ $key ]['active'] ) ) {
 				new $class();
 			}
 		}
 	}
-
 }

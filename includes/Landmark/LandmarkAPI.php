@@ -243,7 +243,7 @@ class LandmarkAPI {
 		if ( is_array( $data ) ) {
 			$sanitized = array();
 			foreach ( $data as $key => $value ) {
-				$sanitized_key = sanitize_key( $key );
+				$sanitized_key               = sanitize_key( $key );
 				$sanitized[ $sanitized_key ] = $this->sanitize_landmark_data( $value );
 			}
 			return $sanitized;
