@@ -13,7 +13,8 @@
 		"import/no-extraneous-dependencies": "off",
 		"no-unused-vars": "off",
 		"array-callback-return": "off",
-		"react-hooks/exhaustive-deps": "off"
+		"react-hooks/exhaustive-deps": "off",
+		"valid-values-license": "off"
 	},
 	"ignorePatterns": [
 		"node_modules/",
