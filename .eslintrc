@@ -14,7 +14,16 @@
 		"no-unused-vars": "off",
 		"array-callback-return": "off",
 		"react-hooks/exhaustive-deps": "off",
-		"valid-values-license": "off"
+		"valid-values-license": "off",
+		"@wordpress/dependency-group": "error",
+		"@wordpress/i18n-text-domain": [
+			"error",
+			{
+				"allowedTextDomain": "pageflash"
+			}
+		],
+		"react/jsx-boolean-value": "error",
+		"unicorn/no-abusive-eslint-disable": "error"
 	},
 	"ignorePatterns": [
 		"node_modules/",
