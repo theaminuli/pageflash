@@ -6,6 +6,13 @@
 	"plugins": [
 		"@wordpress"
 	],
+	"settings": {
+		"import/resolver": {
+			"node": {
+				"extensions": [".js", ".jsx"]
+			}
+		}
+	},
 	"rules": {
 		"@wordpress/no-unsafe-wp-apis": "off",
 		"jsx-a11y/anchor-is-valid": "off",
@@ -22,8 +29,7 @@
 				"allowedTextDomain": "pageflash"
 			}
 		],
-		"react/jsx-boolean-value": "error",
-		"unicorn/no-abusive-eslint-disable": "error"
+		"react/jsx-boolean-value": "error"
 	},
 	"ignorePatterns": [
 		"node_modules/",
