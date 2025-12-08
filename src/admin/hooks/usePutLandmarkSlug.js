@@ -7,8 +7,8 @@ import { useState } from '@wordpress/element';
  * @return {Object} Object containing updateLandmark function, loading state, and error state
  */
 const usePutLandmarkSlug = () => {
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(null);
+	const [ loading, setLoading ] = useState( false );
+	const [ error, setError ] = useState( null );
 
 	/**
 	 * Updates a landmark with any provided data
@@ -17,22 +17,22 @@ const usePutLandmarkSlug = () => {
 	 * @param {Object} updateData - Object containing fields to update (e.g., { active: true }, { input: { behavior: 'value' } })
 	 * @return {Promise<Object>} The updated landmark data
 	 */
-	const updateLandmark = async (slug, updateData) => {
-		setLoading(true);
-		setError(null);
+	const updateLandmark = async ( slug, updateData ) => {
+		setLoading( true );
+		setError( null );
 
 		try {
-			const response = await apiFetch({
-				path: `/pageflash/v1/landmark/${slug}`,
+			const response = await apiFetch( {
+				path: `/pageflash/v1/landmark/${ slug }`,
 				method: 'PUT',
 				data: updateData,
-			});
+			} );
 
-			setLoading(false);
+			setLoading( false );
 			return response;
-		} catch (err) {
-			setError(err.message || 'Failed to update landmark');
-			setLoading(false);
+		} catch ( err ) {
+			setError( err.message || 'Failed to update landmark' );
+			setLoading( false );
 			throw err;
 		}
 	};
