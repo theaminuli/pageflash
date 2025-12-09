@@ -1,5 +1,6 @@
 # Changelog
-## x.y.z - 2025-12-02
+## x.y.z - 2025-12-08
+- Refactor code style and add Stylelint config ([#116](https://github.com/theaminuli/pageflash/pull/116)) @theaminuli
 - Fix autoloader function prefix: rename exoole_autoloader to pageflash_autoloader and format issue ([#115](https://github.com/theaminuli/pageflash/pull/115)) @Copilot
 - Remove emoji from user engagement text in README ([#114](https://github.com/theaminuli/pageflash/pull/114)) @theaminuli
 - Update PR workflow trigger and permissions ([#113](https://github.com/theaminuli/pageflash/pull/113)) @theaminuli
