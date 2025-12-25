@@ -1,6 +1,6 @@
-=== PageFlash - Fast and Efficient Headless Browser WordPress Plugin ===
+=== PageFlash - Intelligent Page Preloading for WordPress ===
 Contributors: theaminuldev
-Tags: headless browser, quicklink, performance, speculation rules
+Tags: preload, pageflash, prefetch, quicklink, performance, speed, fast, instant-navigation, page-speed, optimization.
 Requires at least: 6.0
 Tested up to: 6.8.1
 Stable tag: 1.2.0
@@ -8,10 +8,10 @@ License: GPL-3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 Copyright: © 2023 theaminul.com
 
-By using PageFlash, an active plugin, you'll experience a 50% increase in conversions and enjoy 4x faster page loading. ⚡️ Boost your website's speed, increase user engagement 💬, and supercharge your online presence 🚀. - NewEgg
+Preload pages intelligently to boost site speed and enhance user experience by loading pages before users click, ensuring instant page transitions.
 
 == Description ==
-PageFlash is a powerful headless browser WordPress plugin designed to provide you with a fast and efficient web browsing experience within your WordPress site. Say goodbye to page reloads and enjoy seamless navigation through web content with this plugin. Harness the speed and agility of PageFlash for your WordPress website.
+PageFlash is a powerful WordPress plugin that preloads pages intelligently to boost site speed and enhance user experience. By loading pages before users click, PageFlash ensures instant page transitions, creating a seamless and lightning-fast browsing experience for your visitors.
 
 ### Key Features:
 - **Lightning-Fast Browsing:** PageFlash lives up to its name, offering rapid page loading and navigation without the need for tedious page refreshes.
