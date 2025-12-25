@@ -833,7 +833,7 @@ Enable appropriate block supports:
 - Avoid unnecessary re-renders with `React.memo`
 - Use context for global state management
 - custom hooks for reusable logic
-- Specifically stong following react.dev guidelines on component structure and state management
+- Specifically strong following react.dev guidelines on component structure and state management
 ---
 
 ## 5. Internationalization (i18n)
