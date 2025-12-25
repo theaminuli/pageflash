@@ -1,6 +1,6 @@
 {
 	"name": "theaminul/pageflash",
-	"description": "PageFlash - Fast and Efficient Headless Browser WordPress Plugin",
+	"description": "Preload pages intelligently to boost site speed and enhance user experience by loading pages before users click, ensuring instant page transitions",
 	"type": "wordpress-plugin",
 	"keywords": [
 		"wordpress",

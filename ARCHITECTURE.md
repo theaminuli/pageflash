@@ -2,7 +2,7 @@
 
 ## Overview
 
-PageFlash is a WordPress plugin that provides fast and efficient headless browser functionality through intelligent link prefetching. By leveraging the Quicklink.js library, PageFlash prefetches links in the viewport during idle time, resulting in a 50% increase in conversions and 4x faster page loading. Built following WordPress Core Contributor guidelines and modern plugin development standards, the plugin offers seamless integration with WordPress sites.
+PageFlash is a WordPress plugin that preloads pages intelligently to boost site speed and enhance user experience by loading pages before users click, ensuring instant page transitions. Built following WordPress Core Contributor guidelines and modern plugin development standards, the plugin offers seamless integration with WordPress sites.
 
 ## Table of Contents
 

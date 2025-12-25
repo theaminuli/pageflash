@@ -18,8 +18,8 @@
  * License:     GPL-3.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: pageflash
- * Description: PageFlash - Fast and Efficient Headless Browser WordPress Plugin. By using PageFlash, an active plugin, you'll experience a 50% increase in conversions and enjoy 4x faster page loading. ⚡️ Boost your website's speed, increase user engagement 💬, and supercharge your online presence 🚀. - NewEgg
- * Tags:        headless-browser, pageflash, prefetches, quicklink, quickload, performance, speed, fast, prefetch, seo preconnect, optimization
+ * Description: Preload pages intelligently to boost site speed and enhance user experience by loading pages before users click, ensuring instant page transitions.
+ * Tags:       preload, pageflash, prefetch, quicklink, performance, speed, fast, instant-navigation, page-speed, optimization.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
