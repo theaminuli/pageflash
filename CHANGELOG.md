@@ -1,5 +1,6 @@
 # Changelog
-## x.y.z - 2025-12-25
+## x.y.z - 2025-12-26
+- Refactor namespaces to include 'TheAminul' prefix and add function naming guidelines ([#119](https://github.com/theaminuli/pageflash/pull/119)) @theaminuli
 - Add or Update Instructions for Agents and Tools ([#118](https://github.com/theaminuli/pageflash/pull/118)) @theaminuli
 - Refactor code style and add Stylelint config ([#116](https://github.com/theaminuli/pageflash/pull/116)) @theaminuli
 - Fix autoloader function prefix: rename exoole_autoloader to pageflash_autoloader and format issue ([#115](https://github.com/theaminuli/pageflash/pull/115)) @Copilot
