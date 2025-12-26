@@ -1,6 +1,6 @@
 <?php
 
-namespace PageFlash\Compatibility;
+namespace TheAminul\PageFlash\Compatibility;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.

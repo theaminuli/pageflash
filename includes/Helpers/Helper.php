@@ -1,6 +1,6 @@
 <?php
 
-namespace PageFlash\Helpers;
+namespace TheAminul\PageFlash\Helpers;
 
 defined( 'ABSPATH' ) || exit;
 

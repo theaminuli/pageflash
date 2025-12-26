@@ -1,11 +1,11 @@
 <?php
 
-namespace PageFlash;
+namespace TheAminul\PageFlash;
 
-use PageFlash\AssetsManager\AssetsManager;
-use PageFlash\Admin\Admin;
-use PageFlash\Landmark;
-use PageFlash\Compatibility\Compatibility;
+use TheAminul\PageFlash\AssetsManager\AssetsManager;
+use TheAminul\PageFlash\Admin\Admin;
+use TheAminul\PageFlash\Landmark;
+use TheAminul\PageFlash\Compatibility\Compatibility;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
