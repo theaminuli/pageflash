@@ -30,6 +30,8 @@ test/
 CONTRIBUTING.md
 CHANGELOG.md
 README.md
+AGENTS.md
+CLAUDE.md
 Gruntfile.js
 SECURITY.md
 babel.config.js
