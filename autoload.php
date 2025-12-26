@@ -8,7 +8,7 @@
  */
 function pageflash_get_namespace_map() {
 	return array(
-		'PageFlash' => PAGEFLASH_DIR . '/includes/',
+		'TheAminul\\PageFlash' => PAGEFLASH_DIR . '/includes/',
 	);
 }
 

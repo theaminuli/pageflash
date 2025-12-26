@@ -1,6 +1,6 @@
 <?php
 
-namespace PageFlash\Landmark;
+namespace TheAminul\PageFlash\Landmark;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly

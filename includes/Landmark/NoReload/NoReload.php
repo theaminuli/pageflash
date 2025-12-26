@@ -1,8 +1,8 @@
 <?php
 
-namespace PageFlash\Landmark\NoReload;
+namespace TheAminul\PageFlash\Landmark\NoReload;
 
-use PageFlash\Helpers\Helper;
+use TheAminul\PageFlash\Helpers\Helper;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly

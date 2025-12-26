@@ -8,7 +8,7 @@
  * @since 1.0.0
  */
 
-namespace PageFlash\Landmark;
+namespace TheAminul\PageFlash\Landmark;
 
 use WP_REST_Request;
 use WP_REST_Response;

@@ -1,6 +1,6 @@
 <?php
 
-namespace PageFlash\AssetsManager;
+namespace TheAminul\PageFlash\AssetsManager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
