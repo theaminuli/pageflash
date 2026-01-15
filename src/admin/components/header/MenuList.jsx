@@ -1,25 +1,25 @@
 import { Button, __experimentalVStack as VStack } from '@wordpress/components';
 import { useNavigate } from 'react-router';
-import { MENU_LIST } from '../../constants';
 
-const MenuList = ( { activeMenu, onButtonClick } ) => {
+const MenuList = ({ activeMenu, onButtonClick, menus = [] }) => {
 	const navigate = useNavigate();
+	
 	return (
-		<VStack className="pageflash-header__menu-list" spacing={ 0 }>
-			{ MENU_LIST.map( ( { id, key, label, icon } ) => (
+		<VStack className="pageflash-header__menu-list" spacing={0}>
+			{menus.map(({ slug, label, icon }, index) => (
 				<Button
-					key={ id }
+					key={slug}
 					className="pageflash-header__menu-button"
-					variant={ activeMenu === key ? 'primary' : 'secondary' }
-					icon={ icon }
-					onClick={ () => {
-						onButtonClick( key );
-						navigate( key === 'general' ? '/' : `/${ key }` );
-					} }
+					variant={activeMenu === slug ? 'primary' : 'secondary'}
+					icon={icon}
+					onClick={() => {
+						onButtonClick(slug);
+						navigate(index === 0 ? '/' : `/${slug}`);
+					}}
 				>
-					{ label }
+					{label}
 				</Button>
-			) ) }
+			))}
 		</VStack>
 	);
 };

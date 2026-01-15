@@ -1,2 +1,5 @@
+import Select from './Select';
 import Switch from './Switch';
-export { Switch };
+import FormField from './FormField';
+export { Select, Switch, FormField };
+

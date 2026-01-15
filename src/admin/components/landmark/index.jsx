@@ -1,3 +1,4 @@
-import General from './General';
+import LandmarkMenu from './LandmarkMenu';
 
-export { General };
+export { LandmarkMenu };
+

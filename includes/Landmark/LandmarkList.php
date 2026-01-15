@@ -32,6 +32,12 @@ class LandmarkList {
 	 *
 	 * If the option already exists, it will update it only if needed.
 	 *
+	 * Menu Properties for Dynamic Header:
+	 * - 'menu'      => Menu slug (e.g., 'general', 'preloading')
+	 * - 'menuOrder' => Sort order (lower = earlier in menu, default 999)
+	 * - 'menuLabel' => Display label in header menu (optional, defaults to menu slug)
+	 * - 'menuIcon'  => Icon for menu button (JSX string, optional)
+	 *
 	 * @since PageFlash 1.0.0
 	 */
 	public function pageflash_register_landmarks() {
@@ -49,6 +55,8 @@ class LandmarkList {
 					'active'      => true,
 					'slug'        => 'quicklink',
 					'menu'        => 'preloading',
+					'menuOrder'   => 2,
+					'menuLabel'   => __( 'Preloading', 'pageflash' ),
 					'package'     => 'free',
 				),
 				'instantpage' => array(
@@ -59,6 +67,8 @@ class LandmarkList {
 					'active'      => false,
 					'slug'        => 'instantpage',
 					'menu'        => 'preloading',
+					'menuOrder'   => 2,
+					'menuLabel'   => __( 'Preloading', 'pageflash' ),
 					'package'     => 'free',
 				),
 				'dashicons' => array(
@@ -69,6 +79,8 @@ class LandmarkList {
 					'active'      => true,
 					'slug'        => 'dashicons',
 					'menu'        => 'general',
+					'menuOrder'   => 1,
+					'menuLabel'   => __( 'General', 'pageflash' ),
 					'package'     => 'free',
 				),
 				'embeds' => array(
@@ -79,6 +91,8 @@ class LandmarkList {
 					'active'      => false,
 					'slug'        => 'embeds',
 					'menu'        => 'general',
+					'menuOrder'   => 1,
+					'menuLabel'   => __( 'General', 'pageflash' ),
 					'package'     => 'free',
 				),
 				'emojis' => array(
@@ -89,6 +103,8 @@ class LandmarkList {
 					'active'      => false,
 					'slug'        => 'emojis',
 					'menu'        => 'general',
+					'menuOrder'   => 1,
+					'menuLabel'   => __( 'General', 'pageflash' ),
 					'package'     => 'free',
 				),
 				'heartbeat' => array(
@@ -99,6 +115,8 @@ class LandmarkList {
 					'active'      => false,
 					'slug'        => 'heartbeat',
 					'menu'        => 'general',
+					'menuOrder'   => 1,
+					'menuLabel'   => __( 'General', 'pageflash' ),
 					'package'     => 'free',
 					'input'       => array(
 						'behavior' => array(
@@ -129,23 +147,22 @@ class LandmarkList {
 							),
 						),
 					),
-
 				),
 			),
 		);
 
 		// Allow developers to filter and modify default landmarks.
 		$landmarks = apply_filters( 'pageflash_landmarks', $defaults );
+		$existing  = get_option( 'pageflash_landmarks' );
 
-		$existing = get_option( 'pageflash_landmarks' );
-
-		// If no existing data, add it
+		// If no existing data, add it.
 		if ( false === $existing ) {
 			add_option( 'pageflash_landmarks', $landmarks );
+			return;
 		}
-		// If data already exists and is different, update it
-		elseif ( $existing !== $landmarks ) {
-			update_option( 'pageflash_landmarks', $landmarks );
-		}
+
+		// Recursively sync existing data with defaults.
+		$sync_manager = new LandmarkSyncManager();
+		$sync_manager->pageflash_sync_properties( $existing, $landmarks );
 	}
 }

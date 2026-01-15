@@ -103,8 +103,9 @@ class LandmarkAPI {
 	public function get_all_landmarks( WP_REST_Request $request ) {
 		$data = get_option( 'pageflash_landmarks', array() );
 
-		// Return all landmarks.
-		return rest_ensure_response( $data );
+		// Return only the data array from landmarks.
+		$landmarks_data = isset( $data['data'] ) ? $data['data'] : array();
+		return rest_ensure_response( array( 'data' => $landmarks_data ) );
 	}
 
 	/**

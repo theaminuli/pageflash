@@ -8,7 +8,7 @@ import usePageflashContext from './usePageflashContext';
  *
  * @return {Object} { landmarks, loading, error, refetch }
  */
-export const useGetLandmarks = () => {
+const useGetLandmarks = () => {
 	const { landmarks, dispatch } = usePageflashContext();
 	const [ loading, setLoading ] = useState( true );
 	const [ error, setError ] = useState( null );
@@ -40,3 +40,4 @@ export const useGetLandmarks = () => {
 		error,
 	};
 };
+export default useGetLandmarks;
