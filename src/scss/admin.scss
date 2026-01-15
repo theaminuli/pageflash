@@ -1,29 +1,30 @@
 /*
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Text Domain: pageflash
-Description: PageFlash - Fast and Efficient Headless Browser WordPress Plugin.
-Tags: headless-browser, pageflash, prefetches, quicklink, quickload, performance, speed, fast, prefetch, seo preconnect, optimization.
+Description: Preload pages intelligently to boost site speed and enhance user experience by loading pages before users click, ensuring instant page transitions.
+Tags: preload, pageflash, prefetch, quicklink, performance, speed, fast, instant-navigation, page-speed, optimization.
 */
 
 @use "./admin/header";
 @use "./admin/addons";
 @use "./admin/settings";
 @use "./admin/general";
-
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+@import url(https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap);
 
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
-#pageflash-admin{
-	font-family: "Lexend", sans-serif;
+
+#pageflash-admin {
+	font-family: Lexend, sans-serif;
 	font-optical-sizing: auto;
 	font-style: normal;
 }
+
 /* e.g. in styles.css */
 .pageflash-toast-container {
-  top: 50px !important;  /* override default 1em */
-  right: 25px !important;
+	top: 50px !important;  /* override default 1em */
+	right: 25px !important;
 }

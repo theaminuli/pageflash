@@ -1,5 +1,12 @@
 # Changelog
-## x.y.z - 2025-11-27
+## x.y.z - 2025-12-26
+- Refactor namespaces to include 'TheAminul' prefix and add function naming guidelines ([#119](https://github.com/theaminuli/pageflash/pull/119)) @theaminuli
+- Add or Update Instructions for Agents and Tools ([#118](https://github.com/theaminuli/pageflash/pull/118)) @theaminuli
+- Refactor code style and add Stylelint config ([#116](https://github.com/theaminuli/pageflash/pull/116)) @theaminuli
+- Fix autoloader function prefix: rename exoole_autoloader to pageflash_autoloader and format issue ([#115](https://github.com/theaminuli/pageflash/pull/115)) @Copilot
+- Remove emoji from user engagement text in README ([#114](https://github.com/theaminuli/pageflash/pull/114)) @theaminuli
+- Update PR workflow trigger and permissions ([#113](https://github.com/theaminuli/pageflash/pull/113)) @theaminuli
+- Revise API and architecture documentation for clarity ([#111](https://github.com/theaminuli/pageflash/pull/111)) @theaminuli
 - Add global helper class for content sanitization ([#104](https://github.com/theaminuli/pageflash/pull/104)) @theaminuli
 - Refactor Landmark API to use slugs and add new features #72 ([#103](https://github.com/theaminuli/pageflash/pull/103)) @theaminuli
 -  Remove Helper.php global helper class (#97) ([#97](https://github.com/theaminuli/pageflash/pull/97)) @theaminuli

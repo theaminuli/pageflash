@@ -5,39 +5,38 @@ import usePageflashContext from './usePageflashContext';
 
 /**
  * Custom hook to fetch all landmarks
- * 
- * @returns {Object} { landmarks, loading, error, refetch }
+ *
+ * @return {Object} { landmarks, loading, error, refetch }
  */
 export const useGetLandmarks = () => {
 	const { landmarks, dispatch } = usePageflashContext();
-	const [loading, setLoading] = useState(true);
-	const [error, setError] = useState(null);
+	const [ loading, setLoading ] = useState( true );
+	const [ error, setError ] = useState( null );
 
-	const fetchLandmarks = useCallback(async () => {
-		setLoading(true);
-		setError(null);
+	const fetchLandmarks = useCallback( async () => {
+		setLoading( true );
+		setError( null );
 
 		try {
-			const response = await apiFetch({
+			const response = await apiFetch( {
 				path: '/pageflash/v1/landmark',
 				method: 'GET',
-			});
-			dispatch(setLandmarks(response.data));
-		} catch (err) {
-			setError(err.message || 'Failed to fetch landmarks');
-			console.error('Error fetching landmarks:', err);
+			} );
+			dispatch( setLandmarks( response.data ) );
+		} catch ( err ) {
+			setError( err.message || 'Failed to fetch landmarks' );
 		} finally {
-			setLoading(false);
+			setLoading( false );
 		}
-	}, []);
+	}, [] );
 
-	useEffect(() => {
+	useEffect( () => {
 		fetchLandmarks();
-	}, []);
+	}, [] );
 
 	return {
 		landmarks,
 		loading,
-		error
+		error,
 	};
 };

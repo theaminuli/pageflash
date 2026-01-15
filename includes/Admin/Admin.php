@@ -1,6 +1,6 @@
 <?php
 
-namespace PageFlash\Admin;
+namespace TheAminul\PageFlash\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly

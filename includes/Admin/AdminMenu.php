@@ -1,6 +1,6 @@
 <?php
 
-namespace PageFlash\Admin;
+namespace TheAminul\PageFlash\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -59,5 +59,4 @@ class AdminMenu {
 		<div class="wrap pageflash-admin" id="pageflash-admin"></div>
 		<?php
 	}
-	
 }

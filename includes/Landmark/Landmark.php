@@ -1,11 +1,11 @@
 <?php
 
-namespace PageFlash\Landmark;
+namespace TheAminul\PageFlash\Landmark;
 
-use PageFlash\Landmark\LandmarkList;
-use PageFlash\Landmark\LandmarkAPI;
-use PageFlash\Landmark\NoReload\NoReload;             
-// use PageFlash\Landmark\General\General;
+use TheAminul\PageFlash\Landmark\LandmarkList;
+use TheAminul\PageFlash\Landmark\LandmarkAPI;
+use TheAminul\PageFlash\Landmark\NoReload\NoReload;
+// use TheAminul\PageFlash\Landmark\General\General;
 
 class Landmark {
 
@@ -24,12 +24,12 @@ class Landmark {
 	 */
 	public function pageflash_init_landmark() {
 		new NoReload();
-		// new General();
+			// new General();
 	}
 
-	/**
-	 * Register LandmarkList and LandmarkAPI.
-	 */
+		/**
+		 * Register LandmarkList and LandmarkAPI.
+		 */
 	public function pageflash_register_landmarks() {
 		new LandmarkList();
 		new LandmarkAPI();

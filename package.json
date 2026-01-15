@@ -1,7 +1,7 @@
 {
 	"name": "pageflash",
 	"version": "1.2.0",
-	"description": "PageFlash - Fast and Efficient Headless Browser WordPress Plugin",
+	"description": "Preload pages intelligently to boost site speed and enhance user experience by loading pages before users click, ensuring instant page transitions",
 	"author": "theaminul",
 	"license": "GPL-3.0-or-later",
 	"keywords": [
@@ -17,6 +17,11 @@
 	"engines": {
 		"node": ">=20.10.0",
 		"npm": ">=10.2.3"
+	},
+	"dependencies": {
+		"react-icons": "^5.5.0",
+		"react-router": "^7.9.4",
+		"react-toastify": "^11.0.5"
 	},
 	"devDependencies": {
 		"@actions/core": "^1.11.1",
@@ -48,10 +53,5 @@
 		"update-version": "node update-version-and-changelog.js",
 		"plugin-zip": "wp-scripts plugin-zip",
 		"zip": "concurrently \"wp-scripts build\" \"grunt\" && composer archive --file=../dist/pageflash"
-	},
-	"dependencies": {
-		"react-icons": "^5.5.0",
-		"react-router": "^7.9.4",
-		"react-toastify": "^11.0.5"
 	}
 }

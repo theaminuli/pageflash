@@ -1,3 +1,3 @@
-import WithHeaderLayout from "./WithHeaderLayout";
+import WithHeaderLayout from './WithHeaderLayout';
 
 export default WithHeaderLayout;
