@@ -27,7 +27,7 @@ import {
  * @param {string}                    [props.heading]     - Optional card heading
  * @param {string}                    [props.description] - Optional card description
  * @param {number}                    [props.titleSize=4] - Heading level
- * @return {JSX.Element}
+ * @return {JSX.Element} The rendered form field component
  */
 const FormField = ( {
 	type = 'text',

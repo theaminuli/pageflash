@@ -28,11 +28,10 @@ const LandmarkMenu = ( { menuSlug } ) => {
 	const { updateLandmark, loading: updating } = usePutLandmarkSlug();
 
 	/**
-	 * Memoized filtered landmarks data containing only items from the specified menu.
+	 * Filtered landmarks data containing only items from the specified menu.
+	 * Memoized to recalculate only when the landmarks or menuSlug dependency changes.
 	 *
-	 * @type {Array} - Array of landmark objects filtered by the menu slug
-	 * @see {@link filterLandmarksByMenu} - Function used to filter landmarks by menu type
-	 * @memoized - Recalculates only when the landmarks or menuSlug dependency changes
+	 * @type {Array}
 	 */
 	const data = useMemo(
 		() => filterLandmarksByMenu( landmarks, menuSlug ),

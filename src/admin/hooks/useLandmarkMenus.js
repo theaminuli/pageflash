@@ -12,8 +12,8 @@ import { useGetLandmarks } from '../hooks';
  * Custom hook to dynamically extract unique menu routes from landmark data.
  *
  * @return {Object} Object containing menus array and loading state
- * @return {Array<Object>} menus - Array of menu objects with slug and order
- * @return {boolean} loading - Loading state
+ * @return {Object.menus} menus - Array of menu objects with slug and order
+ * @return {Object.loading} loading - Loading state
  */
 const useLandmarkMenus = () => {
 	const { landmarks, loading } = useGetLandmarks();

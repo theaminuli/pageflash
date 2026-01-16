@@ -1,5 +1,3 @@
-// pages/AdminDashboard.jsx
-
 /**
  * External dependencies
  */
