@@ -11,6 +11,7 @@ import {
 	__experimentalVStack as VStack,
 	__experimentalZStack as ZStack,
 } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 import { useViewportMatch } from '@wordpress/compose';
 import { close, menu } from '@wordpress/icons';
 
@@ -92,7 +93,7 @@ const Header = ( { children, menus = [] } ) => {
 										level={ 2 }
 										style={ { marginRight: '10px' } }
 									>
-										PageFlash
+										{ __( 'PageFlash', 'pageflash' ) }
 									</Heading>
 								</Flex>
 								{ isMobile && (
@@ -157,7 +158,7 @@ const Header = ( { children, menus = [] } ) => {
 										)
 									}
 								>
-									Get Feature
+									{ __( 'Get Pro', 'pageflash' ) }
 								</Button>
 							</HStack>
 							{ children }

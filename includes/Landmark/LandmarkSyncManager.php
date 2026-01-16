@@ -86,12 +86,12 @@ class LandmarkSyncManager {
                     ? $this->pageflash_recursive_sync( $existing[ $key ], $value )
                     : $value;
             } else {
-                // Preserve user-modifiable fields: 'active' (toggle state) and 'value' (user input)
+                // Preserve user-modifiable fields: 'active' (toggle state) and 'value' (user input).
                 if ( ( 'value' === $key || 'active' === $key ) && isset( $existing[ $key ] ) ) {
                     continue;
                 }
-                // Update all other scalar config fields
-                if ( ! isset( $existing[ $key ] ) || $existing[ $key ] !== $value ) {
+                // Update all other scalar config fields.
+                if ( ! isset( $existing[ $key ] ) || $value !== $existing[ $key ] ) {
                     $existing[ $key ] = $value;
                 }
             }

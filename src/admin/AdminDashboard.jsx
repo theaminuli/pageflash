@@ -1,4 +1,9 @@
 /**
+ * WordPress dependencies
+ */
+import { __ } from '@wordpress/i18n';
+
+/**
  * External dependencies
  */
 
@@ -22,19 +27,19 @@ function AdminDashboard() {
 		{
 			slug: 'addons',
 			order: 100,
-			label: 'Addons',
+			label: __( 'Addons', 'pageflash' ),
 			icon: MENU_ICONS.addons,
 		},
 		{
 			slug: 'settings',
 			order: 200,
-			label: 'Settings',
+			label: __( 'Settings', 'pageflash' ),
 			icon: MENU_ICONS.settings,
 		},
 		{
 			slug: 'support',
 			order: 300,
-			label: 'Support',
+			label: __( 'Support', 'pageflash' ),
 			icon: MENU_ICONS.support,
 		},
 	];
@@ -43,7 +48,7 @@ function AdminDashboard() {
 	const menus = mergeMenus( landmarkMenus, customMenus );
 
 	if ( loading || menus.length === 0 ) {
-		return <div>Loading...</div>;
+		return <div>{ __( 'Loading...', 'pageflash' ) }</div>;
 	}
 
 	return (
