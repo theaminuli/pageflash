@@ -16,6 +16,14 @@
     right: 20px !important;
 }
 
+.pageflash-select {
+	border-radius: 8px;
+
+	.components-card-body {
+		padding: 20px;
+	}
+}
+
 .pageflash-switch {
 	border-radius: 8px;
 
@@ -30,13 +38,5 @@
 		.components-card-body {
 			padding: 10px;
 		}
-	}
-}
-
-.pageflash-select {
-	border-radius: 8px;
-
-	.components-card-body {
-		padding: 20px;
 	}
 }
