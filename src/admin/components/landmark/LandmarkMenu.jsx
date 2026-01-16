@@ -1,9 +1,15 @@
 /**
- * WordPress dependencies.
+ * WordPress dependencies
  */
 import { __experimentalHStack as HStack } from '@wordpress/components';
 import { useMemo } from '@wordpress/element';
+/**
+ * External dependencies
+ */
 import { toast } from 'react-toastify';
+/**
+ * Internal dependencies
+ */
 import { Switch } from '../../common';
 import { useGetLandmarks, usePutLandmarkSlug } from '../../hooks';
 import { filterLandmarksByMenu } from '../../utils';
@@ -13,9 +19,9 @@ import LandmarkInput from './LandmarkInput';
  * Generic Landmark Menu Component
  * Dynamically renders landmarks for a specific menu based on menuSlug.
  *
- * @param {Object} props - Component props
+ * @param {Object} props          - Component props
  * @param {string} props.menuSlug - The menu identifier (e.g., 'general', 'preloading', 'advanced')
- * @returns {JSX.Element} Rendered landmark menu
+ * @return {JSX.Element} Rendered landmark menu
  */
 const LandmarkMenu = ( { menuSlug } ) => {
 	const { landmarks, loading, error } = useGetLandmarks();
@@ -40,8 +46,8 @@ const LandmarkMenu = ( { menuSlug } ) => {
 	 * @async
 	 * @function handleChange
 	 * @param {boolean} newValue - The new active status value for the landmark
-	 * @param {string} slug - The unique identifier/slug of the landmark to update
-	 * @returns {Promise<void>} A promise that resolves when the landmark is updated
+	 * @param {string}  slug     - The unique identifier/slug of the landmark to update
+	 * @return {Promise<void>} A promise that resolves when the landmark is updated
 	 * @throws {Error} May throw an error if the updateLandmark operation fails
 	 */
 	const handleChange = async ( newValue, slug ) => {

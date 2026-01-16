@@ -1,24 +1,33 @@
+/**
+ * WordPress dependencies
+ */
 import { useEffect, useState } from '@wordpress/element';
+/**
+ * Internal dependencies
+ */
 import { FormField, Select } from '../../common';
 import useDebounce from '../../hooks/useDebounce';
 import { formatSelectOptions } from '../../utils';
 import { usePutLandmarkSlug } from '../../hooks';
+/**
+ * External dependencies
+ */
 import { toast } from 'react-toastify';
 
 /**
  * Renders an input component based on the field type for landmark configuration.
  *
- * @param {Object} props - The component props
- * @param {string} props.slug - The landmark slug identifier
- * @param {string} props.inputKey - The key/name of the input field
- * @param {Object} props.field - The field configuration object
- * @param {string} props.field.type - The type of input field (e.g., 'select')
- * @param {string} props.field.label - The label/heading for the field
+ * @param {Object} props                   - The component props
+ * @param {string} props.slug              - The landmark slug identifier
+ * @param {string} props.inputKey          - The key/name of the input field
+ * @param {Object} props.field             - The field configuration object
+ * @param {string} props.field.type        - The type of input field (e.g., 'select')
+ * @param {string} props.field.label       - The label/heading for the field
  * @param {string} props.field.description - The description text for the field
- * @param {*} props.field.value - The current value of the field
- * @param {*} props.field.default - The default value if no value is set
- * @param {Array} props.field.options - The available options for select-type fields
- * @returns {JSX.Element|null} The rendered input component or null if field type is not supported
+ * @param {*}      props.field.value       - The current value of the field
+ * @param {*}      props.field.default     - The default value if no value is set
+ * @param {Array}  props.field.options     - The available options for select-type fields
+ * @return {JSX.Element|null} The rendered input component or null if field type is not supported
  */
 const LandmarkInput = ( { slug, inputKey, field } ) => {
 	const { updateLandmark, loading: updating } = usePutLandmarkSlug();
@@ -43,10 +52,10 @@ const LandmarkInput = ( { slug, inputKey, field } ) => {
 	 *
 	 * @async
 	 * @function handleInputChange
-	 * @param {string} slug - The unique identifier/slug for the landmark to be updated.
+	 * @param {string} slug     - The unique identifier/slug for the landmark to be updated.
 	 * @param {string} inputKey - The key of the input field being updated.
-	 * @param {*} newValue - The new value to be set for the input field.
-	 * @returns {Promise<void>} A promise that resolves when the landmark is updated and the success toast is shown.
+	 * @param {*}      newValue - The new value to be set for the input field.
+	 * @return {Promise<void>} A promise that resolves when the landmark is updated and the success toast is shown.
 	 * @throws {Error} May throw an error if the updateLandmark operation fails.
 	 */
 	const handleInputChange = async ( slug, inputKey, newValue ) => {

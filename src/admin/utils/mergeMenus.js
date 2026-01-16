@@ -2,8 +2,8 @@
  * Merges custom menus with landmark-generated menus and sorts by order.
  *
  * @param {Array<Object>} landmarkMenus - Menus extracted from landmarks
- * @param {Array<Object>} customMenus - Custom menus to add (e.g., [{slug: 'settings', order: 2, label: 'Settings', icon: cog}])
- * @returns {Array<Object>} Sorted and merged menu array
+ * @param {Array<Object>} customMenus   - Custom menus to add (e.g., [{slug: 'settings', order: 2, label: 'Settings', icon: cog}])
+ * @return {Array<Object>} Sorted and merged menu array
  */
 export const mergeMenus = ( landmarkMenus = [], customMenus = [] ) => {
 	const menuMap = new Map();

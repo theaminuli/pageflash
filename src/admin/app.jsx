@@ -8,6 +8,7 @@ import { ToastContainer } from 'react-toastify';
 /**
  * Internal dependencies
  */
+
 import AdminDashboard from './AdminDashboard';
 import AdminProvider from './provider/AdminProvider';
 /**
@@ -21,11 +22,11 @@ const App = () => {
 			<ToastContainer
 				position="top-right"
 				className="pageflash-toast-container"
-				autoClose={2000}
-				hideProgressBar={false}
-				newestOnTop={false}
+				autoClose={ 2000 }
+				hideProgressBar={ false }
+				newestOnTop={ false }
 				closeOnClick
-				rtl={false}
+				rtl={ false }
 				pauseOnFocusLoss
 				draggable
 				pauseOnHover

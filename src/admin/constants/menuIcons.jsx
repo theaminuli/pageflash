@@ -1,7 +1,12 @@
 /**
- * WordPress dependencies.
+ * WordPress dependencies
  */
+
 import { cog } from '@wordpress/icons';
+
+/**
+ * External dependencies
+ */
 import { LiaExternalLinkAltSolid } from 'react-icons/lia';
 import { LuPlug2 } from 'react-icons/lu';
 import { MdSpeed } from 'react-icons/md';

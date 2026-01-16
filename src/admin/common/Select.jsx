@@ -1,3 +1,6 @@
+/**
+ * WordPress dependencies
+ */
 import {
 	Card,
 	CardBody,
@@ -11,14 +14,14 @@ import {
 /**
  * A reusable Select component that renders a card with a heading, description, and dropdown select control.
  *
- * @param {Object} props - The component props.
- * @param {string} props.heading - The heading text displayed at the top of the card.
- * @param {string} [props.description] - Optional description text displayed below the heading.
- * @param {string|number} props.value - The currently selected value in the dropdown.
- * @param {Function} props.onChange - Callback function triggered when the select value changes.
- * @param {Array<{label: string, value: string|number}>} props.options - Array of option objects for the select dropdown.
- * @param {number} [props.titleSize=4] - The heading level (1-6) for the title. Defaults to 4.
- * @returns {JSX.Element} A Card component containing a SelectControl with heading and description.
+ * @param {Object}                                       props               - The component props.
+ * @param {string}                                       props.heading       - The heading text displayed at the top of the card.
+ * @param {string}                                       [props.description] - Optional description text displayed below the heading.
+ * @param {string|number}                                props.value         - The currently selected value in the dropdown.
+ * @param {Function}                                     props.onChange      - Callback function triggered when the select value changes.
+ * @param {Array<{label: string, value: string|number}>} props.options       - Array of option objects for the select dropdown.
+ * @param {number}                                       [props.titleSize=4] - The heading level (1-6) for the title. Defaults to 4.
+ * @return {JSX.Element} A Card component containing a SelectControl with heading and description.
  */
 const Select = ( {
 	heading,
