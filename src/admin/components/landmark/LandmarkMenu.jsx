@@ -42,24 +42,28 @@ const LandmarkMenu = ( { menuSlug } ) => {
 	 * Handles the change event for landmark active status.
 	 * Updates the landmark with the new active state and displays a toast notification.
 	 *
-	 * @async
 	 * @function handleChange
 	 * @param {boolean} newValue - The new active status value for the landmark
 	 * @param {string}  slug     - The unique identifier/slug of the landmark to update
-	 * @return {Promise<void>} A promise that resolves when the landmark is updated
-	 * @throws {Error} May throw an error if the updateLandmark operation fails
 	 */
-	const handleChange = async ( newValue, slug ) => {
-		await updateLandmark( slug, { active: newValue } );
-		if ( newValue ) {
-			toast.success( 'Settings enabled!', {
-				autoClose: 1000,
+	const handleChange = ( newValue, slug ) => {
+		updateLandmark( slug, { active: newValue } )
+			.then( () => {
+				if ( newValue ) {
+					toast.success( 'Settings enabled!', {
+						autoClose: 1000,
+					} );
+				} else {
+					toast.info( 'Settings disabled.', {
+						autoClose: 1000,
+					} );
+				}
+			} )
+			.catch( ( err ) => {
+				toast.error( 'Failed to update setting', {
+					autoClose: 2000,
+				} );
 			} );
-		} else {
-			toast.info( 'Settings disabled.', {
-				autoClose: 1000,
-			} );
-		}
 	};
 
 	return (

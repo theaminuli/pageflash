@@ -27,28 +27,27 @@ const usePutLandmarkSlug = () => {
 	 * @param {Object} updateData - Object containing fields to update (e.g., { active: true }, { input: { behavior: 'value' } })
 	 * @return {Promise<Object>} The updated landmark data
 	 */
-	const updateLandmark = async ( slug, updateData ) => {
+	const updateLandmark = ( slug, updateData ) => {
 		setLoading( true );
 		setError( null );
 
-		try {
-			const response = await apiFetch( {
-				path: `/pageflash/v1/landmark/${ slug }`,
-				method: 'PUT',
-				data: updateData,
+		return apiFetch( {
+			path: `/pageflash/v1/landmark/${ slug }`,
+			method: 'PUT',
+			data: updateData,
+		} )
+			.then( ( response ) => {
+				if ( response.data ) {
+					dispatch( updateLandmarkAction( slug, response.data ) );
+				}
+				setLoading( false );
+				return response;
+			} )
+			.catch( ( err ) => {
+				setError( err.message || 'Failed to update landmark' );
+				setLoading( false );
+				throw err;
 			} );
-
-			if ( response.data ) {
-				dispatch( updateLandmarkAction( slug, response.data ) );
-			}
-
-			setLoading( false );
-			return response;
-		} catch ( err ) {
-			setError( err.message || 'Failed to update landmark' );
-			setLoading( false );
-			throw err;
-		}
 	};
 
 	return {

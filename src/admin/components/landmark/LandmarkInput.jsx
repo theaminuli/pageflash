@@ -46,26 +46,31 @@ const LandmarkInput = ( { slug, inputKey, field } ) => {
 	/**
 	 * Handles input changes for landmark settings and updates the landmark data.
 	 *
-	 * @async
 	 * @function handleInputChange
 	 * @param {string} landmarkSlug - The unique identifier/slug for the landmark to be updated.
 	 * @param {string} key          - The key of the input field being updated.
 	 * @param {*}      newValue     - The new value to be set for the input field.
-	 * @return {Promise<void>} A promise that resolves when the landmark is updated and the success toast is shown.
-	 * @throws {Error} May throw an error if the updateLandmark operation fails.
 	 */
-	const handleInputChange = async ( landmarkSlug, key, newValue ) => {
-		await updateLandmark( landmarkSlug, {
+	const handleInputChange = ( landmarkSlug, key, newValue ) => {
+		updateLandmark( landmarkSlug, {
 			input: {
 				[ key ]: {
 					value: newValue,
 				},
 			},
-		} );
-		toast.success( 'Setting updated!', {
-			autoClose: 1000,
-		} );
+		} )
+			.then( () => {
+				toast.success( 'Setting updated!', {
+					autoClose: 1000,
+				} );
+			} )
+			.catch( ( err ) => {
+				toast.error( 'Failed to update setting', {
+					autoClose: 2000,
+				} );
+			} );
 	};
+
 	switch ( field.type ) {
 		case 'select':
 			return (
