@@ -1,5 +1,13 @@
+/**
+ * WordPress dependencies
+ */
+
 import apiFetch from '@wordpress/api-fetch';
 import { useCallback, useEffect, useState } from '@wordpress/element';
+
+/**
+ * Internal dependencies
+ */
 import { setLandmarks } from '../actions';
 import usePageflashContext from './usePageflashContext';
 
@@ -8,26 +16,27 @@ import usePageflashContext from './usePageflashContext';
  *
  * @return {Object} { landmarks, loading, error, refetch }
  */
-export const useGetLandmarks = () => {
+const useGetLandmarks = () => {
 	const { landmarks, dispatch } = usePageflashContext();
 	const [ loading, setLoading ] = useState( true );
 	const [ error, setError ] = useState( null );
 
-	const fetchLandmarks = useCallback( async () => {
+	const fetchLandmarks = useCallback( () => {
 		setLoading( true );
 		setError( null );
 
-		try {
-			const response = await apiFetch( {
-				path: '/pageflash/v1/landmark',
-				method: 'GET',
+		apiFetch( {
+			path: '/pageflash/v1/landmark',
+			method: 'GET',
+		} )
+			.then( ( response ) => {
+				dispatch( setLandmarks( response.data ) );
+				setLoading( false );
+			} )
+			.catch( ( err ) => {
+				setError( err.message || 'Failed to fetch landmarks' );
+				setLoading( false );
 			} );
-			dispatch( setLandmarks( response.data ) );
-		} catch ( err ) {
-			setError( err.message || 'Failed to fetch landmarks' );
-		} finally {
-			setLoading( false );
-		}
 	}, [] );
 
 	useEffect( () => {
@@ -40,3 +49,4 @@ export const useGetLandmarks = () => {
 		error,
 	};
 };
+export default useGetLandmarks;

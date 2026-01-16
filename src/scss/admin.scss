@@ -4,27 +4,9 @@ Text Domain: pageflash
 Description: Preload pages intelligently to boost site speed and enhance user experience by loading pages before users click, ensuring instant page transitions.
 Tags: preload, pageflash, prefetch, quicklink, performance, speed, fast, instant-navigation, page-speed, optimization.
 */
-
+@use "./admin/common/root";
 @use "./admin/header";
 @use "./admin/addons";
 @use "./admin/settings";
 @use "./admin/general";
 @import url(https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap);
-
-* {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
-#pageflash-admin {
-	font-family: Lexend, sans-serif;
-	font-optical-sizing: auto;
-	font-style: normal;
-}
-
-/* e.g. in styles.css */
-.pageflash-toast-container {
-	top: 50px !important;  /* override default 1em */
-	right: 25px !important;
-}

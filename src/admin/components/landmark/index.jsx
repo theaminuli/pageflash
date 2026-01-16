@@ -1,3 +1,7 @@
-import General from './General';
+/**
+ * Internal dependencies
+ */
 
-export { General };
+import LandmarkMenu from './LandmarkMenu';
+
+export { LandmarkMenu };

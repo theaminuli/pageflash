@@ -1,5 +1,5 @@
 const initialState = {
 	activeMenu: 'general',
-	landmarks: [],
+	landmarks: {},
 };
 export default initialState;

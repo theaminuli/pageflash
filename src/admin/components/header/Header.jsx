@@ -1,3 +1,6 @@
+/**
+ * WordPress dependencies
+ */
 import {
 	Button,
 	Card,
@@ -8,15 +11,22 @@ import {
 	__experimentalVStack as VStack,
 	__experimentalZStack as ZStack,
 } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 import { useViewportMatch } from '@wordpress/compose';
 import { close, menu } from '@wordpress/icons';
+
+/**
+ * External dependencies
+ */
+import { useState } from 'react';
 import { AiTwotoneRocket } from 'react-icons/ai';
 import { LiaExternalLinkAltSolid } from 'react-icons/lia';
 import { toast } from 'react-toastify';
+
 /**
- * Internal dependencies.
+ * Internal dependencies
  */
-import { useState } from 'react';
+
 import { setActiveMenu } from '../../actions';
 import { usePageflashContext } from '../../hooks';
 import { capitalizeFirstLetter } from '../../utils';
@@ -27,9 +37,10 @@ import MenuList from './MenuList';
  *
  * @param {Object}                    props          - The properties object.
  * @param {import('react').ReactNode} props.children - The child components to be rendered in the content area.
+ * @param {Array<Object>}             props.menus    - The menu items to display.
  * @return {JSX.Element} The header component with navigation and content.
  */
-const Header = ( { children } ) => {
+const Header = ( { children, menus = [] } ) => {
 	const { activeMenu, dispatch } = usePageflashContext();
 	const isDesktop = useViewportMatch( 'medium', '>=' );
 	const isMobile = useViewportMatch( 'medium', '<' );
@@ -54,7 +65,7 @@ const Header = ( { children } ) => {
 		<>
 			<Card className="pageflash-header">
 				<Flex
-					expanded={ true }
+					expanded
 					gap={ 0 }
 					align="top"
 					direction={ [ 'column', 'column', 'row' ] }
@@ -82,7 +93,7 @@ const Header = ( { children } ) => {
 										level={ 2 }
 										style={ { marginRight: '10px' } }
 									>
-										PageFlash
+										{ __( 'PageFlash', 'pageflash' ) }
 									</Heading>
 								</Flex>
 								{ isMobile && (
@@ -104,6 +115,7 @@ const Header = ( { children } ) => {
 								<MenuList
 									activeMenu={ activeMenu }
 									onButtonClick={ handleButtonClick }
+									menus={ menus }
 								/>
 							) }
 						</VStack>
@@ -113,6 +125,7 @@ const Header = ( { children } ) => {
 							<MenuList
 								activeMenu={ activeMenu }
 								onButtonClick={ handleButtonClick }
+								menus={ menus }
 							/>
 						) }
 						<CardBody className="pageflash-header__card-body">
@@ -121,7 +134,10 @@ const Header = ( { children } ) => {
 								className={ 'pageflash-header__h-stack' }
 							>
 								<Heading>
-									{ capitalizeFirstLetter( activeMenu ) }
+									{ menus.find(
+										( m ) => m.slug === activeMenu
+									)?.label ||
+										capitalizeFirstLetter( activeMenu ) }
 								</Heading>
 								<Button
 									variant="primary"
@@ -142,7 +158,7 @@ const Header = ( { children } ) => {
 										)
 									}
 								>
-									Get Feature
+									{ __( 'Get Pro', 'pageflash' ) }
 								</Button>
 							</HStack>
 							{ children }
