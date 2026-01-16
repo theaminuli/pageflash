@@ -1,7 +1,11 @@
+/**
+ * Internal dependencies
+ */
+import FormField from './FormField';
 import Select from './Select';
 import Switch from './Switch';
-import FormField from './FormField';
 /*
  * Internal dependencies
  */
-export { Select, Switch, FormField };
+export { FormField, Select, Switch };
+

@@ -1,5 +1,12 @@
+/**
+ * WordPress dependencies
+ */
 import apiFetch from '@wordpress/api-fetch';
 import { useCallback, useEffect, useState } from '@wordpress/element';
+
+/**
+ * Internal dependencies
+ */
 import { setLandmarks } from '../actions';
 import usePageflashContext from './usePageflashContext';
 

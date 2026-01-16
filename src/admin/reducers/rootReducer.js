@@ -1,7 +1,10 @@
+/**
+ * Internal dependencies
+ */
 import { ACTIVE_MENU, SET_LANDMARKS, UPDATE_LANDMARK } from '../actions';
 
-const rootReducer = ( state, action ) => {
-	switch ( action.type ) {
+const rootReducer = (state, action) => {
+	switch (action.type) {
 		case ACTIVE_MENU:
 			return {
 				...state,
@@ -16,9 +19,9 @@ const rootReducer = ( state, action ) => {
 			const { slug, updates } = action.payload;
 			const updatedLandmarks = { ...state.landmarks };
 
-			if ( updatedLandmarks[ slug ] ) {
-				updatedLandmarks[ slug ] = {
-					...updatedLandmarks[ slug ],
+			if (updatedLandmarks[slug]) {
+				updatedLandmarks[slug] = {
+					...updatedLandmarks[slug],
 					...updates,
 				};
 			}

@@ -1,3 +1,6 @@
+/**
+ * WordPress dependencies
+ */
 import {
 	Card,
 	CardBody,
@@ -8,6 +11,9 @@ import {
 	ToggleControl,
 } from '@wordpress/components';
 
+/**
+ * External dependencies
+ */
 import { LiaExternalLinkAltSolid } from 'react-icons/lia';
 
 /**
@@ -24,57 +30,57 @@ import { LiaExternalLinkAltSolid } from 'react-icons/lia';
  * @returns {JSX.Element} A Card component containing a toggle switch with heading, description, external link icon, and optional children
  *
  */
-const Switch = ( { heading, description, checked, onToggle, children } ) => {
+const Switch = ({ heading, description, checked, onToggle, children }) => {
 	return (
 		<>
 			<Card className="pageflash-switch" size="large">
 				<CardBody>
-					<Flex gap={ 2 }>
+					<Flex gap={2}>
 						<FlexItem>
 							<Flex
 								direction="row"
-								gap={ 1 }
+								gap={1}
 								justify="start"
 								align="center"
 							>
-								<Heading level={ 4 }>{ heading }</Heading>
+								<Heading level={4}>{heading}</Heading>
 								<a
 									href="#"
 									target="_blank"
 									rel="noreferrer"
-									style={ { textDecoration: 'none' } }
+									style={{ textDecoration: 'none' }}
 								>
 									<Text>
-										<LiaExternalLinkAltSolid size={ 22 } />
+										<LiaExternalLinkAltSolid size={22} />
 									</Text>
 								</a>
 							</Flex>
 							<Text
-								size={ 14 }
-								lineHeight={ 1.6 }
-								weight={ 400 }
-								style={ { maxWidth: '900px' } }
+								size={14}
+								lineHeight={1.6}
+								weight={400}
+								style={{ maxWidth: '900px' }}
 								variant="muted"
 							>
-								{ description }
+								{description}
 							</Text>
 						</FlexItem>
 
 						<FlexItem>
 							<ToggleControl
 								__nextHasNoMarginBottom
-								checked={ checked }
-								onChange={ onToggle }
+								checked={checked}
+								onChange={onToggle}
 							/>
 						</FlexItem>
 					</Flex>
-					{ children && (
+					{children && (
 						<div
-							style={ { marginTop: '16px', marginLeft: '20px' } }
+							style={{ marginTop: '16px', marginLeft: '20px' }}
 						>
-							{ children }
+							{children}
 						</div>
-					) }
+					)}
 				</CardBody>
 			</Card>
 		</>

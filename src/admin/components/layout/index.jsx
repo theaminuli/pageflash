@@ -1,3 +1,6 @@
+/**
+ * Internal dependencies
+ */
 import WithHeaderLayout from './WithHeaderLayout';
 /*
  * Internal dependencies

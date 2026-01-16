@@ -1,1 +1,5 @@
+/**
+ * Internal dependencies
+ */
 import './frontend';
+

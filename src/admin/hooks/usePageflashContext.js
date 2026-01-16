@@ -1,4 +1,11 @@
+/**
+ * WordPress dependencies
+ */
 import { useContext } from '@wordpress/element';
+
+/**
+ * Internal dependencies
+ */
 import { AdminContext } from '../context';
 
 /**
@@ -8,9 +15,9 @@ import { AdminContext } from '../context';
  * @return {Object} The current value of the Pageflash context.
  */
 const usePageflashContext = () => {
-	const pageflashContext = useContext( AdminContext );
+	const pageflashContext = useContext(AdminContext);
 
-	if ( ! pageflashContext ) {
+	if (!pageflashContext) {
 		throw new Error(
 			'usePageflashContext must be used within a PageflashProvider'
 		);

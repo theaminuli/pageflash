@@ -1,3 +1,6 @@
+/**
+ * WordPress dependencies
+ */
 import apiFetch from '@wordpress/api-fetch';
 import { useState } from '@wordpress/element';
 import { updateLandmark as updateLandmarkAction } from '../actions';
@@ -10,8 +13,8 @@ import usePageflashContext from './usePageflashContext';
  */
 const usePutLandmarkSlug = () => {
 	const { dispatch } = usePageflashContext();
-	const [ loading, setLoading ] = useState( false );
-	const [ error, setError ] = useState( null );
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(null);
 
 	/**
 	 * Updates a landmark with any provided data
@@ -20,26 +23,26 @@ const usePutLandmarkSlug = () => {
 	 * @param {Object} updateData - Object containing fields to update (e.g., { active: true }, { input: { behavior: 'value' } })
 	 * @return {Promise<Object>} The updated landmark data
 	 */
-	const updateLandmark = async ( slug, updateData ) => {
-		setLoading( true );
-		setError( null );
+	const updateLandmark = async (slug, updateData) => {
+		setLoading(true);
+		setError(null);
 
 		try {
-			const response = await apiFetch( {
-				path: `/pageflash/v1/landmark/${ slug }`,
+			const response = await apiFetch({
+				path: `/pageflash/v1/landmark/${slug}`,
 				method: 'PUT',
 				data: updateData,
-			} );
+			});
 
-			if ( response.data ) {
-				dispatch( updateLandmarkAction( slug, response.data ) );
+			if (response.data) {
+				dispatch(updateLandmarkAction(slug, response.data));
 			}
 
-			setLoading( false );
+			setLoading(false);
 			return response;
-		} catch ( err ) {
-			setError( err.message || 'Failed to update landmark' );
-			setLoading( false );
+		} catch (err) {
+			setError(err.message || 'Failed to update landmark');
+			setLoading(false);
 			throw err;
 		}
 	};

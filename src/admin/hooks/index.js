@@ -1,3 +1,6 @@
+/**
+ * Internal dependencies
+ */
 import useDebounce from './useDebounce';
 import useGetLandmarks from './useGetLandmark';
 import useLandmarkMenus from './useLandmarkMenus';
@@ -11,5 +14,6 @@ export {
 	useGetLandmarks,
 	useLandmarkMenus,
 	usePageflashContext,
-	usePutLandmarkSlug,
+	usePutLandmarkSlug
 };
+
