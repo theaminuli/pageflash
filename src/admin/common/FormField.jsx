@@ -4,7 +4,7 @@ import {
 	Flex,
 	FlexItem,
 	__experimentalHeading as Heading,
-	__experimentalInputControl as InputControl ,
+	__experimentalInputControl as InputControl,
 	__experimentalText as Text,
 	TextareaControl,
 	TextControl,
@@ -26,7 +26,7 @@ import {
  * @param {number} [props.titleSize=4] - Heading level
  * @returns {JSX.Element}
  */
-const FormField = ({
+const FormField = ( {
 	type = 'text',
 	label,
 	help,
@@ -36,39 +36,39 @@ const FormField = ({
 	heading,
 	description,
 	titleSize = 4,
-}) => {
+} ) => {
 	let Control;
-	if (type === 'textarea') Control = TextareaControl;
-	else if (type === 'input') Control = InputControl;
+	if ( type === 'textarea' ) Control = TextareaControl;
+	else if ( type === 'input' ) Control = InputControl;
 	else Control = TextControl;
 
 	return (
 		<Card className="pageflash-formfield" size="large">
 			<CardBody>
-				<Flex gap={4} direction="column">
-					{heading && (
+				<Flex gap={ 4 } direction="column">
+					{ heading && (
 						<FlexItem>
-							<Heading level={titleSize}>{heading}</Heading>
-							{description && (
+							<Heading level={ titleSize }>{ heading }</Heading>
+							{ description && (
 								<Text
-									size={13}
-									lineHeight={1.6}
-									weight={400}
-									style={{ marginTop: '8px' }}
+									size={ 13 }
+									lineHeight={ 1.6 }
+									weight={ 400 }
+									style={ { marginTop: '8px' } }
 									variant="muted"
 								>
-									{description}
+									{ description }
 								</Text>
-							)}
+							) }
 						</FlexItem>
-					)}
+					) }
 					<FlexItem>
 						<Control
-							label={label}
-							help={help}
-							value={value}
-							onChange={onChange}
-							{...inputProps}
+							label={ label }
+							help={ help }
+							value={ value }
+							onChange={ onChange }
+							{ ...inputProps }
 						/>
 					</FlexItem>
 				</Flex>

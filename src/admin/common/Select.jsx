@@ -1,4 +1,3 @@
-
 import {
 	Card,
 	CardBody,
@@ -11,7 +10,7 @@ import {
 
 /**
  * A reusable Select component that renders a card with a heading, description, and dropdown select control.
- * 
+ *
  * @param {Object} props - The component props.
  * @param {string} props.heading - The heading text displayed at the top of the card.
  * @param {string} [props.description] - Optional description text displayed below the heading.
@@ -21,31 +20,38 @@ import {
  * @param {number} [props.titleSize=4] - The heading level (1-6) for the title. Defaults to 4.
  * @returns {JSX.Element} A Card component containing a SelectControl with heading and description.
  */
-const Select = ({ heading, description, value, onChange, options, titleSize = 4 }) => {
+const Select = ( {
+	heading,
+	description,
+	value,
+	onChange,
+	options,
+	titleSize = 4,
+} ) => {
 	return (
 		<Card className="pageflash-select" size="large">
 			<CardBody>
-				<Flex gap={4} direction="column">
+				<Flex gap={ 4 } direction="column">
 					<FlexItem>
-						<Heading level={titleSize}>{heading}</Heading>
-						{description && (
+						<Heading level={ titleSize }>{ heading }</Heading>
+						{ description && (
 							<Text
-								size={13}
-								lineHeight={1.6}
-								weight={400}
-								style={{ marginTop: '8px' }}
+								size={ 13 }
+								lineHeight={ 1.6 }
+								weight={ 400 }
+								style={ { marginTop: '8px' } }
 								variant="muted"
 							>
-								{description}
+								{ description }
 							</Text>
-						)}
+						) }
 					</FlexItem>
 					<FlexItem>
 						<SelectControl
 							size="default"
-							value={value}
-							onChange={onChange}
-							options={options}
+							value={ value }
+							onChange={ onChange }
+							options={ options }
 							__nextHasNoMarginBottom
 						/>
 					</FlexItem>

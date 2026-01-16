@@ -1,5 +1,8 @@
 import domReady from '@wordpress/dom-ready';
 import { createRoot } from '@wordpress/element';
+/*
+ * Internal dependencies
+ */
 import '../scss/admin.scss';
 import App from './app';
 

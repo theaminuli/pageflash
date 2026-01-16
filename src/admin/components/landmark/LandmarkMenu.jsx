@@ -12,31 +12,31 @@ import LandmarkInput from './LandmarkInput';
 /**
  * Generic Landmark Menu Component
  * Dynamically renders landmarks for a specific menu based on menuSlug.
- * 
+ *
  * @param {Object} props - Component props
  * @param {string} props.menuSlug - The menu identifier (e.g., 'general', 'preloading', 'advanced')
  * @returns {JSX.Element} Rendered landmark menu
  */
-const LandmarkMenu = ({ menuSlug }) => {
+const LandmarkMenu = ( { menuSlug } ) => {
 	const { landmarks, loading, error } = useGetLandmarks();
 	const { updateLandmark, loading: updating } = usePutLandmarkSlug();
 
 	/**
 	 * Memoized filtered landmarks data containing only items from the specified menu.
-	 * 
+	 *
 	 * @type {Array} - Array of landmark objects filtered by the menu slug
 	 * @see {@link filterLandmarksByMenu} - Function used to filter landmarks by menu type
 	 * @memoized - Recalculates only when the landmarks or menuSlug dependency changes
 	 */
 	const data = useMemo(
-		() => filterLandmarksByMenu(landmarks, menuSlug),
-		[landmarks, menuSlug]
+		() => filterLandmarksByMenu( landmarks, menuSlug ),
+		[ landmarks, menuSlug ]
 	);
 
 	/**
 	 * Handles the change event for landmark active status.
 	 * Updates the landmark with the new active state and displays a toast notification.
-	 * 
+	 *
 	 * @async
 	 * @function handleChange
 	 * @param {boolean} newValue - The new active status value for the landmark
@@ -44,16 +44,16 @@ const LandmarkMenu = ({ menuSlug }) => {
 	 * @returns {Promise<void>} A promise that resolves when the landmark is updated
 	 * @throws {Error} May throw an error if the updateLandmark operation fails
 	 */
-	const handleChange = async (newValue, slug) => {
-		await updateLandmark(slug, { active: newValue });
-		if (newValue) {
-			toast.success('Settings enabled!', {
+	const handleChange = async ( newValue, slug ) => {
+		await updateLandmark( slug, { active: newValue } );
+		if ( newValue ) {
+			toast.success( 'Settings enabled!', {
 				autoClose: 1000,
-			});
+			} );
 		} else {
-			toast.info('Settings disabled.', {
+			toast.info( 'Settings disabled.', {
 				autoClose: 1000,
-			});
+			} );
 		}
 	};
 
@@ -61,34 +61,38 @@ const LandmarkMenu = ({ menuSlug }) => {
 		<HStack
 			alignment="normal"
 			direction="column"
-			spacing={5}
-			className={`pageflash-body pageflash-${menuSlug}`}
+			spacing={ 5 }
+			className={ `pageflash-body pageflash-${ menuSlug }` }
 		>
-			{data.map((item) => {
-				if (item.type === 'switch') {
+			{ data.map( ( item ) => {
+				if ( item.type === 'switch' ) {
 					return (
 						<Switch
-							key={item.id}
-							heading={item.label}
-							description={item.description}
-							checked={item.active || false}
-							onToggle={(newValue) =>
-								handleChange(newValue, item.slug)
+							key={ item.id }
+							heading={ item.label }
+							description={ item.description }
+							checked={ item.active || false }
+							onToggle={ ( newValue ) =>
+								handleChange( newValue, item.slug )
 							}
 						>
-							{item.active && item.input && Object.entries(item.input).map(([key, field]) => (
-								<LandmarkInput
-									key={key}
-									slug={item.slug}
-									inputKey={key}
-									field={field}
-								/>
-							))}
+							{ item.active &&
+								item.input &&
+								Object.entries( item.input ).map(
+									( [ key, field ] ) => (
+										<LandmarkInput
+											key={ key }
+											slug={ item.slug }
+											inputKey={ key }
+											field={ field }
+										/>
+									)
+								) }
 						</Switch>
 					);
 				}
 				return null;
-			})}
+			} ) }
 		</HStack>
 	);
 };
