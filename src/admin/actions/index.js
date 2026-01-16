@@ -1,5 +1,14 @@
-import { setActiveMenu, setLandmarks } from './actions';
-import { ACTIVE_MENU, SET_LANDMARKS } from './actionTypes';
+/**
+ * Internal dependencies
+ */
+import { setActiveMenu, setLandmarks, updateLandmark } from './actions';
+import { ACTIVE_MENU, SET_LANDMARKS, UPDATE_LANDMARK } from './actionTypes';
 
-export { ACTIVE_MENU, SET_LANDMARKS };
-export { setActiveMenu, setLandmarks };
+export {
+	ACTIVE_MENU,
+	SET_LANDMARKS,
+	setActiveMenu,
+	setLandmarks,
+	UPDATE_LANDMARK,
+	updateLandmark,
+};

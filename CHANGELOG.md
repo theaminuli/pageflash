@@ -1,5 +1,7 @@
 # Changelog
-## x.y.z - 2025-12-26
+## x.y.z - 2026-01-16
+- fix: resolve all issues ([#120](https://github.com/theaminuli/pageflash/pull/120)) @theaminuli
+- GitHub action check ([#122](https://github.com/theaminuli/pageflash/pull/122)) @theaminuli
 - Refactor namespaces to include 'TheAminul' prefix and add function naming guidelines ([#119](https://github.com/theaminuli/pageflash/pull/119)) @theaminuli
 - Add or Update Instructions for Agents and Tools ([#118](https://github.com/theaminuli/pageflash/pull/118)) @theaminuli
 - Refactor code style and add Stylelint config ([#116](https://github.com/theaminuli/pageflash/pull/116)) @theaminuli

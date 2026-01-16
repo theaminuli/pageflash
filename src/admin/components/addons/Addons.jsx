@@ -1,5 +1,5 @@
 /**
- * WordPress dependencies.
+ * WordPress dependencies
  */
 import {
 	Card,
@@ -11,7 +11,15 @@ import {
 	__experimentalText as Text,
 	__experimentalVStack as VStack,
 } from '@wordpress/components';
+
+/**
+ * External dependencies
+ */
 import { FiExternalLink } from 'react-icons/fi';
+
+/**
+ * Internal dependencies
+ */
 import { ADDONS } from '../../constants';
 
 /**

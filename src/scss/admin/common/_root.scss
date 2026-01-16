@@ -1,0 +1,42 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+#pageflash-admin {
+	font-family: Lexend, sans-serif;
+	font-optical-sizing: auto;
+	font-style: normal;
+}
+
+/* e.g. in styles.css */
+.pageflash-toast-container {
+	top: 50px !important;
+    right: 20px !important;
+}
+
+.pageflash-select {
+	border-radius: 8px;
+
+	.components-card-body {
+		padding: 20px;
+	}
+}
+
+.pageflash-switch {
+	border-radius: 8px;
+
+	.components-card-body {
+		padding: 20px;
+	}
+
+	.pageflash-select {
+		box-shadow: none;
+		border-radius: unset;
+
+		.components-card-body {
+			padding: 10px;
+		}
+	}
+}

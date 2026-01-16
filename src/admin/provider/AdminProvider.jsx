@@ -1,5 +1,13 @@
 /* eslint-disable react/prop-types */
+
+/**
+ * WordPress dependencies
+ */
 import { useReducer } from '@wordpress/element';
+
+/**
+ * Internal dependencies
+ */
 import { AdminContext } from '../context';
 import { initialState, rootReducer } from '../reducers';
 /**

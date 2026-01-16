@@ -1,4 +1,11 @@
+/**
+ * WordPress dependencies
+ */
 import { useContext } from '@wordpress/element';
+
+/**
+ * Internal dependencies
+ */
 import { AdminContext } from '../context';
 
 /**

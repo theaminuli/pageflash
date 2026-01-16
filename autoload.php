@@ -28,7 +28,7 @@ function pageflash_locate_class_file( $class_name ) {
 		if ( strpos( $class_name, $namespace ) === 0 ) {
 
 			$relative_class = substr( $class_name, strlen( $namespace ) );
-			$file = $base_dir . str_replace( '\\', '/', $relative_class ) . '.php';
+			$file           = $base_dir . str_replace( '\\', '/', $relative_class ) . '.php';
 
 			return file_exists( $file ) ? $file : false;
 		}
@@ -54,7 +54,7 @@ function pageflash_autoloader( $class_name ) {
 	}
 
 	// Debug only in development mode
-	if ( defined('PAGEFLASH_ENV') && PAGEFLASH_ENV === 'development' && WP_DEBUG ) {
+	if ( defined( 'PAGEFLASH_ENV' ) && PAGEFLASH_ENV === 'development' && WP_DEBUG ) {
 		error_log( "[PageFlash Autoload] Class not found: {$class_name}" ); // phpcs:ignore
 	}
 }

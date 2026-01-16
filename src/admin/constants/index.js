@@ -1,42 +1,13 @@
+/**
+ * WordPress dependencies
+ */
 import { __ } from '@wordpress/i18n';
-import { cog } from '@wordpress/icons';
-import { LiaExternalLinkAltSolid } from 'react-icons/lia';
-import { LuPlug2 } from 'react-icons/lu';
-import { RxLapTimer } from 'react-icons/rx';
 
+/**
+ * Internal dependencies
+ */
 import { createRandomId } from '../utils';
-export const MENU_LIST = [
-	{
-		id: createRandomId(),
-		key: 'general',
-		label: __( 'General', 'pageflash' ),
-		icon: <RxLapTimer style={ { width: '20px' } } />,
-	},
-	{
-		id: createRandomId(),
-		key: 'settings',
-		label: __( 'Settings', 'pageflash' ),
-		icon: cog,
-	},
-	{
-		id: createRandomId(),
-		key: 'addons',
-		label: __( 'Addons', 'pageflash' ),
-		icon: <LuPlug2 />,
-	},
-	// {
-	// 	id: createRandomId(),
-	// 	key: 'license',
-	// 	label: __( 'License', 'pageflash' ),
-	// 	icon: key,
-	// },
-	{
-		id: createRandomId(),
-		key: 'support',
-		label: __( 'Support', 'pageflash' ),
-		icon: <LiaExternalLinkAltSolid />,
-	},
-];
+export { MENU_ICONS } from './menuIcons';
 
 export const ADDONS = {
 	id: createRandomId(),
