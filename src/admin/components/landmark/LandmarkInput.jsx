@@ -2,6 +2,12 @@
  * WordPress dependencies
  */
 import { useEffect, useState } from '@wordpress/element';
+
+/**
+ * External dependencies
+ */
+import { toast } from 'react-toastify';
+
 /**
  * Internal dependencies
  */
@@ -9,10 +15,6 @@ import { FormField, Select } from '../../common';
 import useDebounce from '../../hooks/useDebounce';
 import { formatSelectOptions } from '../../utils';
 import { usePutLandmarkSlug } from '../../hooks';
-/**
- * External dependencies
- */
-import { toast } from 'react-toastify';
 
 /**
  * Renders an input component based on the field type for landmark configuration.

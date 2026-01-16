@@ -15,25 +15,28 @@
 	top: 50px !important;
     right: 20px !important;
 }
-.pageflash-switch{
+
+.pageflash-switch {
 	border-radius: 8px;
-	.components-card-body{
+
+	.components-card-body {
 		padding: 20px;
 	}
-}
-.pageflash-select{
-	border-radius: 8px;
-	.components-card-body{
-		padding: 20px;
+
+	.pageflash-select {
+		box-shadow: none;
+		border-radius: unset;
+
+		.components-card-body {
+			padding: 10px;
+		}
 	}
 }
 
-.pageflash-switch{
-	.pageflash-select{
-		box-shadow: none;
-		border-radius: unset;
-		.components-card-body{
-			padding: 10px;
-		}
+.pageflash-select {
+	border-radius: 8px;
+
+	.components-card-body {
+		padding: 20px;
 	}
 }
