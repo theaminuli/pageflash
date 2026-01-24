@@ -2,11 +2,11 @@
 /**
  * Disable XML-RPC Feature
  *
- * @package PageFlash\Landmark\General
+ * @package TheAminul\PageFlash\Landmark\General
  * @since 1.2.0
  */
 
-namespace PageFlash\Landmark\General;
+namespace TheAminul\PageFlash\Landmark\General;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -17,7 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Disables XML-RPC for improved security and performance.
  *
- * @package PageFlash\Landmark\General
  * @since 1.2.0
  */
 class DisableXMLRPC {
@@ -31,6 +30,7 @@ class DisableXMLRPC {
 		add_filter( 'xmlrpc_enabled', '__return_false' );
 		add_filter( 'wp_headers', array( $this, 'remove_x_pingback' ) );
 		add_filter( 'pings_open', '__return_false', 9999 );
+		add_filter( 'pre_option_enable_xmlrpc', '__return_zero' );
 		add_action( 'init', array( $this, 'intercept_xmlrpc_header' ) );
 	}
 
