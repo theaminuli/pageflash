@@ -2,11 +2,11 @@
 /**
  * Disable Heartbeat Feature
  *
- * @package PageFlash\Landmark\General
+ * @package TheAminul\PageFlash\Landmark\General
  * @since 1.2.0
  */
 
-namespace PageFlash\Landmark\General;
+namespace TheAminul\PageFlash\Landmark\General;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -17,7 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Controls WordPress Heartbeat API for improved performance.
  *
- * @package PageFlash\Landmark\General
  * @since 1.2.0
  */
 class DisableHeartbeat {
@@ -50,28 +49,77 @@ class DisableHeartbeat {
 		$this->frequency = $frequency;
 
 		add_action( 'init', array( $this, 'disable_heartbeat' ), 1 );
-		add_filter( 'heartbeat_settings', array( $this, 'heartbeat_frequency' ) );
+		add_filter( 'heartbeat_settings', array( $this, 'set_heartbeat_frequency' ) );
 	}
 
 	/**
-	 * Disable heartbeat based on behavior setting
+	 * Disable heartbeat based on behavior and page exceptions
 	 *
 	 * @since 1.2.0
 	 * @return void
 	 */
 	public function disable_heartbeat() {
-		if ( 'disable_everywhere' === $this->behavior ) {
-			wp_deregister_script( 'heartbeat' );
-		} elseif ( 'allow_posts' === $this->behavior ) {
+		if ( is_admin() ) {
 			global $pagenow;
-			if ( 'post.php' !== $pagenow && 'post-new.php' !== $pagenow ) {
-				wp_deregister_script( 'heartbeat' );
+
+			// Exception pages
+			if ( 'admin.php' === $pagenow && ! empty( $_GET['page'] ) ) {
+				$exceptions = array(
+					'gf_edit_forms',
+					'gf_entries',
+					'gf_settings',
+				);
+				if ( in_array( $_GET['page'], $exceptions, true ) ) {
+					return;
+				}
 			}
-		} elseif ( 'disable_dashboard' === $this->behavior ) {
-			global $pagenow;
-			if ( 'index.php' === $pagenow ) {
-				wp_deregister_script( 'heartbeat' );
+
+			// Site Health check
+			if ( 'site-health.php' === $pagenow ) {
+				return;
 			}
+		}
+
+		$this->replace_heartbeat();
+	}
+
+	/**
+	 * Replace/deregister heartbeat
+	 *
+	 * @since 1.2.0
+	 * @return void
+	 */
+	private function replace_heartbeat() {
+		global $pagenow;
+
+		switch ( $this->behavior ) {
+			case 'disable_everywhere':
+				wp_deregister_script( 'heartbeat' );
+				break;
+
+			case 'allow_posts':
+				if ( ! in_array( $pagenow, array( 'post.php', 'post-new.php' ), true ) ) {
+					wp_deregister_script( 'heartbeat' );
+				}
+				break;
+
+			case 'disable_dashboard':
+				if ( 'index.php' === $pagenow ) {
+					wp_deregister_script( 'heartbeat' );
+				}
+				break;
+		}
+
+		// Optional: replace with custom heartbeat script in admin
+		if ( is_admin() && ! wp_script_is( 'heartbeat', 'registered' ) ) {
+			wp_register_script(
+				'heartbeat',
+				PAGEFLASH_ASSETS_URL . 'libs/heartbeat/heartbeat.js',
+				array( 'jquery' ),
+				false,
+				true
+			);
+			wp_enqueue_script( 'heartbeat' );
 		}
 	}
 
@@ -82,9 +130,10 @@ class DisableHeartbeat {
 	 * @param array $settings Heartbeat settings.
 	 * @return array Modified settings.
 	 */
-	public function heartbeat_frequency( $settings ) {
+	public function set_heartbeat_frequency( $settings ) {
 		if ( ! empty( $this->frequency ) ) {
-			$settings['interval'] = $this->frequency;
+			$settings['interval']        = $this->frequency;
+			$settings['minimalInterval'] = $this->frequency;
 		}
 		return $settings;
 	}
