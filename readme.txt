@@ -1,4 +1,5 @@
 === PageFlash - Fast Page Preloading, Performance Optimization & Secure Your WordPress Site ===
+Contributors: theaminuldev
 Tags: preload, page-speed, optimization, performance, pageflash, speed, fast, instant-navigation, prefetch, quicklink
 Requires at least: 6.1
 Tested up to: 6.9
