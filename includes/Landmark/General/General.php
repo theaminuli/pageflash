@@ -1,12 +1,15 @@
 <?php
 /**
- * General Features Manager
+ * General Boot Manager
  *
- * @package PageFlash\Landmark\General
- * @since 1.2.0
+ * @package TheAminul\PageFlash\Landmark\General
+ * @since 1.3.0
  */
 
-namespace PageFlash\Landmark\General;
+namespace TheAminul\PageFlash\Landmark\General;
+
+use TheAminul\PageFlash\Landmark\BootManager;
+use TheAminul\PageFlash\Landmark\Boot;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -17,96 +20,164 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Manages and initializes all general optimization features.
  *
- * @package PageFlash\Landmark\General
- * @since 1.2.0
+ * @since 1.3.0
  */
-class General {
+class General extends BootManager {
 
 	/**
-	 * Feature instances
+	 * Namespace for this manager
 	 *
-	 * @since 1.2.0
-	 * @var array
+	 * @var string
 	 */
-	private $features = array();
+	protected string $namespace = 'general';
 
 	/**
-	 * Constructor
+	 * Register all General features.
 	 *
-	 * @since 1.2.0
+	 * This method is called from Landmark.php during initialization.
+	 * All features in the general namespace are registered here.
+	 *
+	 * @since 1.3.0
+	 * @return void
 	 */
-	public function __construct() {
-		$this->init_features();
+	public static function init_register() {
+		Boot::register(
+			'emojis',
+			array(
+				'class'     => DisableEmojis::class,
+				'namespace' => 'general',
+				'package'   => 'free',
+				'priority'  => 10,
+			)
+		);
+
+		Boot::register(
+			'embeds',
+			array(
+				'class'     => DisableEmbeds::class,
+				'namespace' => 'general',
+				'package'   => 'free',
+				'priority'  => 10,
+			)
+		);
+
+		Boot::register(
+			'dashicons',
+			array(
+				'class'     => DisableDashicons::class,
+				'namespace' => 'general',
+				'package'   => 'free',
+				'priority'  => 10,
+			)
+		);
+
+		Boot::register(
+			'jquery_migrate',
+			array(
+				'class'     => RemoveJQueryMigrate::class,
+				'namespace' => 'general',
+				'package'   => 'free',
+				'priority'  => 10,
+			)
+		);
+
+		Boot::register(
+			'xmlrpc',
+			array(
+				'class'     => DisableXMLRPC::class,
+				'namespace' => 'general',
+				'package'   => 'free',
+				'priority'  => 10,
+			)
+		);
+
+		Boot::register(
+			'wp_version',
+			array(
+				'class'     => HideWPVersion::class,
+				'namespace' => 'general',
+				'package'   => 'free',
+				'priority'  => 10,
+			)
+		);
+
+		Boot::register(
+			'rest_api',
+			array(
+				'class'     => DisableRestAPI::class,
+				'namespace' => 'general',
+				'package'   => 'free',
+				'priority'  => 10,
+			)
+		);
+
+		Boot::register(
+			'rest_api_link',
+			array(
+				'class'     => RemoveRestAPILink::class,
+				'namespace' => 'general',
+				'package'   => 'free',
+				'priority'  => 10,
+			)
+		);
+
+		Boot::register(
+			'heartbeat',
+			array(
+				'class'     => DisableHeartbeat::class,
+				'namespace' => 'general',
+				'package'   => 'free',
+				'priority'  => 10,
+			)
+		);
 	}
 
 	/**
-	 * Initialize features based on settings
+	 * Custom check before loading features
 	 *
-	 * @since 1.2.0
-	 * @return void
+	 * Prevents jQuery Migrate from loading on page builders.
+	 *
+	 * @since 1.3.0
+	 * @param string $key Feature key.
+	 * @param array  $config Feature config.
+	 * @param array  $settings All settings.
+	 * @return bool True to allow loading.
 	 */
-	private function init_features() {
-		$options = get_option( 'pageflash_options', array() );
-
-		// Disable Emojis
-		if ( ! empty( $options['disable_emojis'] ) ) {
-			$this->features['disable_emojis'] = new DisableEmojis();
+	protected function can_load_feature( string $key, array $config, array $settings ): bool {
+		// Skip jQuery Migrate on page builders
+		if ( 'jquery_migrate' === $key && $this->is_page_builder() ) {
+			return false;
 		}
 
-		// Disable Embeds
-		if ( ! empty( $options['disable_embeds'] ) ) {
-			$this->features['disable_embeds'] = new DisableEmbeds();
-		}
-
-		// Disable Dashicons
-		if ( ! empty( $options['disable_dashicons'] ) ) {
-			$this->features['disable_dashicons'] = new DisableDashicons();
-		}
-
-		// Remove jQuery Migrate
-		if ( ! empty( $options['remove_jquery_migrate'] ) && ! $this->is_page_builder() ) {
-			$this->features['remove_jquery_migrate'] = new RemoveJQueryMigrate();
-		}
-
-		// Disable XML-RPC
-		if ( ! empty( $options['disable_xmlrpc'] ) ) {
-			$this->features['disable_xmlrpc'] = new DisableXMLRPC();
-		}
-
-		// Hide WordPress Version
-		if ( ! empty( $options['hide_wp_version'] ) ) {
-			$this->features['hide_wp_version'] = new HideWPVersion();
-		}
-
-		// Disable REST API
-		if ( ! empty( $options['disable_rest_api'] ) ) {
-			$this->features['disable_rest_api'] = new DisableRestAPI();
-		}
-
-		// Disable Heartbeat
-		if ( ! empty( $options['disable_heartbeat'] ) ) {
-			$behavior  = $options['heartbeat_behavior'] ?? 'disable_everywhere';
-			$frequency = $options['heartbeat_frequency'] ?? 60;
-			$this->features['disable_heartbeat'] = new DisableHeartbeat( $behavior, $frequency );
-		}
+		return true;
 	}
 
 	/**
 	 * Check if page builder is active
 	 *
-	 * @since 1.2.0
+	 * @since 1.3.0
 	 * @return bool True if page builder is detected.
 	 */
 	private function is_page_builder() {
-		// Check for common page builder query args
+		// Never run in admin, ajax, rest
+		if ( is_admin() || wp_doing_ajax() || wp_is_json_request() ) {
+			return false;
+		}
+
 		$page_builders = array(
+			'customizer',
 			'elementor-preview',
-			'fl_builder',
+			'fl_builder', // beaver builder
+			'et_pb_preview', // divi
 			'et_fb',
-			'ct_builder',
+			'ct_builder', // oxygen
 			'tve',
 			'bricks',
+			'gb-template-viewer', // generateblocks
+			'trp-edit-translation', // translatepress
+			'gform_ajax', // gravity forms
 		);
+		$page_builders = apply_filters( 'pageflash_detected_page_builders', $page_builders );
 
 		foreach ( $page_builders as $builder ) {
 			if ( isset( $_GET[ $builder ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
@@ -115,26 +186,5 @@ class General {
 		}
 
 		return false;
-	}
-
-	/**
-	 * Get feature instance
-	 *
-	 * @since 1.2.0
-	 * @param string $key Feature key.
-	 * @return mixed|null Feature instance or null.
-	 */
-	public function get_feature( $key ) {
-		return $this->features[ $key ] ?? null;
-	}
-
-	/**
-	 * Get all features
-	 *
-	 * @since 1.2.0
-	 * @return array All feature instances.
-	 */
-	public function get_features() {
-		return $this->features;
 	}
 }
