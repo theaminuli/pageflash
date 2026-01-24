@@ -12,6 +12,11 @@ import {
 } from '@wordpress/components';
 
 /**
+ * External dependencies
+ */
+import { LiaExternalLinkAltSolid } from 'react-icons/lia';
+
+/**
  * A reusable Select component that renders a card with a heading, description, and dropdown select control.
  *
  * @param {Object}                                       props               - The component props.
@@ -30,13 +35,33 @@ const Select = ( {
 	onChange,
 	options,
 	titleSize = 4,
+	externalLink = true,
 } ) => {
 	return (
 		<Card className="pageflash-select" size="large">
 			<CardBody>
 				<Flex gap={ 4 } direction="column">
 					<FlexItem>
-						<Heading level={ titleSize }>{ heading }</Heading>
+						<Flex
+							direction="row"
+							gap={ 1 }
+							justify="start"
+							align="center"
+						>
+							<Heading level={ titleSize }>{ heading }</Heading>
+							{ externalLink && (
+								<a
+									href="#"
+									target="_blank"
+									rel="noreferrer"
+									style={ { textDecoration: 'none' } }
+								>
+									<Text>
+										<LiaExternalLinkAltSolid size={ 22 } />
+									</Text>
+								</a>
+							) }
+						</Flex>
 						{ description && (
 							<Text
 								size={ 13 }

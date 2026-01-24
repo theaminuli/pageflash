@@ -9,6 +9,11 @@ import { __ } from '@wordpress/i18n';
 import { createRandomId } from '../utils';
 export { MENU_ICONS } from './menuIcons';
 
+export const SKELETON_OPTIONS = Object.freeze( {
+	SPEED: 2,
+	FOREGROUND_COLOR: '#b9b8b8',
+} );
+
 export const ADDONS = {
 	id: createRandomId(),
 	key: 'addons',
