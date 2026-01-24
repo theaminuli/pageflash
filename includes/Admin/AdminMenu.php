@@ -42,7 +42,7 @@ class AdminMenu {
 			'manage_options',
 			'pageflash',
 			array( $this, 'pageflash_settings_page' ),
-			PAGEFLASH_ICON,
+			'icon-pageflash',
 			100
 		);
 	}

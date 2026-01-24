@@ -1,26 +1,16 @@
 # Changelog
 ## x.y.z - 2026-01-16
-- fix: resolve all issues ([#120](https://github.com/theaminuli/pageflash/pull/120)) @theaminuli
-- GitHub action check ([#122](https://github.com/theaminuli/pageflash/pull/122)) @theaminuli
-- Refactor namespaces to include 'TheAminul' prefix and add function naming guidelines ([#119](https://github.com/theaminuli/pageflash/pull/119)) @theaminuli
-- Add or Update Instructions for Agents and Tools ([#118](https://github.com/theaminuli/pageflash/pull/118)) @theaminuli
-- Refactor code style and add Stylelint config ([#116](https://github.com/theaminuli/pageflash/pull/116)) @theaminuli
-- Fix autoloader function prefix: rename exoole_autoloader to pageflash_autoloader and format issue ([#115](https://github.com/theaminuli/pageflash/pull/115)) @Copilot
-- Remove emoji from user engagement text in README ([#114](https://github.com/theaminuli/pageflash/pull/114)) @theaminuli
-- Update PR workflow trigger and permissions ([#113](https://github.com/theaminuli/pageflash/pull/113)) @theaminuli
-- Revise API and architecture documentation for clarity ([#111](https://github.com/theaminuli/pageflash/pull/111)) @theaminuli
-- Add global helper class for content sanitization ([#104](https://github.com/theaminuli/pageflash/pull/104)) @theaminuli
-- Refactor Landmark API to use slugs and add new features #72 ([#103](https://github.com/theaminuli/pageflash/pull/103)) @theaminuli
--  Remove Helper.php global helper class (#97) ([#97](https://github.com/theaminuli/pageflash/pull/97)) @theaminuli
--  Update CSS filter and clean up Compatibility (#96) ([#96](https://github.com/theaminuli/pageflash/pull/96)) @theaminuli
-- Add workflow to auto-format PR titles ([#95](https://github.com/theaminuli/pageflash/pull/95)) @theaminuli
--  Put PR reference number at front of changelog entries @Copilot [#91](https://github.com/theaminuli/pageflash/pull/91)
-- Enhance PR template with clearer guidance for What, Why, How, and Testing sections ([#87](https://github.com/theaminuli/pageflash/pull/87)) @Copilot
-- Update changelog formatting and readme entries ([#84](https://github.com/theaminuli/pageflash/pull/84)) @theaminuli
-- Add GitHub Actions workflow for automated PR descriptions and Copilot review ([#83](https://github.com/theaminuli/pageflash/pull/83)) @Copilot
-- Remove automatic readme.txt updates and add x.y.z version for changelog with file tracking ([#80](https://github.com/theaminuli/pageflash/pull/80)) @Copilot
-- Update license, add react-router, and init compatibility ([#76](https://github.com/theaminuli/pageflash/pull/76)) @theaminuli
-- Add PR reference tracking to changelog workflow ([#75](https://github.com/theaminuli/pageflash/pull/75)) @Copilot
+- Added: InstantPage integration to enhance the Preloading module performance.
+- Added: Introduced admin dashboard for better user experience.
+- Added: Disabled frontend Dashicons for non-logged-in users.
+- Added: Disabled WordPress oEmbed for improved page load performance.
+- Added: Disabled WordPress emojis to improve load time.
+- Added: Removed WordPress version info for better security.
+- Added: Disabled jquery-migrate.min.js to improve performance.
+- Added: Disabled XML-RPC to reduce unnecessary requests.
+- Added: Disabled WordPress REST API for non-authenticated users.
+- Added: Removed REST API link tag and header from the frontend.
+- Added: Disabled WordPress Heartbeat globally or in selected areas.
 
 ## 1.2.0 - 2025-05-14
 - chore: Add initial configuration files 

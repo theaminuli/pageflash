@@ -1,0 +1,34 @@
+.pageflash-support {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 50px 20px 50px 20px;
+
+	.components-card {
+		margin-bottom: 20px;
+	}
+
+	.components-card-header h2 {
+		margin: 0;
+		font-size: 18px;
+		font-weight: 600;
+	}
+
+	.components-card-body p {
+		margin: 0 0 16px 0;
+		color: #646970;
+		line-height: 1.6;
+	}
+
+	.pageflash-support-faq-column {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 8px;
+
+		.components-button.is-link {
+			text-align: left;
+			height: auto;
+			padding: 4px 0;
+		}
+	}
+}

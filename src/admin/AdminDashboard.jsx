@@ -15,9 +15,11 @@ import { HashRouter, Route, Routes } from 'react-router';
 import { Addons } from './components/addons';
 import { LandmarkMenu } from './components/landmark';
 import WithHeaderLayout from './components/layout';
+import { Support } from './components/support';
 import { MENU_ICONS } from './constants';
 import { useLandmarkMenus } from './hooks';
 import { mergeMenus } from './utils';
+import DashboardContent from './DashboardContent';
 
 function AdminDashboard() {
 	const { menus: landmarkMenus, loading } = useLandmarkMenus();
@@ -30,12 +32,12 @@ function AdminDashboard() {
 			label: __( 'Addons', 'pageflash' ),
 			icon: MENU_ICONS.addons,
 		},
-		{
-			slug: 'settings',
-			order: 200,
-			label: __( 'Settings', 'pageflash' ),
-			icon: MENU_ICONS.settings,
-		},
+		// {
+		// 	slug: 'settings',
+		// 	order: 200,
+		// 	label: __('Settings', 'pageflash'),
+		// 	icon: MENU_ICONS.settings,
+		// },
 		{
 			slug: 'support',
 			order: 300,
@@ -47,57 +49,69 @@ function AdminDashboard() {
 	// Merge landmark menus with custom menus and sort by order
 	const menus = mergeMenus( landmarkMenus, customMenus );
 
-	if ( loading || menus.length === 0 ) {
-		return <div>{ __( 'Loading...', 'pageflash' ) }</div>;
-	}
-
 	return (
-		<HashRouter>
-			<Routes>
-				<Route element={ <WithHeaderLayout menus={ menus } /> }>
-					{ menus.map( ( menu, index ) => {
-						// Render custom routes
-						if ( menu.slug === 'addons' ) {
-							return (
-								<Route
-									key={ menu.slug }
-									path="/addons"
-									element={ <Addons /> }
-								/>
-							);
-						}
-						if ( menu.slug === 'settings' ) {
-							return (
-								<Route
-									key={ menu.slug }
-									path="/settings"
-									element={ <h1>Settings</h1> }
-								/>
-							);
-						}
-						if ( menu.slug === 'support' ) {
-							return (
-								<Route
-									key={ menu.slug }
-									path="/support"
-									element={ <h1>Support</h1> }
-								/>
-							);
-						}
-						// Render landmark menus
-						return (
-							<Route
-								key={ menu.slug }
-								path={ index === 0 ? '/' : `/${ menu.slug }` }
-								element={
-									<LandmarkMenu menuSlug={ menu.slug } />
+		<DashboardContent
+			isLoading={ loading || menus.length === 0 }
+			dashboard={
+				<HashRouter>
+					<Routes>
+						<Route element={ <WithHeaderLayout menus={ menus } /> }>
+							{ menus.map( ( menu, index ) => {
+								// Render custom routes
+								if ( menu.slug === 'addons' ) {
+									return (
+										<Route
+											key={ menu.slug }
+											path="addons"
+											element={ <Addons /> }
+										/>
+									);
 								}
-							/>
-						);
-					} ) }
-				</Route>
-			</Routes>
-		</HashRouter>
+								if ( menu.slug === 'settings' ) {
+									return (
+										<Route
+											key={ menu.slug }
+											path="settings"
+											element={ <h1>Settings</h1> }
+										/>
+									);
+								}
+								if ( menu.slug === 'support' ) {
+									return (
+										<Route
+											key={ menu.slug }
+											path="support"
+											element={ <Support /> }
+										/>
+									);
+								}
+								// Render landmark menus
+								const isFirstLandmark =
+									landmarkMenus.findIndex(
+										( m ) => m.slug === menu.slug
+									) === 0;
+								return (
+									<Route
+										key={ menu.slug }
+										index={ isFirstLandmark }
+										path={
+											isFirstLandmark
+												? undefined
+												: menu.slug
+										}
+										element={
+											<LandmarkMenu
+												menuSlug={ menu.slug }
+											/>
+										}
+									/>
+								);
+							} ) }
+						</Route>
+					</Routes>
+				</HashRouter>
+			}
+		/>
 	);
 }
 

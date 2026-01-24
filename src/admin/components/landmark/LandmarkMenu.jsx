@@ -10,9 +10,9 @@ import { toast } from 'react-toastify';
 /**
  * Internal dependencies
  */
-import { Switch } from '../../common';
+import { FormField, Select, Switch } from '../../common';
 import { useGetLandmarks, usePutLandmarkSlug } from '../../hooks';
-import { filterLandmarksByMenu } from '../../utils';
+import { filterLandmarksByMenu, formatSelectOptions } from '../../utils';
 import LandmarkInput from './LandmarkInput';
 
 /**
@@ -47,7 +47,9 @@ const LandmarkMenu = ( { menuSlug } ) => {
 	 * @param {string}  slug     - The unique identifier/slug of the landmark to update
 	 */
 	const handleChange = ( newValue, slug ) => {
-		updateLandmark( slug, { active: newValue } )
+		updateLandmark( slug, {
+			active: newValue,
+		} )
 			.then( () => {
 				if ( newValue ) {
 					toast.success( 'Settings enabled!', {
@@ -58,6 +60,30 @@ const LandmarkMenu = ( { menuSlug } ) => {
 						autoClose: 1000,
 					} );
 				}
+			} )
+			.catch( ( err ) => {
+				toast.error( 'Failed to update setting', {
+					autoClose: 2000,
+				} );
+			} );
+	};
+
+	/**
+	 * Handles the change event for value-based fields (select, input, text, textarea).
+	 * Updates the landmark with the new value and displays a toast notification.
+	 *
+	 * @function handleValueChange
+	 * @param {string|number} newValue - The new value for the field
+	 * @param {string}        slug     - The unique identifier/slug of the landmark to update
+	 */
+	const handleValueChange = ( newValue, slug ) => {
+		updateLandmark( slug, {
+			value: newValue,
+		} )
+			.then( () => {
+				toast.success( 'Setting updated!', {
+					autoClose: 1000,
+				} );
 			} )
 			.catch( ( err ) => {
 				toast.error( 'Failed to update setting', {
@@ -84,6 +110,7 @@ const LandmarkMenu = ( { menuSlug } ) => {
 							onToggle={ ( newValue ) =>
 								handleChange( newValue, item.slug )
 							}
+							externalLink={ false }
 						>
 							{ item.active &&
 								item.input &&
@@ -98,6 +125,42 @@ const LandmarkMenu = ( { menuSlug } ) => {
 									)
 								) }
 						</Switch>
+					);
+				}
+				if ( item.type === 'select' ) {
+					return (
+						<Select
+							key={ item.id }
+							heading={ item.label }
+							description={ item.description }
+							value={ item.value || '' }
+							onChange={ ( newValue ) =>
+								handleValueChange( newValue, item.slug )
+							}
+							options={ formatSelectOptions(
+								item.options || []
+							) }
+							externalLink={ false }
+						/>
+					);
+				}
+				if (
+					item.type === 'input' ||
+					item.type === 'text' ||
+					item.type === 'textarea'
+				) {
+					return (
+						<FormField
+							key={ item.id }
+							type={ item.type }
+							heading={ item.label }
+							description={ item.description }
+							value={ item.value || '' }
+							onChange={ ( newValue ) =>
+								handleValueChange( newValue, item.slug )
+							}
+							externalLink={ false }
+						/>
 					);
 				}
 				return null;

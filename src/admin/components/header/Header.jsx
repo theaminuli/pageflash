@@ -11,16 +11,17 @@ import {
 	__experimentalVStack as VStack,
 	__experimentalZStack as ZStack,
 } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
 import { useViewportMatch } from '@wordpress/compose';
+import { __ } from '@wordpress/i18n';
 import { close, menu } from '@wordpress/icons';
 
 /**
  * External dependencies
  */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AiTwotoneRocket } from 'react-icons/ai';
 import { LiaExternalLinkAltSolid } from 'react-icons/lia';
+import { useLocation } from 'react-router';
 import { toast } from 'react-toastify';
 
 /**
@@ -42,6 +43,7 @@ import MenuList from './MenuList';
  */
 const Header = ( { children, menus = [] } ) => {
 	const { activeMenu, dispatch } = usePageflashContext();
+	const location = useLocation();
 	const isDesktop = useViewportMatch( 'medium', '>=' );
 	const isMobile = useViewportMatch( 'medium', '<' );
 	const [ showButtons, setShowButtons ] = useState( false );
@@ -60,6 +62,14 @@ const Header = ( { children, menus = [] } ) => {
 		// 	);
 		// }
 	};
+
+	// Detect route changes and update active menu
+	useEffect( () => {
+		const path = location.pathname.replace( '/', '' ) || menus[ 0 ]?.slug;
+		if ( path && path !== activeMenu ) {
+			dispatch( setActiveMenu( path ) );
+		}
+	}, [ location, menus, activeMenu ] );
 
 	return (
 		<>
