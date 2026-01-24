@@ -2,11 +2,11 @@
 /**
  * Disable Embeds Feature
  *
- * @package PageFlash\Landmark\General
+ * @package TheAminul\PageFlash\Landmark\General
  * @since 1.2.0
  */
 
-namespace PageFlash\Landmark\General;
+namespace TheAminul\PageFlash\Landmark\General;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -17,7 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Disables WordPress oEmbed functionality to improve performance.
  *
- * @package PageFlash\Landmark\General
  * @since 1.2.0
  */
 class DisableEmbeds {
@@ -45,7 +44,9 @@ class DisableEmbeds {
 		remove_filter( 'oembed_dataparse', 'wp_filter_oembed_result', 10 );
 		remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
 		remove_action( 'wp_head', 'wp_oembed_add_host_js' );
+		remove_filter( 'pre_oembed_result', 'wp_filter_pre_oembed_result', 10 );
 
+		add_filter( 'embed_oembed_discover', '__return_false' );
 		add_filter( 'tiny_mce_plugins', array( $this, 'disable_embeds_tiny_mce_plugin' ) );
 		add_filter( 'rewrite_rules_array', array( $this, 'disable_embeds_rewrites' ) );
 	}
