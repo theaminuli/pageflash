@@ -2,63 +2,58 @@
 
 namespace TheAminul\PageFlash\Landmark\NoReload;
 
-use TheAminul\PageFlash\Helpers\Helper;
+use TheAminul\PageFlash\Landmark\BootManager;
+use TheAminul\PageFlash\Landmark\Boot;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
 /**
- * NoReload Class.
+ * NoReload Boot Manager
  *
- * This class provides functionality for something in your PageFlash plugin.
+ * Manages preloading features (Quicklink, InstantPage, etc.)
  *
  * @package pageflash
- * @since PageFlash 1.0.0
+ * @since PageFlash 1.3.0
  */
-class NoReload {
-
-	public function __construct() {
-		$this->init();
-	}
+class NoReload extends BootManager {
 
 	/**
-	 * Initialize feature classes based on persisted settings.
+	 * Namespace for this manager
 	 *
-	 * This method retrieves plugin settings via Helper::get_settings(), defines a
-	 * mapping of feature keys to their implementing classes, and instantiates each
-	 * feature class when the corresponding settings entry contains an 'active'
-	 * value that evaluates to true.
-	 *
-	 * Expected settings format:
-	 *   [
-	 *     'instantpage' => ['active' => bool],
-	 *     'quicklink'   => ['active' => bool],
-	 *     // ...
-	 *   ]
-	 *
-	 * Notes:
-	 * - Feature classes are instantiated without arguments; they are expected to
-	 *   perform their own registration/bootstrap in their constructors.
-	 * - Only features present in the $features map are considered here.
-	 *
-	 * @return void
-	 * @see Helper::get_settings()
-	 * @see InstantPage
-	 * @see Quicklink
+	 * @var string
 	 */
-	private function init() {
-		$settings = Helper::get_settings();
+	protected string $namespace = 'noreload';
 
-		$features = array(
-			// 'instantpage' => InstantPage::class,
-			'quicklink'   => Quicklink::class,
+	/**
+	 * Register all NoReload features.
+	 *
+	 * This method is called from Landmark.php during initialization.
+	 * All features in the noreload namespace are registered here.
+	 *
+	 * @since 1.3.0
+	 * @return void
+	 */
+	public static function init_register() {
+		Boot::register(
+			'quicklink',
+			array(
+				'class'     => Quicklink::class,
+				'namespace' => 'noreload',
+				'package'   => 'free',
+				'priority'  => 10,
+			)
 		);
 
-		foreach ( $features as $key => $class ) {
-			if ( ! empty( $settings[ $key ]['active'] ) ) {
-				new $class();
-			}
-		}
+		Boot::register(
+			'instantpage',
+			array(
+				'class'     => InstantPage::class,
+				'namespace' => 'noreload',
+				'package'   => 'free',
+				'priority'  => 10,
+			)
+		);
 	}
 }

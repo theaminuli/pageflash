@@ -18,8 +18,65 @@ class Quicklink {
 
 	public function __construct() {
 		// Constructor code
+		add_action( 'wp_default_scripts', array( $this, 'pageflash_wp_default_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'pageflash_frontend_assets' ) );
 		add_filter( 'script_loader_tag', array( $this, 'pageflash_async_script_loader' ), 10, 2 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'pageflash_settings_config' ) );
+	}
+
+	/**
+	 * Enqueue scripts for the PageFlash plugin frontend.
+	 *
+	 * This method enqueues scripts necessary for the PageFlash plugin's functionality.
+	 * Add quicklink to the default scripts to make it available earlier in the runtime.
+	 *
+	 * @param WP_Scripts $scripts The WP_Scripts instance.
+	 * @return void
+	 * @since PageFlash 1.0.0
+	 */
+	public function pageflash_wp_default_scripts( $scripts ) {
+		// Define the version for Quicklink, falling back to a default version if not set
+		$quicklink_version = defined( 'PAGEFLASH_VERSION' ) && ! empty( PAGEFLASH_VERSION ) ? PAGEFLASH_VERSION : '2.3.0';
+
+		// Include the asset file for script dependencies and version
+		$asset_file = PAGEFLASH_PATH . 'build/quicklink/quicklink.asset.php';
+		if ( ! file_exists( $asset_file ) ) {
+
+			return $scripts;
+		}
+
+		$script_asset = include $asset_file;
+		$scripts->add(
+			'pageflash-quicklink',
+			PAGEFLASH_ASSETS_URL . 'libs/quicklink/dist/quicklink.umd.js',
+			array(),
+			$quicklink_version,
+			true
+		);
+
+		if ( is_array( $script_asset ) && isset( $script_asset['dependencies'], $script_asset['version'] ) ) {
+			$scripts->add(
+				'pageflash-frontend',
+				PAGEFLASH_URL . 'build/quicklink/quicklink.js',
+				$script_asset['dependencies'],
+				$script_asset['version'],
+				true
+			);
+		}
+		return $scripts;
+	}
+
+	/**
+	 * Enqueue scripts and styles for the PageFlash plugin frontend.
+	 *
+	 * This method enqueues scripts and styles necessary for the PageFlash plugin's functionality.
+	 *
+	 * @return void
+	 * @since PageFlash 1.0.0
+	 */
+	public function pageflash_frontend_assets() {
+		wp_enqueue_script( 'pageflash-frontend' );
+		wp_enqueue_script( 'pageflash-quicklink' );
 	}
 
 	/**
@@ -44,8 +101,7 @@ class Quicklink {
 	public function pageflash_settings_config() {
 		$current_request_uri = esc_url_raw( $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
 		$ignore_pattern      = $current_request_uri . '(#.*)?$/';
-
-		$pageflash_settings = array(
+		$pageflash_settings  = array(
 			'el'        => '', // CSS selector for in-viewport links to prefetch
 			'urls'      => array( site_url( '/' ) ), // Static array of URLs to prefetch.
 			'timeout'   => 2000,   // Set the timeout
@@ -89,7 +145,6 @@ class Quicklink {
 	 * @return string The modified script tag.
 	 */
 	public function pageflash_async_script_loader( $tag, $handle ) {
-
 		$async_handles = array( 'pageflash-quicklink', 'pageflash-frontend' );
 		if ( in_array( $handle, $async_handles ) && false === strpos( $tag, 'async' ) ) {
 			$tag = str_replace( '></script>', ' async></script>', $tag );
