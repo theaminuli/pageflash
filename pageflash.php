@@ -10,7 +10,7 @@
  * Plugin URI:  https://github.com/theaminuldev/pageflash
  * Author:      theaminul
  * Author URI:  https://theaminul.com
- * Version: 1.2.0
+ * Version: 2.0.0
  * Stable tag:  1.2.0
  * Requires at least: 6.0
  * Tested up to: 6.8.1

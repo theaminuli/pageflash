@@ -1,5 +1,5 @@
 # Changelog
-## x.y.z - 2026-01-16
+## x.y.z - 2026-01-24
 - Added: InstantPage integration to enhance the Preloading module performance.
 - Added: Introduced admin dashboard for better user experience.
 - Added: Disabled frontend Dashicons for non-logged-in users.
