@@ -2,11 +2,11 @@
 /**
  * Remove jQuery Migrate Feature
  *
- * @package PageFlash\Landmark\General
+ * @package TheAminul\PageFlash\Landmark\General
  * @since 1.2.0
  */
 
-namespace PageFlash\Landmark\General;
+namespace TheAminul\PageFlash\Landmark\General;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -17,7 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Removes jQuery Migrate to improve performance.
  *
- * @package PageFlash\Landmark\General
  * @since 1.2.0
  */
 class RemoveJQueryMigrate {
@@ -40,7 +39,7 @@ class RemoveJQueryMigrate {
 	 */
 	public function remove_jquery_migrate( &$scripts ) {
 		if ( ! is_admin() && ! empty( $scripts->registered['jquery'] ) ) {
-			$jquery_dependencies             = $scripts->registered['jquery']->deps;
+			$jquery_dependencies                 = $scripts->registered['jquery']->deps;
 			$scripts->registered['jquery']->deps = array_diff( $jquery_dependencies, array( 'jquery-migrate' ) );
 		}
 	}
