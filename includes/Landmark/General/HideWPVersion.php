@@ -2,11 +2,11 @@
 /**
  * Hide WordPress Version Feature
  *
- * @package PageFlash\Landmark\General
+ * @package TheAminul\PageFlash\Landmark\General
  * @since 1.2.0
  */
 
-namespace PageFlash\Landmark\General;
+namespace TheAminul\PageFlash\Landmark\General;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -17,7 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Hides WordPress version for improved security.
  *
- * @package PageFlash\Landmark\General
  * @since 1.2.0
  */
 class HideWPVersion {
