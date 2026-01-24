@@ -38,9 +38,8 @@ define( 'PAGEFLASH_ASSETS_URL', PAGEFLASH_URL . 'assets/' );
 define( 'PAGEFLASH_BUILD_PATH', PAGEFLASH_PATH . 'build/' );
 define( 'PAGEFLASH_BUILD_URL', PAGEFLASH_URL . 'build/' );
 define( 'PAGEFLASH_ENV', WP_DEBUG ? 'development' : 'production' );
-define( 'PAGEFLASH_ICON', PAGEFLASH_URL . 'assets/logo/icon.svg' );
 
-add_action( 'plugins_loaded', 'pageflash_load_plugin_textdomain' );
+add_action( 'plugins_loaded', 'pageflash_init' );
 
 if ( ! version_compare( PHP_VERSION, '7.0', '>=' ) ) {
 	add_action( 'admin_notices', 'pageflash_fail_php_version' );
@@ -51,16 +50,24 @@ if ( ! version_compare( PHP_VERSION, '7.0', '>=' ) ) {
 }
 
 /**
- * Load PageFlash textdomain.
+ * Initialize PageFlash plugin.
  *
- * Load gettext translate for PageFlash text domain.
+ * Loads the plugin text domain and triggers the `pageflash_init` lifecycle hook.
  *
- * @since PageFlash 1.0.0
+ * @function pageflash_init
  *
- * @return void
+ * @since 1.0.0
+ *
+ * @fires pageflash_init
  */
-function pageflash_load_plugin_textdomain() {
-	load_plugin_textdomain( 'pageflash' );
+function pageflash_init() {
+	load_plugin_textdomain(
+		'pageflash',
+		false,
+		dirname( plugin_basename( __FILE__ ) ) . '/languages'
+	);
+
+	do_action( 'pageflash_init' );
 }
 
 /**
