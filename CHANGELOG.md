@@ -1,4 +1,17 @@
 # Changelog
+## x.y.z - 2026-01-24
+- Added: InstantPage integration to enhance the Preloading module performance.
+- Added: Introduced admin dashboard for better user experience.
+- Added: Disabled frontend Dashicons for non-logged-in users.
+- Added: Disabled WordPress oEmbed for improved page load performance.
+- Added: Disabled WordPress emojis to improve load time.
+- Added: Removed WordPress version info for better security.
+- Added: Disabled jquery-migrate.min.js to improve performance.
+- Added: Disabled XML-RPC to reduce unnecessary requests.
+- Added: Disabled WordPress REST API for non-authenticated users.
+- Added: Removed REST API link tag and header from the frontend.
+- Added: Disabled WordPress Heartbeat globally or in selected areas.
+
 ## 1.2.0 - 2025-05-14
 - chore: Add initial configuration files 
 - Improved: Update asset management

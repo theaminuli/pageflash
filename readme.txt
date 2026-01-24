@@ -1,23 +1,36 @@
-=== PageFlash - Fast and Efficient Headless Browser WordPress Plugin ===
+=== PageFlash - Fast Page Preloading, Performance Optimization & Secure Your WordPress Site ===
 Contributors: theaminuldev
-Tags: headless browser, quicklink, performance, speculation rules
-Requires at least: 6.0
-Tested up to: 6.8.1
-Stable tag: 1.2.0
+Tags: preload, page-speed, optimization, performance, pageflash, speed, fast, instant-navigation, prefetch, quicklink
+Requires at least: 6.1
+Tested up to: 6.9
+Stable tag: 2.0.0
 License: GPL-3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
-Copyright: © 2023 theaminul.com
+Copyright: © 2026 theaminul.com
 
-By using PageFlash, an active plugin, you'll experience a 50% increase in conversions and enjoy 4x faster page loading. ⚡️ Boost your website's speed, increase user engagement 💬, and supercharge your online presence 🚀. - NewEgg
+Preload pages intelligently to boost site speed and enhance user experience by loading pages before users click, ensuring instant page transitions.
 
 == Description ==
-PageFlash is a powerful headless browser WordPress plugin designed to provide you with a fast and efficient web browsing experience within your WordPress site. Say goodbye to page reloads and enjoy seamless navigation through web content with this plugin. Harness the speed and agility of PageFlash for your WordPress website.
+PageFlash is a powerful WordPress plugin that preloads pages intelligently to boost site speed and enhance user experience. By loading pages before users click, PageFlash ensures instant page transitions, creating a seamless and lightning-fast browsing experience for your visitors.
 
 ### Key Features:
-- **Lightning-Fast Browsing:** PageFlash lives up to its name, offering rapid page loading and navigation without the need for tedious page refreshes.
-- **Smooth Script Execution:** Execute scripts and interact with web pages in a fluid and continuous manner. With PageFlash, you'll experience uninterrupted script execution, ensuring your web applications run seamlessly.
-- **Prefetches:** PageFlash incorporates advanced prefetching technology to speed up your web browsing. It anticipates and loads pages in the background, reducing loading times and providing a smoother browsing experience.
-- **No More Reloads:** Say goodbye to unnecessary page reloads with PageFlash, and enjoy uninterrupted web exploration. PageFlash ensures a frustration-free web experience by eliminating the need for page reloads, providing you with a streamlined and seamless browsing experience.
+
+**Preloading:**
+- **Quicklink:** Experience a 50% increase in conversions and enjoy 4x faster page loading. Boost your website speed and increase user engagement.
+- **InstantPage:** Uses just-in-time preloading — preloads a page right before a user clicks on it.
+
+**Performance Optimization:**
+- **Disable Dashicons:** Remove Dashicons on the frontend for non-logged-in users to improve performance.
+- **Disable Embeds:** Disable the WordPress oEmbed feature to reduce unnecessary HTTP requests and improve page load times.
+- **Disable Emojis:** Remove built-in WordPress emoji scripts and styles to reduce page size and improve load times.
+- **Disable Heartbeat:** Control WordPress Heartbeat API everywhere or in certain areas (used for auto-saving and revision tracking) with customizable behavior and frequency settings.
+- **Remove jQuery Migrate:** Remove jQuery Migrate script to improve performance on the frontend.
+
+**Security Enhancements:**
+- **Disable REST API:** Disable the WordPress REST API for non-authenticated users to enhance security and reduce unnecessary requests.
+- **Remove REST API Link:** Remove REST API link tag from the front end and the REST API header link from page requests.
+- **Hide WordPress Version:** Hide the WordPress version number from the site header, meta tags, and RSS feeds to improve security.
+- **Disable XML-RPC:** Disable the XML-RPC feature to enhance security and reduce unnecessary requests.
 
 For more information and documentation, visit our [plugin documentation](https://theaminul.com/pageflash/docs).
 
@@ -53,13 +66,11 @@ This plugin also works perfectly on popular browsers.
 3. Click "Install Now" and then "Activate."
 
 == Frequently Asked Questions ==
+= How do I configure PageFlash? =
 
-= How do I enable PageFlash for a specific post or page? =
-
-After activation, go to the post or page where you want to enable PageFlash's headless browsing features. In the editor, look for the PageFlash settings panel to configure your preferences.
+After activation, navigate to the PageFlash settings page in your WordPress admin dashboard to enable and configure the features you want to use.
 
 = Where should I check the plugin's features? =
-
 - A. In Chrome's incognito mode.
 - B. After logging out of the admin account.
 - C. In Firefox's private browsing mode.
@@ -67,29 +78,41 @@ After activation, go to the post or page where you want to enable PageFlash's he
 The best places to check the plugin's features are either in Chrome's incognito mode (Option A) or after logging out of the admin account (Option B). These methods ensure that the plugin works correctly without any interference from browser history, cookies, or admin privileges.
 
 = Is PageFlash compatible with the latest version of WordPress? =
-
 Yes, PageFlash is regularly tested and ensured to be compatible with the latest WordPress version.
 
 
-== Screenshots ==
-1. [Screenshot 1](https://github.com/theaminuldev/pageflash/src/images/screenshot.png): Describe the screenshot here.
-
 == Changelog ==
 
+= 2.0.0 - 2026-01-24 =
+* Added: InstantPage integration to enhance the Preloading module performance.
+* Added: Introduced admin dashboard for better user experience.
+* Added: Disabled frontend Dashicons for non-logged-in users.
+* Added: Disabled WordPress oEmbed for improved page load performance.
+* Added: Disabled WordPress emojis to improve load time.
+* Added: Removed WordPress version info for better security.
+* Added: Disabled jquery-migrate.min.js to improve performance.
+* Added: Disabled XML-RPC to reduce unnecessary requests.
+* Added: Disabled WordPress REST API for non-authenticated users.
+* Added: Removed REST API link tag and header from the frontend.
+* Added: Disabled WordPress Heartbeat globally or in selected areas.
+
 = 1.2.0 - 2025-05-14 =
-* Chore: Add initial configuration files 
+* chore: Add initial configuration files 
 * Improved: Update asset management
 * Improved: Update security policy and PHPCS configuration
 * Improved: Update README and CONTRIBUTING guidelines
 * Improved: WP coding standards and code quality ensure
 * Updated: Update GPL license to version 3.0
+
 = 1.1.0 - 2024-12-20 =
 * Fixed: Security vulnerability reporting guidelines.
 * Added: Supply chain attack prevention.
+
 = 1.0.1 - 2024-12-19 =
 * Fixed: Issue with `validateElement` function in `pageflash-frontend`.
 * Improved: Added validation for `timeoutFn` in `buildListenerOptions` function.
 * Added: Confusion Clear FAQ plugin for better understanding.
+
 = 1.0.0 - 2024-12-18 =
 * Initial release.
 * Added: `pageflash-frontend.js` for frontend functionality.

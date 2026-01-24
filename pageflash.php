@@ -10,7 +10,7 @@
  * Plugin URI:  https://github.com/theaminuldev/pageflash
  * Author:      theaminul
  * Author URI:  https://theaminul.com
- * Version: 1.2.0
+ * Version: 2.0.0
  * Stable tag:  1.2.0
  * Requires at least: 6.0
  * Tested up to: 6.8.1
@@ -18,8 +18,8 @@
  * License:     GPL-3.0-or-later
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: pageflash
- * Description: PageFlash - Fast and Efficient Headless Browser WordPress Plugin. By using PageFlash, an active plugin, you'll experience a 50% increase in conversions and enjoy 4x faster page loading. ⚡️ Boost your website's speed, increase user engagement 💬, and supercharge your online presence 🚀. - NewEgg
- * Tags:        headless-browser, pageflash, prefetches, quicklink, quickload, performance, speed, fast, prefetch, seo preconnect, optimization
+ * Description: Preload pages intelligently to boost site speed and enhance user experience by loading pages before users click, ensuring instant page transitions.
+ * Tags:       preload, pageflash, prefetch, quicklink, performance, speed, fast, instant-navigation, page-speed, optimization.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -35,9 +35,11 @@ define( 'PAGEFLASH_PATH', plugin_dir_path( PAGEFLASH_FILE ) );
 define( 'PAGEFLASH_URL', plugins_url( '/', PAGEFLASH_FILE ) );
 define( 'PAGEFLASH_ASSETS_PATH', PAGEFLASH_PATH . 'assets/' );
 define( 'PAGEFLASH_ASSETS_URL', PAGEFLASH_URL . 'assets/' );
+define( 'PAGEFLASH_BUILD_PATH', PAGEFLASH_PATH . 'build/' );
+define( 'PAGEFLASH_BUILD_URL', PAGEFLASH_URL . 'build/' );
 define( 'PAGEFLASH_ENV', WP_DEBUG ? 'development' : 'production' );
 
-add_action( 'plugins_loaded', 'pageflash_load_plugin_textdomain' );
+add_action( 'plugins_loaded', 'pageflash_init' );
 
 if ( ! version_compare( PHP_VERSION, '7.0', '>=' ) ) {
 	add_action( 'admin_notices', 'pageflash_fail_php_version' );
@@ -48,16 +50,24 @@ if ( ! version_compare( PHP_VERSION, '7.0', '>=' ) ) {
 }
 
 /**
- * Load PageFlash textdomain.
+ * Initialize PageFlash plugin.
  *
- * Load gettext translate for PageFlash text domain.
+ * Loads the plugin text domain and triggers the `pageflash_init` lifecycle hook.
  *
- * @since PageFlash 1.0.0
+ * @function pageflash_init
  *
- * @return void
+ * @since 1.0.0
+ *
+ * @fires pageflash_init
  */
-function pageflash_load_plugin_textdomain() {
-	load_plugin_textdomain( 'pageflash' );
+function pageflash_init() {
+	load_plugin_textdomain(
+		'pageflash',
+		false,
+		dirname( plugin_basename( __FILE__ ) ) . '/languages'
+	);
+
+	do_action( 'pageflash_init' );
 }
 
 /**

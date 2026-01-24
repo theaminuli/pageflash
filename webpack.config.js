@@ -1,4 +1,11 @@
+/**
+ * WordPress dependencies
+ */
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
+
+/**
+ * External dependencies
+ */
 const RemoveEmptyScriptsPlugin = require( 'webpack-remove-empty-scripts' );
 const path = require( 'path' );
 
@@ -14,7 +21,7 @@ module.exports = {
 			'admin/admin': path.resolve(
 				process.cwd(),
 				'src/admin',
-				'index.js'
+				'index.jsx'
 			),
 			'quicklink/quicklink': path.resolve(
 				process.cwd(),

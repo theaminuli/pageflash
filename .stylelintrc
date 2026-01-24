@@ -1,0 +1,11 @@
+{
+	"extends": [
+		"@wordpress/stylelint-config",
+		"@wordpress/stylelint-config/scss"
+	],
+	"rules": {
+		"color-named": null,
+		"scss/selector-no-redundant-nesting-selector": null,
+		"at-rule-no-unknown": null
+	}
+}

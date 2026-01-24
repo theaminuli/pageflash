@@ -1,0 +1,54 @@
+.pageflash-header {
+	background-color: #fff !important;
+	padding: 0 5px 0 5px;
+	border-radius: 5px !important;
+
+	&__z-stack {
+		width: 100%;
+
+		& > div {
+			width: 100% !important;
+		}
+	}
+
+	&__logo {
+		margin-right: 10px;
+	}
+
+	&__menu {
+		padding: 0 !important;
+		border-right: 1px solid #d8d8d8;
+		border-top-right-radius: 0 !important;
+
+		@media (max-width: 768px) {
+			border-right: none !important;
+			border-top-right-radius: 5px !important;
+		}
+
+		&-list {
+			background-color: #fff !important;
+			padding: 5px;
+		}
+
+		&-button {
+			color: #1c1e24 !important;
+			box-shadow: none !important;
+
+			&.is-primary {
+				color: #fff !important;
+			}
+		}
+	}
+
+	&__card-body {
+		padding: 0 !important;
+		width: 100% !important;
+		background-color: white !important;
+		border-radius: 0 5px 5px 0 !important;
+	}
+
+	&__h-stack {
+		border-bottom: 1px solid #d8d8d8;
+		padding: 15px 30px;
+	}
+}

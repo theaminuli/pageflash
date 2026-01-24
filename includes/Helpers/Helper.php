@@ -1,6 +1,6 @@
 <?php
 
-namespace PageFlash\Helper;
+namespace TheAminul\PageFlash\Helpers;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -28,16 +28,16 @@ class Helper {
 		return wp_kses( $content, $allowed_html );
 	}
 
-		/**
-		 * Get an array of allowed HTML elements and attributes for content sanitization.
-		 *
-		 * This method returns an array of allowed HTML elements and their attributes
-		 * for use in content sanitization to ensure safe and valid HTML output.
-		 *
-		 * @since PageFlash 1.0.0
-		 * @access public
-		 * @return array An array of allowed HTML elements and attributes.
-		 */
+	/**
+	 * Get an array of allowed HTML elements and attributes for content sanitization.
+	 *
+	 * This method returns an array of allowed HTML elements and their attributes
+	 * for use in content sanitization to ensure safe and valid HTML output.
+	 *
+	 * @since PageFlash 1.0.0
+	 * @access public
+	 * @return array An array of allowed HTML elements and attributes.
+	 */
 	public static function get_kses_array() {
 		return array(
 			'a'                             => array(
@@ -207,5 +207,29 @@ class Helper {
 				'name'  => array(),
 			),
 		);
+	}
+
+	/**
+	 * Retrieve plugin settings or a specific setting value.
+	 *
+	 * Wrapper around get_option( 'pageflash_options' ) that returns the entire
+	 * settings array by default, or the value for a specific key if provided and present.
+	 *
+	 * @param string $key Optional. Settings key to retrieve. If empty or the key
+	 *                    does not exist in the stored settings, the full settings
+	 *                    array is returned.
+	 * @return mixed|array The value for the specified key if found, otherwise the
+	 *                     full settings array (defaults to an empty array if no
+	 *                     options are stored).
+	 */
+	public static function get_settings( $key = '' ) {
+		$settings      = get_option( 'pageflash_landmarks', array() );
+		$settings_data = $settings['data'] ?? array();
+
+		if ( $key && isset( $settings_data[ $key ] ) ) {
+			return $settings_data[ $key ];
+		}
+
+		return $settings_data;
 	}
 }

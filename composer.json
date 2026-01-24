@@ -1,6 +1,6 @@
 {
 	"name": "theaminul/pageflash",
-	"description": "PageFlash - Fast and Efficient Headless Browser WordPress Plugin",
+	"description": "Preload pages intelligently to boost site speed and enhance user experience by loading pages before users click, ensuring instant page transitions",
 	"type": "wordpress-plugin",
 	"keywords": [
 		"wordpress",
@@ -19,7 +19,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"PageFlash\\": "includes/"
+			"TheAminul\\PageFlash\\": "includes/"
 		}
 	},
 	"authors": [
@@ -50,7 +50,41 @@
 		"exclude": [
 			"/node_modules",
 			"/vendor",
-			"/src"
+			"/dev-docs",
+			"/dev-note",
+			"/docs",
+			"/src",
+			"/.git",
+			"/.github",
+			"/.vscode",
+			"/.husky",
+			"/.wordpress-org",
+			".distignore",
+			".gitignore",
+			".gitattributes",
+			".eslintrc",
+			".stylelintrc",
+			".eslintignore",
+			".editorconfig",
+			".nvmrc",
+			".DS_Store",
+			"*.map",
+			"composer.json",
+			"composer.lock",
+			"package.json",
+			"package-lock.json",
+			"Gruntfile.js",
+			"webpack.config.js",
+			"phpcs.xml",
+			"update-version-and-changelog.js",
+			"AGENTS.md",
+			"CLAUDE.md",
+			"ARCHITECTURE.md",
+			"CONTRIBUTING.md",
+			"CHANGELOG.md",
+			"README.md",
+			"SECURITY.md",
+			"screenshot.png"
 		]
 	},
 	"require": {

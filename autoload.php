@@ -1,36 +1,94 @@
 <?php
+
 /**
- * Dynamically loads classes within the PageFlash namespace. Maps namespaces to their
- * corresponding directories and loads the appropriate file based on class name.
+ * Returns the namespace → directory map.
  *
  * @since 1.0.0
+ * @return array
+ */
+function pageflash_get_namespace_map() {
+	return array(
+		'TheAminul\\PageFlash\\' => trailingslashit( PAGEFLASH_DIR ) . 'includes/',
+	);
+}
+
+/**
+ * Resolves a fully-qualified class name into a file path if it exists.
  *
- * @package PageFlash
- * @param string $class_name The fully qualified class name.
+ * @since 1.0.0
+ * @param string $class_name Fully qualified class name.
+ * @return string|false File path or false if not found.
+ */
+function pageflash_locate_class_file( $class_name ) {
+
+	if ( ! defined( 'PAGEFLASH_DIR' ) ) {
+		return false;
+	}
+
+	$namespace_map = pageflash_get_namespace_map();
+
+	foreach ( $namespace_map as $namespace => $base_dir ) {
+
+		if ( strpos( $class_name, $namespace ) !== 0 ) {
+			continue;
+		}
+
+		$relative_class = substr( $class_name, strlen( $namespace ) );
+		$file           = $base_dir . str_replace( '\\', '/', $relative_class ) . '.php';
+
+		return file_exists( $file ) ? $file : false;
+	}
+
+	return false;
+}
+
+/**
+ * Autoloader.
+ *
+ * @since 1.0.0
+ * @param string $class_name The class name being instantiated.
  * @return void
  */
-function exoole_autoloader( $class_name ) {
-	$project_prefix = 'PageFlash\\';
-	$namespace_map  = array(
-		'PageFlash' => PAGEFLASH_DIR . '/includes/',
-	);
+function pageflash_autoloader( $class_name ) {
 
-	if ( strpos( $class_name, $project_prefix ) === 0 ) {
-		foreach ( $namespace_map as $namespace => $base_dir ) {
-			if ( strpos( $class_name, $namespace ) === 0 ) {
-				// Derive the relative class path by stripping the namespace.
-				$relative_class = substr( $class_name, strlen( $namespace ) );
-				$file           = $base_dir . str_replace( '\\', '/', $relative_class ) . '.php';
+	// Only handle PageFlash namespace
+	if ( strpos( $class_name, 'TheAminul\\PageFlash\\' ) !== 0 ) {
+		return;
+	}
 
-				if ( file_exists( $file ) ) {
-					require_once $file;
-					return;
-				} elseif ( PAGEFLASH_ENV === 'development' && WP_DEBUG ) {
-						error_log( print_r( "Class file for {$class_name} not found: {$file}", true ) ); // phpcs:ignore 
-				}
-			}
-		}
+	$file = pageflash_locate_class_file( $class_name );
+
+	if ( $file ) {
+		require_once $file;
+		return;
+	}
+
+	// Log ONLY missing PageFlash classes (dev only)
+	if (
+		defined( 'PAGEFLASH_ENV' ) &&
+		PAGEFLASH_ENV === 'development' &&
+		defined( 'WP_DEBUG' ) &&
+		WP_DEBUG
+	) {
+		error_log( "[PageFlash Autoload] Class not found: {$class_name}" ); // phpcs:ignore
 	}
 }
 
-spl_autoload_register( 'exoole_autoloader' );
+
+/**
+ * Registers the autoloader.
+ *
+ * @since 1.0.0
+ * @return void
+ */
+function pageflash_register_autoloader() {
+
+	if ( ! defined( 'PAGEFLASH_DIR' ) ) {
+		return;
+	}
+
+	spl_autoload_register( 'pageflash_autoloader' );
+}
+
+// Boot autoloader
+pageflash_register_autoloader();

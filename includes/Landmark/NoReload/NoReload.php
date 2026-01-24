@@ -1,64 +1,59 @@
 <?php
 
-namespace PageFlash\Landmark\NoReload;
+namespace TheAminul\PageFlash\Landmark\NoReload;
+
+use TheAminul\PageFlash\Landmark\BootManager;
+use TheAminul\PageFlash\Landmark\Boot;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
 /**
- * NoReload Class.
+ * NoReload Boot Manager
  *
- * This class provides functionality for something in your PageFlash plugin.
+ * Manages preloading features (Quicklink, InstantPage, etc.)
  *
  * @package pageflash
- * @since PageFlash 1.0.0
+ * @since PageFlash 1.3.0
  */
-class NoReload {
-
-	public function __construct() {
-		// Constructor code
-		add_filter( 'wp_pageflash_quicklink_ignore_urls', array( $this, 'pageflash_quicklink_ignore_urls' ) );
-		add_filter( 'wp_pageflash_quicklink', array( $this, 'pageflash_quicklink' ) );
-	}
+class NoReload extends BootManager {
 
 	/**
-	 * Filters PageFlash NoReload ignore URLs.
+	 * Namespace for this manager
 	 *
-	 * @since PageFlash 1.0.0
-	 * @access public
-	 * @param array  $ignores {
-	 *      Configuration options for PageFlash NoReload ignore URLs.
-	 *
-	 *     @param string $ignore_pattern Regular expression pattern to determine whether a URL is ignored.
-	 * }
+	 * @var string
 	 */
-	public function pageflash_quicklink_ignore_urls( $ignores ) {
-		// $ignores[] = preg_quote( 'custom-ignore-pattern', '/' );
-		return $ignores;
-	}
+	protected string $namespace = 'noreload';
 
 	/**
-	 * Filters PageFlash NoReload settings.
+	 * Register all NoReload features.
 	 *
-	 * @since PageFlash 1.0.0
-	 * @access public
-	 * @param array {
-	 *     Configuration options for PageFlash NoReload.
+	 * This method is called from Landmark.php during initialization.
+	 * All features in the noreload namespace are registered here.
 	 *
-	 *     @param string  $el CSS selector for the DOM element to observe for in-viewport links to prefetch.
-	 *     @param int     $limit The total requests that can be prefetched while observing the $el container.
-	 *     @param int     $throttle The concurrency limit for simultaneous requests while observing the $el container.
-	 *     @param int     $timeout Timeout after which prefetching will occur.
-	 *     @param string  $timeoutFn Custom timeout function. Must refer to a named global function in JS.
-	 *     @param bool    $priority Attempt higher priority fetch (low or high). Default false.
-	 *     @param string  $origins Allowed origins to prefetch (empty allows all). Defaults to host for the current home URL.
-	 *     @param string  $ignores Regular expression patterns to determine whether a URL is ignored. Runs after origin checks.
-	 *  }
+	 * @since 1.3.0
+	 * @return void
 	 */
-	public function pageflash_quicklink( $settings ) {
-		// $settings['timeout'] = 3000; // Change the timeout to 3000ms
-		// $settings['priority'] = true; // Enable fetch() API where supported
-		return $settings;
+	public static function init_register() {
+		Boot::register(
+			'quicklink',
+			array(
+				'class'     => Quicklink::class,
+				'namespace' => 'noreload',
+				'package'   => 'free',
+				'priority'  => 10,
+			)
+		);
+
+		Boot::register(
+			'instantpage',
+			array(
+				'class'     => InstantPage::class,
+				'namespace' => 'noreload',
+				'package'   => 'free',
+				'priority'  => 10,
+			)
+		);
 	}
 }

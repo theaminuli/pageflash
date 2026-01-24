@@ -1,6 +1,6 @@
 <?php
 
-namespace PageFlash\Admin;
+namespace TheAminul\PageFlash\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -39,5 +39,6 @@ class Admin {
 	 */
 	private function init_admin() {
 		new ActionLinks();
+		new AdminMenu();
 	}
 }

@@ -4,6 +4,11 @@ on:
   pull_request:
     types:
       - closed
+    branches:
+      - development
+
+permissions:
+  contents: write
 
 jobs:
   update-changelog:
@@ -12,9 +17,18 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
+        with:
+          ref: development
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Generate Formatted Changelog
+      - name: Add PR Reference to CHANGELOG.md
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
         run: |
           # Check if CHANGELOG.md exists
           if [ ! -f "CHANGELOG.md" ]; then
@@ -22,65 +36,55 @@ jobs:
             exit 1
           fi
 
-          # Extract the changelog content starting from '# Changelog'
-          START_LINE=$(grep -n "^# Changelog" CHANGELOG.md | cut -d':' -f1)
-          if [ -z "$START_LINE" ]; then
-            echo "No '# Changelog' section found in CHANGELOG.md"
-            exit 1
-          fi
-
-          # Extract the changelog entries, starting from the first '## ' section
-          tail -n +$((START_LINE + 1)) CHANGELOG.md > changelog_entries.txt
-
-          # Format the changelog entries into the desired format
-          awk '
-          BEGIN { print "== Changelog ==" }
-          /^##/ {
-            if (version != "") {
-              print formatted_changelog;
-            }
-            version = $2;
-            date = $4;
-            formatted_changelog = "= " version " - " date " =";
-            next;
-          }
-          /^- / {
-            gsub(/^- /, "");
-            formatted_changelog = formatted_changelog "\n" $0;
-          }
-          END {
-            print formatted_changelog;
-          }
-          ' changelog_entries.txt > formatted_changelog.txt
-
-          echo "Generated formatted changelog:"
-          cat formatted_changelog.txt
-
-      - name: Update readme.txt
-        run: |
-          # Check if readme.txt exists
-          if [ ! -f "readme.txt" ]; then
-            echo "readme.txt file not found"
-            exit 1
-          fi
-
-          # Remove existing '== Changelog ==' and everything below it
-          sed -i '/== Changelog ==/,$d' readme.txt
+          # Get current date in YYYY-MM-DD format
+          CURRENT_DATE=$(date +%Y-%m-%d)
           
-          # Add the new formatted changelog content
-          cat formatted_changelog.txt >> readme.txt
+          # Find the first version section line number
+          FIRST_VERSION_LINE=$(grep -n "^## " CHANGELOG.md | head -1 | cut -d':' -f1)
+
+          if [ -z "$FIRST_VERSION_LINE" ]; then
+            echo "No version section found in CHANGELOG.md"
+            exit 1
+          fi
+
+          # Get the first version line content
+          FIRST_VERSION_CONTENT=$(sed -n "${FIRST_VERSION_LINE}p" CHANGELOG.md)
+
+          # Check if the first version is already an unreleased version (x.y.z placeholder)
+          if echo "$FIRST_VERSION_CONTENT" | grep -q "^## x.y.z"; then
+            # Update the date of existing unreleased version to today
+            sed -i "${FIRST_VERSION_LINE}s/.*/## x.y.z - ${CURRENT_DATE}/" CHANGELOG.md
+            echo "Updated unreleased version date to ${CURRENT_DATE}"
+          else
+            # Insert new unreleased version section before the first version
+            UNRELEASED_HEADER="## x.y.z - ${CURRENT_DATE}"
+            sed -i "${FIRST_VERSION_LINE}i\\${UNRELEASED_HEADER}" CHANGELOG.md
+            echo "Created new unreleased version section: ${UNRELEASED_HEADER}"
+          fi
+
+          # Create the PR header entry with reference number at front
+          PR_HEADER="- ${PR_TITLE} ([#${PR_NUMBER}](${PR_URL})) @${PR_AUTHOR}"
+
+          # Find the updated first version section line number (x.y.z section)
+          FIRST_VERSION_LINE=$(grep -n "^## " CHANGELOG.md | head -1 | cut -d':' -f1)
+
+          # Insert the PR header after the first version line
+          sed -i "${FIRST_VERSION_LINE}a\\${PR_HEADER}" CHANGELOG.md
+
+          echo "Added new changelog entry:"
+          echo "$PR_HEADER"
 
       - name: Commit and Push Changes to GitHub
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "github-actions@github.com"
-          git add readme.txt
-          git commit -m "Update changelog after merging PR #${{ github.event.pull_request.number }}" || echo "No changes to commit"
-          git push origin development || echo "Nothing to push"
-
-      - name: Cleanup formatted changelog
-        run: |
-          # Delete the formatted_changelog.txt file
-          if [ -f "formatted_changelog.txt" ]; then
-            rm formatted_changelog.txt
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add CHANGELOG.md
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Add PR #${PR_NUMBER} reference to changelog"
+            git push origin development
           fi

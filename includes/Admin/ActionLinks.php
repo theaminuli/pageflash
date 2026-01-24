@@ -1,6 +1,6 @@
 <?php
 
-namespace PageFlash\Admin;
+namespace TheAminul\PageFlash\Admin;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
@@ -69,8 +69,8 @@ class ActionLinks {
 			}
 
 			$row_meta = array(
-				'docs' => '<a href="https://github.com/theaminuldev/pageflash" aria-label="' . esc_attr( esc_html__( 'View PageFlash Documentation', 'pageflash' ) ) . '" target="_blank">' . esc_html__( 'Docs & FAQs', 'pageflash' ) . '</a>',
-				// 'video' => '<a href="#" aria-label="' . esc_attr(esc_html__('View PageFlash Video Tutorials', 'pageflash')) . '" target="_blank">' . esc_html__('Video Tutorials', 'pageflash') . '</a>',
+				'docs' => '<a href="https://github.com/theaminuldev/pageflash" aria-label="' . esc_attr__( 'View PageFlash Documentation', 'pageflash' ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'Docs & FAQs', 'pageflash' ) . '</a>',
+				// 'video' => '<a href="#" aria-label="' . esc_attr__('View PageFlash Video Tutorials', 'pageflash') . '" target="_blank">' . esc_html__('Video Tutorials', 'pageflash') . '</a>',
 			);
 			$plugin_meta = array_merge( $plugin_meta, $row_meta );
 		}
