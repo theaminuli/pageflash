@@ -1,7 +1,7 @@
 <div align="center">
   <br />
     <a href="https://wordpress.org/plugins/pageflash/" target="_blank">
-      <img src="https://github.com/theaminulai/pageflash/blob/development/screenshot.png" alt="PageFlash Banner">
+      <img src="https://raw.githubusercontent.com/theaminulai/pageflash/refs/heads/development/screenshot.png" alt="PageFlash Banner">
     </a>
   <br />
 
