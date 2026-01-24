@@ -62,14 +62,19 @@ class DisableHeartbeat {
 		if ( is_admin() ) {
 			global $pagenow;
 
-			// Exception pages
+			// Exception pages.
 			if ( 'admin.php' === $pagenow && ! empty( $_GET['page'] ) ) {
+				// Nonce verification is not required here because we only perform
+				// a read-only comparison to decide whether to keep the default
+				// Heartbeat behavior on specific admin screens, and no state
+				// changes or privileged actions depend on this value.
+				$page = sanitize_key( wp_unslash( $_GET['page'] ) );
 				$exceptions = array(
 					'gf_edit_forms',
 					'gf_entries',
 					'gf_settings',
 				);
-				if ( in_array( $_GET['page'], $exceptions, true ) ) {
+				if ( in_array( $page, $exceptions, true ) ) {
 					return;
 				}
 			}
