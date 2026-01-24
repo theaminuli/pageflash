@@ -2,11 +2,11 @@
 /**
  * Disable Emojis Feature
  *
- * @package PageFlash\Landmark\General
+ * @package TheAminul\PageFlash\Landmark\General
  * @since 1.2.0
  */
 
-namespace PageFlash\Landmark\General;
+namespace TheAminul\PageFlash\Landmark\General;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -17,7 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Removes WordPress emoji scripts and styles to improve performance.
  *
- * @package PageFlash\Landmark\General
  * @since 1.2.0
  */
 class DisableEmojis {
@@ -48,6 +47,7 @@ class DisableEmojis {
 
 		add_filter( 'tiny_mce_plugins', array( $this, 'disable_emojis_tinymce' ) );
 		add_filter( 'wp_resource_hints', array( $this, 'disable_emojis_dns_prefetch' ), 10, 2 );
+		add_filter( 'emoji_svg_url', array( $this, 'disable_emojis_svg_url' ) );
 	}
 
 	/**
@@ -74,9 +74,22 @@ class DisableEmojis {
 	 */
 	public function disable_emojis_dns_prefetch( $urls, $relation_type ) {
 		if ( 'dns-prefetch' === $relation_type ) {
-			$emoji_svg_url = apply_filters( 'emoji_svg_url', 'https://s.w.org/images/core/emoji/2/svg/' );
+			$emoji_svg_url = apply_filters( 'emoji_svg_url', 'https://s.w.org/images/core/emoji/15.1.0/svg/' );
 			$urls          = array_diff( $urls, array( $emoji_svg_url ) );
 		}
 		return $urls;
+	}
+
+	/**
+	 * Disable emoji SVG URL
+	 *
+	 * @since 1.2.0
+	 * @return string Empty string to disable emoji SVG URL.
+	 */
+	public function disable_emojis_svg_url( $url ) {
+		if ( is_admin() ) {
+			return $url;
+		}
+		return '';
 	}
 }
