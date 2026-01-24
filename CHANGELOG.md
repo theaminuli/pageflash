@@ -1,5 +1,6 @@
 # Changelog
 ## x.y.z - 2026-01-24
+- Update ignore and export rules for project files ([#125](https://github.com/theaminulai/pageflash/pull/125)) @theaminulai
 - Feature/license management ([#123](https://github.com/theaminulai/pageflash/pull/123)) @theaminulai
 - Added: InstantPage integration to enhance the Preloading module performance.
 - Added: Introduced admin dashboard for better user experience.
