@@ -14,10 +14,23 @@ Preload pages intelligently to boost site speed and enhance user experience by l
 PageFlash is a powerful WordPress plugin that preloads pages intelligently to boost site speed and enhance user experience. By loading pages before users click, PageFlash ensures instant page transitions, creating a seamless and lightning-fast browsing experience for your visitors.
 
 ### Key Features:
-- **Lightning-Fast Browsing:** PageFlash lives up to its name, offering rapid page loading and navigation without the need for tedious page refreshes.
-- **Smooth Script Execution:** Execute scripts and interact with web pages in a fluid and continuous manner. With PageFlash, you'll experience uninterrupted script execution, ensuring your web applications run seamlessly.
-- **Prefetches:** PageFlash incorporates advanced prefetching technology to speed up your web browsing. It anticipates and loads pages in the background, reducing loading times and providing a smoother browsing experience.
-- **No More Reloads:** Say goodbye to unnecessary page reloads with PageFlash, and enjoy uninterrupted web exploration. PageFlash ensures a frustration-free web experience by eliminating the need for page reloads, providing you with a streamlined and seamless browsing experience.
+
+**Preloading:**
+- **Quicklink:** Experience a 50% increase in conversions and enjoy 4x faster page loading. Boost your website speed and increase user engagement.
+- **InstantPage:** Uses just-in-time preloading — preloads a page right before a user clicks on it.
+
+**Performance Optimization:**
+- **Disable Dashicons:** Remove Dashicons on the frontend for non-logged-in users to improve performance.
+- **Disable Embeds:** Disable the WordPress oEmbed feature to reduce unnecessary HTTP requests and improve page load times.
+- **Disable Emojis:** Remove built-in WordPress emoji scripts and styles to reduce page size and improve load times.
+- **Disable Heartbeat:** Control WordPress Heartbeat API everywhere or in certain areas (used for auto-saving and revision tracking) with customizable behavior and frequency settings.
+- **Remove jQuery Migrate:** Remove jQuery Migrate script to improve performance on the frontend.
+
+**Security Enhancements:**
+- **Disable REST API:** Disable the WordPress REST API for non-authenticated users to enhance security and reduce unnecessary requests.
+- **Remove REST API Link:** Remove REST API link tag from the front end and the REST API header link from page requests.
+- **Hide WordPress Version:** Hide the WordPress version number from the site header, meta tags, and RSS feeds to improve security.
+- **Disable XML-RPC:** Disable the XML-RPC feature to enhance security and reduce unnecessary requests.
 
 For more information and documentation, visit our [plugin documentation](https://theaminul.com/pageflash/docs).
 
@@ -53,9 +66,9 @@ This plugin also works perfectly on popular browsers.
 3. Click "Install Now" and then "Activate."
 
 == Frequently Asked Questions ==
-= How do I enable PageFlash for a specific post or page? =
+= How do I configure PageFlash? =
 
-After activation, go to the post or page where you want to enable PageFlash's headless browsing features. In the editor, look for the PageFlash settings panel to configure your preferences.
+After activation, navigate to the PageFlash settings page in your WordPress admin dashboard to enable and configure the features you want to use.
 
 = Where should I check the plugin's features? =
 - A. In Chrome's incognito mode.
