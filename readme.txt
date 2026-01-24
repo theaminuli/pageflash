@@ -1,12 +1,12 @@
-=== PageFlash - Intelligent Page Preloading for WordPress ===
+=== PageFlash - Fast Page Preloading, Performance Optimization & Secure Your WordPress Site ===
 Contributors: theaminuldev
-Tags: preload, pageflash, prefetch, quicklink, performance, speed, fast, instant-navigation, page-speed, optimization.
-Requires at least: 6.0
-Tested up to: 6.8.1
-Stable tag: 1.2.0
+Tags: preload, page-speed, optimization, performance, pageflash, speed, fast, instant-navigation, prefetch, quicklink
+Requires at least: 6.1
+Tested up to: 6.9
+Stable tag: 2.0.0
 License: GPL-3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
-Copyright: © 2023 theaminul.com
+Copyright: © 2026 theaminul.com
 
 Preload pages intelligently to boost site speed and enhance user experience by loading pages before users click, ensuring instant page transitions.
 
@@ -81,29 +81,40 @@ The best places to check the plugin's features are either in Chrome's incognito 
 Yes, PageFlash is regularly tested and ensured to be compatible with the latest WordPress version.
 
 
-== Screenshots ==
-1. [Screenshot 1](https://github.com/theaminuldev/pageflash/src/images/screenshot.png): Describe the screenshot here.
-
 == Changelog ==
+
+= 2.0.0 - 2026-01-24 =
+* Added: InstantPage integration to enhance the Preloading module performance.
+* Added: Introduced admin dashboard for better user experience.
+* Added: Disabled frontend Dashicons for non-logged-in users.
+* Added: Disabled WordPress oEmbed for improved page load performance.
+* Added: Disabled WordPress emojis to improve load time.
+* Added: Removed WordPress version info for better security.
+* Added: Disabled jquery-migrate.min.js to improve performance.
+* Added: Disabled XML-RPC to reduce unnecessary requests.
+* Added: Disabled WordPress REST API for non-authenticated users.
+* Added: Removed REST API link tag and header from the frontend.
+* Added: Disabled WordPress Heartbeat globally or in selected areas.
+
 = 1.2.0 - 2025-05-14 =
-chore: Add initial configuration files 
-Improved: Update asset management
-Improved: Update security policy and PHPCS configuration
-Improved: Update README and CONTRIBUTING guidelines
-Improved: WP coding standards and code quality ensure
-Updated: Update GPL license to version 3.0
+* chore: Add initial configuration files 
+* Improved: Update asset management
+* Improved: Update security policy and PHPCS configuration
+* Improved: Update README and CONTRIBUTING guidelines
+* Improved: WP coding standards and code quality ensure
+* Updated: Update GPL license to version 3.0
 
 = 1.1.0 - 2024-12-20 =
-Fixed: Security vulnerability reporting guidelines.
-Added: Supply chain attack prevention.
+* Fixed: Security vulnerability reporting guidelines.
+* Added: Supply chain attack prevention.
 
 = 1.0.1 - 2024-12-19 =
-Fixed: Issue with `validateElement` function in `pageflash-frontend`.
-Improved: Added validation for `timeoutFn` in `buildListenerOptions` function.
-Added: Confusion Clear FAQ plugin for better understanding.
+* Fixed: Issue with `validateElement` function in `pageflash-frontend`.
+* Improved: Added validation for `timeoutFn` in `buildListenerOptions` function.
+* Added: Confusion Clear FAQ plugin for better understanding.
 
 = 1.0.0 - 2024-12-18 =
-Initial release.
-Added: `pageflash-frontend.js` for frontend functionality.
-Added: MetaBox class for admin settings.
-Added: `PAGEFLASH_ASSETS_PATH` constant for asset management.
+* Initial release.
+* Added: `pageflash-frontend.js` for frontend functionality.
+* Added: MetaBox class for admin settings.
+* Added: `PAGEFLASH_ASSETS_PATH` constant for asset management.
