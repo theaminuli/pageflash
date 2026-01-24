@@ -26,7 +26,6 @@ class RemoveRestAPILink {
 	 * Remove REST API links from header and response
 	 */
 	public function remove_rest_api_links() {
-		error_log( 'Removing REST API links' );
 		remove_action( 'xmlrpc_rsd_apis', 'rest_output_rsd' );
 		remove_action( 'wp_head', 'rest_output_link_wp_head' );
 		remove_action( 'template_redirect', 'rest_output_link_header', 11, 0 );
