@@ -155,9 +155,9 @@ pageflash/
 
 ### Project Resources
 
-- [PageFlash GitHub Repository](https://github.com/theaminuli/pageflash)
+- [PageFlash GitHub Repository](https://github.com/theaminulai/pageflash)
 - [WordPress.org Plugin Page](https://wordpress.org/plugins/pageflash/)
-- [Issue Tracker](https://github.com/theaminuli/pageflash/issues)
+- [Issue Tracker](https://github.com/theaminulai/pageflash/issues)
 - [Support Forum](https://wordpress.org/support/plugin/pageflash/)
 
 ### Related Documentation

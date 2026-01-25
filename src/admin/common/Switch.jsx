@@ -27,7 +27,14 @@ import { LiaExternalLinkAltSolid } from 'react-icons/lia';
  * @param {import('react').ReactNode} [props.children]  - Optional child elements rendered below the main content with indentation
  * @return {JSX.Element} A Card component containing a toggle switch with heading, description, external link icon, and optional children
  */
-const Switch = ( { heading, description, checked, onToggle, children } ) => {
+const Switch = ( {
+	heading,
+	description,
+	checked,
+	onToggle,
+	children,
+	externalLink = true,
+} ) => {
 	return (
 		<>
 			<Card className="pageflash-switch" size="large">
@@ -41,16 +48,20 @@ const Switch = ( { heading, description, checked, onToggle, children } ) => {
 								align="center"
 							>
 								<Heading level={ 4 }>{ heading }</Heading>
-								<a
-									href="#"
-									target="_blank"
-									rel="noreferrer"
-									style={ { textDecoration: 'none' } }
-								>
-									<Text>
-										<LiaExternalLinkAltSolid size={ 22 } />
-									</Text>
-								</a>
+								{ externalLink && (
+									<a
+										href="#"
+										target="_blank"
+										rel="noreferrer"
+										style={ { textDecoration: 'none' } }
+									>
+										<Text>
+											<LiaExternalLinkAltSolid
+												size={ 22 }
+											/>
+										</Text>
+									</a>
+								) }
 							</Flex>
 							<Text
 								size={ 14 }

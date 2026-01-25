@@ -14,6 +14,11 @@ import {
 } from '@wordpress/components';
 
 /**
+ * External dependencies
+ */
+import { LiaExternalLinkAltSolid } from 'react-icons/lia';
+
+/**
  * FormField - A unified input component for WordPress Gutenberg forms.
  * Renders TextControl, InputControl, or TextareaControl based on the `type` prop.
  *
@@ -39,6 +44,7 @@ const FormField = ( {
 	heading,
 	description,
 	titleSize = 4,
+	externalLink = true,
 } ) => {
 	let Control;
 	if ( type === 'textarea' ) {
@@ -55,7 +61,30 @@ const FormField = ( {
 				<Flex gap={ 4 } direction="column">
 					{ heading && (
 						<FlexItem>
-							<Heading level={ titleSize }>{ heading }</Heading>
+							<Flex
+								direction="row"
+								gap={ 1 }
+								justify="start"
+								align="center"
+							>
+								<Heading level={ titleSize }>
+									{ heading }
+								</Heading>
+								{ externalLink && (
+									<a
+										href="#"
+										target="_blank"
+										rel="noreferrer"
+										style={ { textDecoration: 'none' } }
+									>
+										<Text>
+											<LiaExternalLinkAltSolid
+												size={ 22 }
+											/>
+										</Text>
+									</a>
+								) }
+							</Flex>
 							{ description && (
 								<Text
 									size={ 13 }

@@ -76,6 +76,7 @@ const LandmarkInput = ( { slug, inputKey, field } ) => {
 			return (
 				<Select
 					titleSize={ 5 }
+					externalLink={ false }
 					heading={ field.label }
 					description={ field.description }
 					value={ field.value ?? field.default }
@@ -90,6 +91,7 @@ const LandmarkInput = ( { slug, inputKey, field } ) => {
 				<FormField
 					type="text"
 					titleSize={ 5 }
+					externalLink={ false }
 					heading={ field.label }
 					description={ field.description }
 					value={ localValue }
@@ -101,6 +103,7 @@ const LandmarkInput = ( { slug, inputKey, field } ) => {
 				<FormField
 					type="textarea"
 					titleSize={ 5 }
+					externalLink={ false }
 					heading={ field.label }
 					description={ field.description }
 					value={ localValue }
@@ -112,6 +115,7 @@ const LandmarkInput = ( { slug, inputKey, field } ) => {
 				<FormField
 					type="input"
 					titleSize={ 5 }
+					externalLink={ false }
 					heading={ field.label }
 					description={ field.description }
 					value={ localValue }
