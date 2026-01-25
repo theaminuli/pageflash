@@ -3,6 +3,7 @@ Contributors: theaminuldev
 Tags: preload, page-speed, optimization, performance, pageflash, speed, fast, instant-navigation, prefetch, quicklink
 Requires at least: 6.1
 Tested up to: 6.9
+Requires PHP: 7.4
 Stable tag: 2.0.0
 License: GPL-3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
@@ -15,18 +16,18 @@ PageFlash is a powerful WordPress plugin that preloads pages intelligently to bo
 
 ### Key Features:
 
-**Preloading:**
+#### Preloading:
 - **Quicklink:** Experience a 50% increase in conversions and enjoy 4x faster page loading. Boost your website speed and increase user engagement.
 - **InstantPage:** Uses just-in-time preloading — preloads a page right before a user clicks on it.
 
-**Performance Optimization:**
+#### Performance Optimization:
 - **Disable Dashicons:** Remove Dashicons on the frontend for non-logged-in users to improve performance.
 - **Disable Embeds:** Disable the WordPress oEmbed feature to reduce unnecessary HTTP requests and improve page load times.
 - **Disable Emojis:** Remove built-in WordPress emoji scripts and styles to reduce page size and improve load times.
 - **Disable Heartbeat:** Control WordPress Heartbeat API everywhere or in certain areas (used for auto-saving and revision tracking) with customizable behavior and frequency settings.
 - **Remove jQuery Migrate:** Remove jQuery Migrate script to improve performance on the frontend.
 
-**Security Enhancements:**
+#### Security Enhancements:
 - **Disable REST API:** Disable the WordPress REST API for non-authenticated users to enhance security and reduce unnecessary requests.
 - **Remove REST API Link:** Remove REST API link tag from the front end and the REST API header link from page requests.
 - **Hide WordPress Version:** Hide the WordPress version number from the site header, meta tags, and RSS feeds to improve security.
