@@ -14,7 +14,7 @@
 
   </div>
 
-  <h2 align="center">⚡ PageFlash - Intelligent Page Preloading for WordPress</h2>
+  <h2 align="center">⚡ PageFlash - Fast Page Preloading, Performance Optimization & Secure Your WordPress Site</h2>
 
    <div align="left">
       <h3>Preload pages intelligently to boost site speed and enhance user experience by loading pages before users click, ensuring instant page transitions.</h3>
