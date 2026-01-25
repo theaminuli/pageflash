@@ -1,5 +1,6 @@
 # Changelog
-## x.y.z - YYYY-MM-DD
+## x.y.z - 2026-01-25
+- Fixed: Add Icomoon icon font stylesheet for admin settings page. ([#129](https://github.com/theaminulai/pageflash/pull/129)) @theaminulai
 - Fixed: Add Icomoon icon font stylesheet for admin settings page.
 - Fixed: Update plugin metadata for version 2.0.0.
 - Fixed: Update readme with PHP requirement and formatting.
