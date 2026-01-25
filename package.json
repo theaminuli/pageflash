@@ -1,6 +1,6 @@
 {
 	"name": "pageflash",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"description": "Preload pages intelligently to boost site speed and enhance user experience by loading pages before users click, ensuring instant page transitions",
 	"author": "theaminul",
 	"license": "GPL-3.0-or-later",
