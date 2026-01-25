@@ -2,7 +2,7 @@
 ## x.y.z - YYYY-MM-DD
 - Fixed: Add Icomoon icon font stylesheet for admin settings page.
 - Fixed: Update plugin metadata for version 2.0.0.
-- FIxed: Update readme with PHP requirement and formatting.
+- Fixed: Update readme with PHP requirement and formatting.
 
 ## 2.0.0 - 2026-01-24
 - Added: InstantPage integration to enhance the Preloading module performance.
