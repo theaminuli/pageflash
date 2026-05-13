@@ -4,7 +4,7 @@ Tags: preload, page-speed, optimization, performance, pageflash, speed, fast, in
 Requires at least: 6.1
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.0.0
+Stable tag: 2.1.0
 License: GPL-3.0
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 Copyright: © 2026 theaminul.com
@@ -83,6 +83,11 @@ Yes, PageFlash is regularly tested and ensured to be compatible with the latest 
 
 
 == Changelog ==
+
+= 2.1.0 - 2026-01-25 =
+- Fixed: Add Icomoon icon font stylesheet for admin settings page.
+- Fixed: Update plugin metadata for version 2.0.0.
+- Fixed: Update readme with PHP requirement and formatting.
 
 = 2.0.0 - 2026-01-24 =
 * Added: InstantPage integration to enhance the Preloading module performance.
