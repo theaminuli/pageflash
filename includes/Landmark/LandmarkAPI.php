@@ -13,6 +13,8 @@ namespace TheAminul\PageFlash\Landmark;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
+use TheAminul\PageFlash\Landmark\Boot;
+use TheAminul\PageFlash\Landmark\LicenseManager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -156,6 +158,7 @@ class LandmarkAPI {
 	 *
 	 * Handles PUT requests to /landmark/:slug endpoint.
 	 * Updates the landmark with the provided data (supports 'active' field).
+	 * Validates license for Pro/Agency features.
 	 *
 	 * @since 1.0.0
 	 * @param WP_REST_Request $request The REST request object.
@@ -173,6 +176,42 @@ class LandmarkAPI {
 		}
 
 		$slug = $request->get_param( 'slug' );
+
+		// Check if feature requires Pro/Agency license.
+		$feature = Boot::get( $slug );
+		if ( $feature ) {
+			$package = $feature['package'] ?? 'free';
+
+			// If trying to activate a Pro/Agency feature, validate license.
+			$body_params = $request->get_json_params();
+			if ( empty( $body_params ) ) {
+				$body_params = $request->get_body_params();
+			}
+
+			// Check if trying to enable the feature.
+			$is_activating = false;
+			if ( isset( $body_params['active'] ) && true === $body_params['active'] ) {
+				$is_activating = true;
+			} elseif ( isset( $body_params['input']['active'] ) && true === $body_params['input']['active'] ) {
+				$is_activating = true;
+			}
+
+			if ( $is_activating && 'free' !== $package ) {
+				// Validate license.
+				if ( ! LicenseManager::can_use_feature( $package ) ) {
+					return new WP_Error(
+						'license_required',
+						sprintf(
+							/* translators: %s: package name (Pro or Agency) */
+							__( 'This feature requires an active %s license. Please activate your license to use this feature.', 'pageflash' ),
+							ucfirst( $package )
+						),
+						array( 'status' => 403 )
+					);
+				}
+			}
+		}
+
 		$data = get_option( 'pageflash_landmarks', array() );
 
 		// Get the data array from the landmarks option.
