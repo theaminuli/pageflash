@@ -130,6 +130,76 @@ class General extends BootManager {
 				'priority'  => 10,
 			)
 		);
+
+		Boot::register(
+			'remove_rsd_link',
+			array(
+				'class'     => RemoveRsdLink::class,
+				'namespace' => 'general',
+				'package'   => 'free',
+				'priority'  => 10,
+			)
+		);
+
+		Boot::register(
+			'remove_shortlink',
+			array(
+				'class'     => RemoveShortlink::class,
+				'namespace' => 'general',
+				'package'   => 'free',
+				'priority'  => 10,
+			)
+		);
+
+		Boot::register(
+			'remove_feed_links',
+			array(
+				'class'     => RemoveFeedLinks::class,
+				'namespace' => 'general',
+				'package'   => 'free',
+				'priority'  => 10,
+			)
+		);
+
+		Boot::register(
+			'disable_self_pingbacks',
+			array(
+				'class'     => DisableSelfPingbacks::class,
+				'namespace' => 'general',
+				'package'   => 'free',
+				'priority'  => 10,
+			)
+		);
+
+		Boot::register(
+			'disable_comments',
+			array(
+				'class'     => DisableComments::class,
+				'namespace' => 'general',
+				'package'   => 'free',
+				'priority'  => 10,
+			)
+		);
+
+		Boot::register(
+			'limit_post_revisions',
+			array(
+				'class'     => LimitPostRevisions::class,
+				'namespace' => 'general',
+				'package'   => 'free',
+				'priority'  => 10,
+			)
+		);
+
+		Boot::register(
+			'remove_global_styles',
+			array(
+				'class'     => RemoveGlobalStyles::class,
+				'namespace' => 'general',
+				'package'   => 'free',
+				'priority'  => 10,
+			)
+		);
 	}
 
 	/**
