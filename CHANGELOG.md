@@ -1,5 +1,6 @@
 # Changelog
-## x.y.z - 2026-01-25
+## x.y.z - 2026-06-27
+- feat: add 7 general features, changelog page, and dismissible update … ([#132](https://github.com/theaminulai/pageflash/pull/132)) @theaminulai
 - Fixed: Add Icomoon icon font stylesheet for admin settings page. ([#129](https://github.com/theaminulai/pageflash/pull/129)) @theaminulai
 - Fixed: Add Icomoon icon font stylesheet for admin settings page.
 ## 2.1.0 - 2026-01-25
